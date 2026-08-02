@@ -79,7 +79,7 @@
     metrics.className = 'hero-metrics';
     metrics.innerHTML = `
       <div class="hero-metric"><strong>3</strong><span data-ru="ключевых проекта" data-en="flagship projects">ключевых проекта</span></div>
-      <div class="hero-metric"><strong>C1 / C2</strong><span data-ru="английский" data-en="English">английский</span></div>
+      <div class="hero-metric"><strong>PROD</strong><span data-ru="внедрение" data-en="deployed system">внедрение</span></div>
       <div class="hero-metric"><strong>2026</strong><span data-ru="новый этап" data-en="next chapter">новый этап</span></div>`;
     visual.append(metrics);
 
@@ -87,7 +87,7 @@
     if (poster) poster.insertAdjacentHTML('beforeend', '<span class="scanline"></span>');
 
     const eyebrow = document.querySelector('.eyebrow span:last-child');
-    if (eyebrow) eyebrow.insertAdjacentHTML('afterend', '<span aria-hidden="true">/</span><span class="live-rotor">systems</span>');
+    if (eyebrow) eyebrow.insertAdjacentHTML('afterend', `<span aria-hidden="true">/</span><span class="live-rotor">${currentLang() === 'ru' ? 'системы' : 'systems'}</span>`);
 
     if (!prefersReduced) animateNetwork(canvas);
   }
