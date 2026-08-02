@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@500;600;700;800&display=swap');
+
+/* Clean geometric display face: Cyrillic outlines render without the decorative inner cuts of Unbounded. */
+:root{--display:'Onest',sans-serif}
+h1{letter-spacing:-.055em}
+.outline{-webkit-text-stroke:1.15px rgba(255,255,255,.74);paint-order:stroke fill;text-shadow:0 0 36px rgba(255,79,199,.14)}
+.postertitle,h2,.body h3,.award h3,.words span{letter-spacing:-.035em}
+
 /* Visual city layer: recognizable Moscow silhouette without changing the personal-brand copy. */
 .hero{position:relative;isolation:isolate}
 .hero::before{
