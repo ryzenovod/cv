@@ -1,4 +1,4 @@
-name: Deploy portfolio to GitHub Pages
+name: Sync static site to gh-pages
 
 on:
   push:
@@ -6,34 +6,46 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: "pages"
+  group: "gh-pages-sync"
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Checkout main
+        uses: actions/checkout@v4
         with:
-          enablement: true
+          fetch-depth: 0
 
-      - name: Upload static site
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: "."
+      - name: Sync site files to gh-pages branch
+        shell: bash
+        run: |
+          set -euo pipefail
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin gh-pages
+          git worktree add /tmp/gh-pages origin/gh-pages
+
+          rsync -av --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='README.md' \
+            ./ /tmp/gh-pages/
+
+          cd /tmp/gh-pages
+          touch .nojekyll
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No site changes to publish"
+            exit 0
+          fi
+
+          git commit -m "deploy: publish portfolio"
+          git push origin HEAD:gh-pages
