@@ -38,6 +38,17 @@ jobs:
             --exclude='README.md' \
             ./ /tmp/gh-pages/
 
+          python3 - <<'PY'
+          from pathlib import Path
+
+          page = Path('/tmp/gh-pages/index.html')
+          html = page.read_text(encoding='utf-8')
+          stylesheet = '  <link rel="stylesheet" href="moscow.css">\n'
+          if 'href="moscow.css"' not in html:
+              html = html.replace('</head>', stylesheet + '</head>', 1)
+          page.write_text(html, encoding='utf-8')
+          PY
+
           cd /tmp/gh-pages
           touch .nojekyll
           git add -A
