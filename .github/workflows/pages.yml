@@ -53,9 +53,11 @@ jobs:
               html = re.sub(pattern, '', html)
               html = html.replace('</head>', f'  <link rel="stylesheet" href="{href}">\n</head>', 1)
 
-          script = f'enhancements.js?v={version}'
-          html = re.sub(r'<script[^>]+src="enhancements\.js(?:\?v=[^"]*)?"[^>]*></script>\s*', '', html)
-          html = html.replace('</body>', f'  <script src="{script}"></script>\n</body>', 1)
+          for filename in ('enhancements.js', 'contacts.js'):
+              src = f'{filename}?v={version}'
+              pattern = rf'<script[^>]+src="{re.escape(filename)}(?:\?v=[^"]*)?"[^>]*></script>\s*'
+              html = re.sub(pattern, '', html)
+              html = html.replace('</body>', f'  <script src="{src}"></script>\n</body>', 1)
 
           page.write_text(html, encoding='utf-8')
           PY
