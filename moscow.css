@@ -1,0 +1,89 @@
+/* Visual city layer: recognizable Moscow silhouette without changing the personal-brand copy. */
+.hero{position:relative;isolation:isolate}
+.hero::before{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  left:50%;
+  top:-78px;
+  bottom:-1px;
+  width:100vw;
+  transform:translateX(-50%);
+  background:
+    linear-gradient(90deg,rgba(8,6,11,.98) 0%,rgba(8,6,11,.78) 36%,rgba(8,6,11,.18) 72%,rgba(8,6,11,.68) 100%),
+    linear-gradient(180deg,rgba(8,6,11,.25) 0%,rgba(8,6,11,.08) 52%,#08060b 100%),
+    url("./assets/moscow-skyline.svg") center bottom/cover no-repeat;
+  opacity:.92;
+  pointer-events:none;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  left:50%;
+  top:-78px;
+  bottom:-1px;
+  width:100vw;
+  transform:translateX(-50%);
+  background:
+    radial-gradient(circle at 78% 45%,rgba(255,79,199,.15),transparent 27rem),
+    linear-gradient(180deg,transparent 55%,rgba(8,6,11,.9) 100%);
+  pointer-events:none;
+}
+.hero>div{position:relative;z-index:1}
+
+.mainposter::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:31% -15% -6% 10%;
+  background:url("./assets/moscow-skyline.svg") center bottom/145% auto no-repeat;
+  opacity:.25;
+  filter:saturate(1.2) drop-shadow(0 0 18px rgba(255,79,199,.22));
+  pointer-events:none;
+}
+.mainposter .micro,.mainposter .postertitle,.mainposter .posterfoot{z-index:2}
+.visual::before{
+  content:"55.75° N  ·  37.62° E";
+  position:absolute;
+  z-index:6;
+  right:18px;
+  bottom:16px;
+  color:rgba(248,245,251,.43);
+  font:10px var(--mono);
+  letter-spacing:.08em;
+  writing-mode:vertical-rl;
+}
+.visual::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:360px;
+  height:360px;
+  right:-80px;
+  top:80px;
+  border-radius:50%;
+  background:rgba(255,79,199,.13);
+  filter:blur(90px);
+}
+
+@media(max-width:900px){
+  .hero::before{
+    background:
+      linear-gradient(180deg,rgba(8,6,11,.96) 0%,rgba(8,6,11,.62) 39%,rgba(8,6,11,.18) 68%,#08060b 100%),
+      url("./assets/moscow-skyline.svg") 62% bottom/auto 62% no-repeat;
+    opacity:.78;
+  }
+  .visual::before{right:8px}
+}
+
+@media(max-width:600px){
+  .hero::before{top:-68px;background-size:auto 48%;background-position:59% bottom;opacity:.7}
+  .mainposter::after{inset:36% -20% -5% 4%;background-size:165% auto;opacity:.22}
+  .visual::before{display:none}
+}
+
+@media(prefers-reduced-motion:no-preference){
+  .hero::before{animation:city-breathe 12s ease-in-out infinite alternate}
+  @keyframes city-breathe{from{filter:saturate(.92) brightness(.92)}to{filter:saturate(1.12) brightness(1.06)}}
+}
