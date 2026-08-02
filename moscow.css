@@ -1,63 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Onest:wght@500;600;700;800&display=swap');
-
-/* Clean geometric display face: Cyrillic outlines render without the decorative inner cuts of Unbounded. */
-:root{--display:'Onest',sans-serif}
-h1{letter-spacing:-.055em}
-.outline{-webkit-text-stroke:1.15px rgba(255,255,255,.74);paint-order:stroke fill;text-shadow:0 0 36px rgba(255,79,199,.14)}
+/* Display typography: reuse Manrope already loaded by the page, with reliable Cyrillic rendering. */
+:root{--display:'Manrope',sans-serif}
+h1{font-weight:800;letter-spacing:-.058em}
+.outline{
+  color:rgba(248,245,251,.035);
+  -webkit-text-stroke:0;
+  paint-order:normal;
+  text-shadow:
+    1px 0 0 rgba(248,245,251,.78),-1px 0 0 rgba(248,245,251,.78),
+    0 1px 0 rgba(248,245,251,.78),0 -1px 0 rgba(248,245,251,.78),
+    1px 1px 0 rgba(248,245,251,.58),-1px -1px 0 rgba(248,245,251,.58),
+    1px -1px 0 rgba(248,245,251,.58),-1px 1px 0 rgba(248,245,251,.58),
+    0 0 38px rgba(255,79,199,.2);
+}
 .postertitle,h2,.body h3,.award h3,.words span{letter-spacing:-.035em}
 
-/* Visual city layer: recognizable Moscow silhouette without changing the personal-brand copy. */
+/* The skyline must sit inside the hero stacking context, not behind the page background. */
 .hero{position:relative;isolation:isolate}
 .hero::before{
   content:"";
   position:absolute;
-  z-index:-2;
+  z-index:0;
   left:50%;
   top:-78px;
   bottom:-1px;
   width:100vw;
   transform:translateX(-50%);
   background:
-    linear-gradient(90deg,rgba(8,6,11,.98) 0%,rgba(8,6,11,.78) 36%,rgba(8,6,11,.18) 72%,rgba(8,6,11,.68) 100%),
-    linear-gradient(180deg,rgba(8,6,11,.25) 0%,rgba(8,6,11,.08) 52%,#08060b 100%),
-    url("./assets/moscow-skyline.svg") center bottom/cover no-repeat;
-  opacity:.92;
+    linear-gradient(90deg,rgba(8,6,11,.96) 0%,rgba(8,6,11,.72) 32%,rgba(8,6,11,.08) 68%,rgba(8,6,11,.34) 100%),
+    linear-gradient(180deg,rgba(8,6,11,.12) 0%,rgba(8,6,11,.02) 55%,#08060b 100%),
+    url("./assets/moscow-skyline.svg") 56% bottom/cover no-repeat;
+  opacity:1;
+  filter:saturate(1.28) brightness(1.16);
   pointer-events:none;
 }
 .hero::after{
   content:"";
   position:absolute;
-  z-index:-1;
+  z-index:1;
   left:50%;
   top:-78px;
   bottom:-1px;
   width:100vw;
   transform:translateX(-50%);
   background:
-    radial-gradient(circle at 78% 45%,rgba(255,79,199,.15),transparent 27rem),
-    linear-gradient(180deg,transparent 55%,rgba(8,6,11,.9) 100%);
+    radial-gradient(circle at 77% 43%,rgba(255,79,199,.22),transparent 25rem),
+    linear-gradient(180deg,transparent 58%,rgba(8,6,11,.86) 100%);
   pointer-events:none;
 }
-.hero>div{position:relative;z-index:1}
+.hero>div{position:relative;z-index:2}
 
 .mainposter::after{
   content:"";
   position:absolute;
-  z-index:0;
-  inset:31% -15% -6% 10%;
-  background:url("./assets/moscow-skyline.svg") center bottom/145% auto no-repeat;
-  opacity:.25;
-  filter:saturate(1.2) drop-shadow(0 0 18px rgba(255,79,199,.22));
+  z-index:1;
+  inset:24% -12% -4% 4%;
+  background:url("./assets/moscow-skyline.svg") center bottom/138% auto no-repeat;
+  opacity:.48;
+  filter:saturate(1.42) brightness(1.15) drop-shadow(0 0 20px rgba(255,79,199,.3));
   pointer-events:none;
 }
-.mainposter .micro,.mainposter .postertitle,.mainposter .posterfoot{z-index:2}
+.mainposter .micro,.mainposter .postertitle,.mainposter .posterfoot{position:relative;z-index:2}
 .visual::before{
   content:"55.75° N  ·  37.62° E";
   position:absolute;
   z-index:6;
   right:18px;
   bottom:16px;
-  color:rgba(248,245,251,.43);
+  color:rgba(248,245,251,.48);
   font:10px var(--mono);
   letter-spacing:.08em;
   writing-mode:vertical-rl;
@@ -65,33 +74,67 @@ h1{letter-spacing:-.055em}
 .visual::after{
   content:"";
   position:absolute;
-  z-index:-1;
-  width:360px;
-  height:360px;
+  z-index:0;
+  width:390px;
+  height:390px;
   right:-80px;
-  top:80px;
+  top:70px;
   border-radius:50%;
-  background:rgba(255,79,199,.13);
-  filter:blur(90px);
+  background:rgba(255,79,199,.16);
+  filter:blur(92px);
+  pointer-events:none;
+}
+
+/* Keep connector lines behind the nodes and fully reset the text label from the generic span rule. */
+.nodes::before,.nodes::after{z-index:0;pointer-events:none}
+.nodes>span:not(.label){position:absolute;z-index:2}
+.nodes>.label{
+  position:absolute!important;
+  z-index:3!important;
+  left:18px!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:16px!important;
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:rgba(11,9,16,.72)!important;
+  box-shadow:0 0 24px rgba(11,9,16,.9)!important;
+  display:block!important;
+  color:var(--muted)!important;
+  font:10px/1.35 var(--mono)!important;
+  letter-spacing:.08em!important;
+  white-space:nowrap;
 }
 
 @media(max-width:900px){
   .hero::before{
     background:
-      linear-gradient(180deg,rgba(8,6,11,.96) 0%,rgba(8,6,11,.62) 39%,rgba(8,6,11,.18) 68%,#08060b 100%),
-      url("./assets/moscow-skyline.svg") 62% bottom/auto 62% no-repeat;
-    opacity:.78;
+      linear-gradient(180deg,rgba(8,6,11,.82) 0%,rgba(8,6,11,.38) 39%,rgba(8,6,11,.08) 68%,#08060b 100%),
+      url("./assets/moscow-skyline.svg") 58% bottom/auto 78% no-repeat;
+    opacity:1;
+    filter:saturate(1.35) brightness(1.22);
   }
   .visual::before{right:8px}
 }
 
 @media(max-width:600px){
-  .hero::before{top:-68px;background-size:auto 48%;background-position:59% bottom;opacity:.7}
-  .mainposter::after{inset:36% -20% -5% 4%;background-size:165% auto;opacity:.22}
+  .hero::before{
+    top:-68px;
+    background:
+      linear-gradient(180deg,rgba(8,6,11,.78) 0%,rgba(8,6,11,.34) 40%,rgba(8,6,11,.06) 68%,#08060b 100%),
+      url("./assets/moscow-skyline.svg") 58% bottom/auto 76% no-repeat;
+    opacity:1;
+  }
+  .mainposter::after{inset:30% -18% -3% 0;background-size:155% auto;opacity:.42}
   .visual::before{display:none}
+  .nodes>.label{font-size:9px!important;bottom:12px!important}
 }
 
 @media(prefers-reduced-motion:no-preference){
   .hero::before{animation:city-breathe 12s ease-in-out infinite alternate}
-  @keyframes city-breathe{from{filter:saturate(.92) brightness(.92)}to{filter:saturate(1.12) brightness(1.06)}}
+  @keyframes city-breathe{from{filter:saturate(1.12) brightness(1.06)}to{filter:saturate(1.42) brightness(1.24)}}
 }
