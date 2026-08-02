@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" fill="none">
+  <defs>
+    <linearGradient id="horizon" x1="800" y1="180" x2="800" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF4FC7" stop-opacity="0"/>
+      <stop offset="0.55" stop-color="#9D64FF" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#FF4FC7" stop-opacity="0.38"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="180" y1="650" x2="1420" y2="230" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8198FF"/>
+      <stop offset="0.52" stop-color="#EE7CFF"/>
+      <stop offset="1" stop-color="#FF4FC7"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FF4FC7" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#8198FF" stop-opacity="0.03"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+    <pattern id="windows" width="24" height="26" patternUnits="userSpaceOnUse">
+      <rect x="6" y="7" width="3" height="5" rx="1" fill="#F8F5FB" fill-opacity="0.28"/>
+      <rect x="15" y="7" width="3" height="5" rx="1" fill="#FF4FC7" fill-opacity="0.42"/>
+    </pattern>
+  </defs>
+
+  <ellipse cx="820" cy="598" rx="660" ry="125" fill="#FF4FC7" fill-opacity="0.10" filter="url(#soft)"/>
+  <rect width="1600" height="700" fill="url(#horizon)"/>
+
+  <g opacity="0.45" fill="#F8F5FB">
+    <circle cx="90" cy="105" r="1.5"/><circle cx="235" cy="72" r="1"/><circle cx="375" cy="130" r="1.2"/>
+    <circle cx="560" cy="65" r="1.1"/><circle cx="810" cy="98" r="1.4"/><circle cx="1050" cy="62" r="1"/>
+    <circle cx="1280" cy="120" r="1.5"/><circle cx="1490" cy="76" r="1.2"/>
+  </g>
+
+  <!-- Ostankino tower -->
+  <g opacity="0.72">
+    <path d="M224 552L252 292L266 292L292 552H224Z" fill="#0D0912" stroke="url(#neon)" stroke-opacity="0.66"/>
+    <path d="M251 292L258 98L265 292" stroke="url(#neon)" stroke-width="3" filter="url(#glow)"/>
+    <path d="M236 356H280M232 410H284" stroke="#F8F5FB" stroke-opacity="0.18"/>
+    <ellipse cx="258" cy="288" rx="31" ry="13" fill="#130C18" stroke="#FF4FC7" stroke-opacity="0.55"/>
+  </g>
+
+  <!-- Stalinist high-rise silhouette -->
+  <g opacity="0.9">
+    <path d="M396 564V448H434V402H466V352H488V307H500V238H508V307H520V352H542V402H574V448H612V564H396Z" fill="#0C0910" stroke="url(#neon)" stroke-opacity="0.66"/>
+    <path d="M500 238L504 180L508 238" stroke="#FF4FC7" stroke-width="3" filter="url(#glow)"/>
+    <path d="M427 464H581M445 420H563M467 370H541" stroke="#F8F5FB" stroke-opacity="0.12"/>
+    <path d="M420 458H588V560H420Z" fill="url(#windows)" opacity="0.42"/>
+  </g>
+
+  <!-- Moscow City cluster -->
+  <g opacity="0.95">
+    <path d="M760 570V322L805 268L842 309V570H760Z" fill="url(#glass)" stroke="url(#neon)" stroke-opacity="0.76"/>
+    <path d="M842 570V224L894 164L929 570H842Z" fill="url(#glass)" stroke="url(#neon)" stroke-opacity="0.78"/>
+    <path d="M930 570V276L982 216L1020 570H930Z" fill="url(#glass)" stroke="url(#neon)" stroke-opacity="0.72"/>
+    <path d="M1018 570V342L1066 294L1104 570H1018Z" fill="url(#glass)" stroke="url(#neon)" stroke-opacity="0.65"/>
+    <path d="M1110 570V250L1156 200L1192 570H1110Z" fill="url(#glass)" stroke="url(#neon)" stroke-opacity="0.72"/>
+    <path d="M1210 570V360L1252 324L1286 570H1210Z" fill="url(#glass)" stroke="url(#neon)" stroke-opacity="0.58"/>
+    <g stroke="#F8F5FB" stroke-opacity="0.15">
+      <path d="M786 550V330M818 550V298M866 550V245M900 550V198M952 550V296M988 550V254M1040 550V360M1076 550V330M1134 550V272M1168 550V232M1232 550V382M1260 550V348"/>
+    </g>
+  </g>
+
+  <!-- domes / historic rhythm -->
+  <g opacity="0.62" fill="#0B0810" stroke="url(#neon)" stroke-opacity="0.44">
+    <path d="M1324 568V465H1410V568H1324Z"/>
+    <path d="M1344 465C1344 430 1362 410 1367 410C1372 410 1390 430 1390 465H1344Z"/>
+    <path d="M1367 410V386"/>
+    <path d="M1450 568V488H1518V568H1450Z"/>
+    <path d="M1464 488C1464 458 1479 442 1484 442C1489 442 1504 458 1504 488H1464Z"/>
+    <path d="M1484 442V420"/>
+  </g>
+
+  <!-- foreground river / road lights -->
+  <path d="M0 606C260 560 468 618 710 596C953 574 1170 516 1600 588" stroke="#F8F5FB" stroke-opacity="0.10" stroke-width="2"/>
+  <path d="M0 628C260 582 468 640 710 618C953 596 1170 538 1600 610" stroke="url(#neon)" stroke-opacity="0.72" stroke-width="2" filter="url(#glow)"/>
+  <path d="M0 665H1600" stroke="#FF4FC7" stroke-opacity="0.32"/>
+  <path d="M0 681H1600" stroke="#8198FF" stroke-opacity="0.18"/>
+</svg>
