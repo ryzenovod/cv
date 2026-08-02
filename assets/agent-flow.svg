@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" fill="none">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="760"><stop stop-color="#0A0910"/><stop offset="1" stop-color="#17111C"/></linearGradient>
+ <linearGradient id="n" x1="160" y1="120" x2="1050" y2="650"><stop stop-color="#8198FF"/><stop offset=".5" stop-color="#9D64FF"/><stop offset="1" stop-color="#FF4FC7"/></linearGradient>
+ <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" stroke="#fff" stroke-opacity=".03"/></pattern>
+ <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0 0L10 3L0 6Z" fill="#EE7CFF"/></marker>
+</defs>
+<rect width="1200" height="760" rx="28" fill="url(#bg)"/><rect width="1200" height="760" rx="28" fill="url(#grid)"/>
+<rect x="28" y="28" width="1144" height="66" rx="16" fill="#111016" stroke="#fff" stroke-opacity=".08"/>
+<text x="58" y="69" fill="#F8F5FB" font-family="Arial" font-size="23" font-weight="700">MULTI-AGENT CONTROL PLANE</text><text x="1012" y="67" fill="#AAA2B2" font-family="monospace" font-size="13">TRACE / 08</text>
+<path d="M214 382H410M554 382H706M850 382H1000" stroke="url(#n)" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M482 304V208H779V304" stroke="url(#n)" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M482 460V560H779V460" stroke="url(#n)" stroke-width="2" marker-end="url(#arrow)"/>
+<g>
+ <rect x="72" y="292" width="160" height="180" rx="26" fill="#111016" stroke="#fff" stroke-opacity=".12"/><circle cx="152" cy="354" r="34" fill="#17121D" stroke="#8198FF"/><text x="133" y="364" fill="#F8F5FB" font-family="Arial" font-size="29" font-weight="700">IN</text><text x="100" y="426" fill="#AAA2B2" font-family="monospace" font-size="12">USER / SIGNAL</text>
+ <rect x="410" y="292" width="144" height="180" rx="26" fill="#111016" stroke="#fff" stroke-opacity=".12"/><circle cx="482" cy="354" r="34" fill="#17121D" stroke="#9D64FF"/><text x="456" y="365" fill="#F8F5FB" font-family="Arial" font-size="29" font-weight="700">RT</text><text x="439" y="426" fill="#AAA2B2" font-family="monospace" font-size="12">ROUTER</text>
+ <rect x="706" y="292" width="144" height="180" rx="26" fill="#111016" stroke="#fff" stroke-opacity=".12"/><circle cx="778" cy="354" r="34" fill="#17121D" stroke="#EE7CFF"/><text x="753" y="365" fill="#F8F5FB" font-family="Arial" font-size="29" font-weight="700">AG</text><text x="738" y="426" fill="#AAA2B2" font-family="monospace" font-size="12">AGENT</text>
+ <rect x="1000" y="292" width="128" height="180" rx="26" fill="#111016" stroke="#fff" stroke-opacity=".12"/><circle cx="1064" cy="354" r="34" fill="#17121D" stroke="#FF4FC7"/><text x="1039" y="365" fill="#F8F5FB" font-family="Arial" font-size="29" font-weight="700">OK</text><text x="1024" y="426" fill="#AAA2B2" font-family="monospace" font-size="12">OUTPUT</text>
+</g>
+<rect x="632" y="126" width="292" height="116" rx="22" fill="#101017" stroke="#fff" stroke-opacity=".1"/><text x="658" y="165" fill="#FF4FC7" font-family="monospace" font-size="12">LEGAL REVIEW</text><text x="658" y="199" fill="#F8F5FB" font-family="Arial" font-size="22" font-weight="700">Rules + citations</text>
+<rect x="632" y="518" width="292" height="116" rx="22" fill="#101017" stroke="#fff" stroke-opacity=".1"/><text x="658" y="557" fill="#8198FF" font-family="monospace" font-size="12">RAG / CONTEXT</text><text x="658" y="591" fill="#F8F5FB" font-family="Arial" font-size="22" font-weight="700">Evidence retrieval</text>
+<g fill="#FF4FC7" filter="url(#glow)"><circle cx="314" cy="382" r="4"/><circle cx="630" cy="382" r="4"/><circle cx="926" cy="382" r="4"/></g>
+<rect x="72" y="650" width="1056" height="54" rx="16" fill="#111016" stroke="#fff" stroke-opacity=".08"/><text x="98" y="684" fill="#AAA2B2" font-family="monospace" font-size="12">TRACE: INPUT → ROUTE → RETRIEVE → REVIEW → STRUCTURED OUTPUT</text>
+</svg>
