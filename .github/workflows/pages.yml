@@ -53,7 +53,7 @@ jobs:
               html = re.sub(pattern, '', html)
               html = html.replace('</head>', f'  <link rel="stylesheet" href="{href}">\n</head>', 1)
 
-          for filename in ('enhancements.js', 'contacts.js'):
+          for filename in ('enhancements.js', 'contacts.js', 'clean-url.js'):
               src = f'{filename}?v={version}'
               pattern = rf'<script[^>]+src="{re.escape(filename)}(?:\?v=[^"]*)?"[^>]*></script>\s*'
               html = re.sub(pattern, '', html)
