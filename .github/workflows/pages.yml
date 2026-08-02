@@ -47,7 +47,7 @@ jobs:
           html = page.read_text(encoding='utf-8')
           version = os.environ['GITHUB_SHA'][:12]
 
-          for filename in ('moscow.css', 'enhancements.css'):
+          for filename in ('moscow.css', 'enhancements.css', 'polish.css'):
               href = f'{filename}?v={version}'
               pattern = rf'<link[^>]+href="{re.escape(filename)}(?:\?v=[^"]*)?"[^>]*>\s*'
               html = re.sub(pattern, '', html)
