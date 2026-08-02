@@ -8,12 +8,124 @@
     return localStorage.getItem('portfolio-lang') || document.documentElement.lang || 'ru';
   }
 
+  function updateDocumentMeta(lang) {
+    const copy = lang === 'ru'
+      ? {
+          title: 'Егор Белоусов — цифровое здравоохранение, геоаналитика и ИИ',
+          description: 'Егор Белоусов — разработчик цифровых продуктов для здравоохранения. Геоаналитика, медицинские данные и ИИ.'
+        }
+      : {
+          title: 'Egor Belousov — digital health, geoanalytics and AI',
+          description: 'Egor Belousov builds digital products for healthcare, combining geoanalytics, medical data and AI.'
+        };
+
+    document.title = copy.title;
+    const description = document.querySelector('meta[name="description"]');
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (description) description.content = copy.description;
+    if (ogTitle) ogTitle.content = copy.title;
+    if (ogDescription) ogDescription.content = copy.description;
+  }
+
   function applyLang(lang) {
     if (typeof window.setLang === 'function') window.setLang(lang);
     document.querySelectorAll('.lang-switch button').forEach((button) => {
       button.classList.toggle('on', button.dataset.lang === lang);
       button.setAttribute('aria-pressed', button.dataset.lang === lang ? 'true' : 'false');
     });
+    updateDocumentMeta(lang);
+  }
+
+  function setLocalizedText(selector, ru, en) {
+    const node = document.querySelector(selector);
+    if (!node) return;
+    node.dataset.ru = ru;
+    node.dataset.en = en;
+    node.textContent = currentLang() === 'en' ? en : ru;
+  }
+
+  function polishCopy() {
+    setLocalizedText(
+      '.eyebrow span:nth-child(2)',
+      'Цифровые продукты · здравоохранение · аналитика',
+      'Digital products · healthcare · analytics'
+    );
+    setLocalizedText(
+      '.lead',
+      'Делаю цифровые продукты для здравоохранения — от геоаналитики и качества данных до ИИ-инструментов.',
+      'I build digital products for healthcare — from geoanalytics and data quality to practical AI tools.'
+    );
+    setLocalizedText(
+      '.statement',
+      'Я разработчик с бэкграундом в прикладной информатике. Люблю задачи, где нужно разобраться в сложном процессе, привести в порядок данные и довести решение до рабочего внедрения.',
+      'I am a developer with a background in applied informatics. I work best on problems that require understanding a complex process, cleaning up the data and shipping a working solution.'
+    );
+
+    setLocalizedText('.facts .fact:nth-child(2) small', 'Специализация', 'Specialization');
+    setLocalizedText('.facts .fact:nth-child(2) strong', 'Цифровое здравоохранение', 'Digital health');
+    setLocalizedText('.facts .fact:nth-child(2) p', 'Медицинская аналитика, GIS и автоматизация', 'Healthcare analytics, GIS and automation');
+    setLocalizedText('.facts .fact:nth-child(3) small', 'Опыт', 'Experience');
+    setLocalizedText('.facts .fact:nth-child(3) strong', 'Разработка внутри медицинской организации', 'Development inside a healthcare organization');
+    setLocalizedText('.facts .fact:nth-child(3) p', 'От требований и архитектуры до продакшена', 'From requirements and architecture to production');
+
+    const firstCard = document.querySelector('.projects .card:nth-child(1)');
+    if (firstCard) {
+      const label = firstCard.querySelector('.label');
+      if (label) label.textContent = 'HEALTHCARE / GIS / ANALYTICS';
+    }
+    setLocalizedText('.projects .card:nth-child(1) .meta span:last-child', 'Рабочий проект', 'Production project');
+    setLocalizedText('.projects .card:nth-child(1) h3', 'МедГео Аналитика', 'MedGeo Analytics');
+    setLocalizedText(
+      '.projects .card:nth-child(1) .body > p',
+      'Карта и аналитика для противотуберкулёзной службы: территориальные показатели, реестр случаев, рецидивы, импорт и контроль качества адресов.',
+      'Mapping and analytics for a tuberculosis care service: territorial indicators, case registry, recurrences, imports and address quality control.'
+    );
+    document.querySelector('.projects .card:nth-child(1) .note')?.remove();
+
+    setLocalizedText(
+      '.projects .card:nth-child(2) .body > p',
+      'ВКР, собранная как полноценный продукт: скоринг, объяснение факторов риска, ручная проверка, ожидаемые потери и оптимизация портфеля.',
+      'A bachelor’s thesis built as a complete product: scoring, risk-factor explanations, manual review, expected losses and portfolio optimization.'
+    );
+    setLocalizedText(
+      '.projects .card:nth-child(3) .body > p',
+      'На международном хакатоне мы собрали цепочку агентов: маршрутизация запроса, поиск доказательств, проверка правил и итоговый отчёт.',
+      'At an international hackathon, our team built an agent pipeline for routing, evidence retrieval, rule checks and final reporting.'
+    );
+
+    setLocalizedText('.focus h2', 'Над чем работаю', 'What I work on');
+    const focusWords = [
+      ['МедГео Аналитика', 'MedGeo Analytics'],
+      ['Геокодирование', 'Geocoding'],
+      ['Медицинская статистика', 'Health statistics'],
+      ['Продуктовая аналитика', 'Product analytics']
+    ];
+    document.querySelectorAll('.focus .words span').forEach((node, index) => {
+      const pair = focusWords[index];
+      if (!pair) return;
+      node.dataset.ru = pair[0];
+      node.dataset.en = pair[1];
+      node.textContent = currentLang() === 'en' ? pair[1] : pair[0];
+    });
+
+    setLocalizedText('.contactbox h2', 'Связаться', 'Get in touch');
+    setLocalizedText(
+      '.contactbox > p',
+      'По проектам, работе и сотрудничеству — пишите в Telegram или на почту.',
+      'For projects, work or collaboration, message me on Telegram or email.'
+    );
+
+    const tickerRu = ['ЗДРАВООХРАНЕНИЕ', 'ГЕОАНАЛИТИКА', 'ИИ-СИСТЕМЫ', 'ПРОДУКТОВОЕ МЫШЛЕНИЕ', 'КАЧЕСТВО ДАННЫХ'];
+    const tickerEn = ['HEALTHCARE', 'GEOANALYTICS', 'AI SYSTEMS', 'PRODUCT THINKING', 'DATA QUALITY'];
+    document.querySelectorAll('.ticker .track span').forEach((node, index) => {
+      const i = index % tickerRu.length;
+      node.dataset.ru = tickerRu[i];
+      node.dataset.en = tickerEn[i];
+      node.textContent = currentLang() === 'en' ? tickerEn[i] : tickerRu[i];
+    });
+
+    applyLang(currentLang());
   }
 
   function buildLanguageSwitch() {
@@ -33,12 +145,17 @@
 
   function addIntro() {
     if (prefersReduced) return;
+    try {
+      if (sessionStorage.getItem('portfolio-intro-seen')) return;
+      sessionStorage.setItem('portfolio-intro-seen', '1');
+    } catch (_) {}
+
     const intro = document.createElement('div');
     intro.className = 'intro-screen';
     intro.innerHTML = '<div class="intro-mark">EB</div>';
     document.body.prepend(intro);
-    requestAnimationFrame(() => setTimeout(() => intro.classList.add('done'), 520));
-    setTimeout(() => intro.remove(), 1600);
+    requestAnimationFrame(() => setTimeout(() => intro.classList.add('done'), 420));
+    setTimeout(() => intro.remove(), 1450);
   }
 
   function addScrollProgress() {
@@ -73,23 +190,25 @@
 
     const canvas = document.createElement('canvas');
     canvas.className = 'motion-canvas';
+    canvas.setAttribute('aria-hidden', 'true');
     visual.prepend(canvas);
 
     const metrics = document.createElement('div');
     metrics.className = 'hero-metrics';
     metrics.innerHTML = `
-      <div class="hero-metric"><strong>3</strong><span data-ru="ключевых проекта" data-en="flagship projects">ключевых проекта</span></div>
-      <div class="hero-metric"><strong>PROD</strong><span data-ru="внедрение" data-en="deployed system">внедрение</span></div>
-      <div class="hero-metric"><strong>2026</strong><span data-ru="новый этап" data-en="next chapter">новый этап</span></div>`;
+      <div class="hero-metric"><strong>3</strong><span data-ru="основных проекта" data-en="selected projects">основных проекта</span></div>
+      <div class="hero-metric"><strong>PROD</strong><span data-ru="рабочая система" data-en="deployed system">рабочая система</span></div>
+      <div class="hero-metric"><strong>WIN</strong><span data-ru="Я — профессионал" data-en="I Am a Professional">Я — профессионал</span></div>`;
     visual.append(metrics);
 
     const poster = visual.querySelector('.mainposter');
     if (poster) poster.insertAdjacentHTML('beforeend', '<span class="scanline"></span>');
 
     const eyebrow = document.querySelector('.eyebrow span:last-child');
-    if (eyebrow) eyebrow.insertAdjacentHTML('afterend', `<span aria-hidden="true">/</span><span class="live-rotor">${currentLang() === 'ru' ? 'системы' : 'systems'}</span>`);
+    if (eyebrow) eyebrow.insertAdjacentHTML('afterend', `<span aria-hidden="true">/</span><span class="live-rotor">${currentLang() === 'ru' ? 'геоаналитика' : 'geoanalytics'}</span>`);
 
-    if (!prefersReduced) animateNetwork(canvas);
+    if (!prefersReduced && !isTouch) animateNetwork(canvas);
+    else canvas.remove();
   }
 
   function animateNetwork(canvas) {
@@ -108,12 +227,12 @@
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
-      points = Array.from({ length: width < 500 ? 18 : 30 }, () => ({
+      points = Array.from({ length: width < 500 ? 14 : 26 }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - .5) * .22,
-        vy: (Math.random() - .5) * .22,
-        r: Math.random() * 1.5 + .6
+        vx: (Math.random() - .5) * .2,
+        vy: (Math.random() - .5) * .2,
+        r: Math.random() * 1.4 + .6
       }));
     };
 
@@ -150,8 +269,8 @@
     };
 
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !frame) draw();
-      if (!entry.isIntersecting && frame) {
+      if (entry.isIntersecting && !frame && !document.hidden) draw();
+      if ((!entry.isIntersecting || document.hidden) && frame) {
         cancelAnimationFrame(frame);
         frame = 0;
       }
@@ -176,6 +295,7 @@
       image.src = source[0];
       image.alt = source[1];
       image.loading = 'lazy';
+      image.decoding = 'async';
       art.prepend(image);
     });
 
@@ -183,8 +303,8 @@
       document.querySelectorAll('.card').forEach((card) => {
         card.addEventListener('pointermove', (event) => {
           const rect = card.getBoundingClientRect();
-          const rx = ((event.clientY - rect.top) / rect.height - .5) * -3.5;
-          const ry = ((event.clientX - rect.left) / rect.width - .5) * 4.5;
+          const rx = ((event.clientY - rect.top) / rect.height - .5) * -2.6;
+          const ry = ((event.clientX - rect.left) / rect.width - .5) * 3.4;
           card.style.transform = `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
         });
         card.addEventListener('pointerleave', () => card.style.transform = '');
@@ -197,20 +317,20 @@
     if (!projects) return;
     projects.insertAdjacentHTML('afterend', `
       <section class="shell visual-showcase motion-in" id="visuals">
-        <div class="heading"><span class="index">02.5</span><h2 data-ru="Внутри систем" data-en="Inside the systems">Внутри систем</h2></div>
+        <div class="heading"><span class="index">02.5</span><h2 data-ru="Системы в деталях" data-en="Systems in detail">Системы в деталях</h2></div>
         <div class="visual-grid">
-          <article class="visual-tile"><img src="assets/medgeo-dashboard.svg" alt="Medical geoanalytics interface" loading="lazy"><div class="visual-caption"><strong data-ru="Данные становятся картой решений" data-en="Data becomes a map for decisions">Данные становятся картой решений</strong><span>GIS / QUALITY / METRICS</span></div></article>
-          <article class="visual-tile"><img src="assets/openrisk-dashboard.svg" alt="Risk decision interface" loading="lazy"><div class="visual-caption"><strong data-ru="Модель объясняет риск" data-en="The model explains risk">Модель объясняет риск</strong><span>PD / EL / XAI</span></div></article>
-          <article class="visual-tile"><img src="assets/agent-flow.svg" alt="Multi-agent workflow" loading="lazy"><div class="visual-caption"><strong data-ru="Агенты работают как система" data-en="Agents work as a system">Агенты работают как система</strong><span>ROUTING / RAG / REVIEW</span></div></article>
+          <article class="visual-tile"><img src="assets/medgeo-dashboard.svg" alt="Medical geoanalytics interface" loading="lazy" decoding="async"><div class="visual-caption"><strong data-ru="Карта, показатели, качество адресов" data-en="Maps, metrics and address quality">Карта, показатели, качество адресов</strong><span>GIS / QUALITY / METRICS</span></div></article>
+          <article class="visual-tile"><img src="assets/openrisk-dashboard.svg" alt="Risk decision interface" loading="lazy" decoding="async"><div class="visual-caption"><strong data-ru="Скоринг с объяснением факторов" data-en="Scoring with factor explanations">Скоринг с объяснением факторов</strong><span>PD / EL / XAI</span></div></article>
+          <article class="visual-tile"><img src="assets/agent-flow.svg" alt="Multi-agent workflow" loading="lazy" decoding="async"><div class="visual-caption"><strong data-ru="Маршрутизация, поиск и проверка" data-en="Routing, retrieval and review">Маршрутизация, поиск и проверка</strong><span>ROUTING / RAG / REVIEW</span></div></article>
         </div>
       </section>
       <section class="shell system-map-section motion-in" id="system-map">
         <div class="system-map-card">
-          <img src="assets/system-map.svg" alt="Data to decision system map" loading="lazy">
+          <img src="assets/system-map.svg" alt="Data to decision system map" loading="lazy" decoding="async">
           <div class="system-map-copy">
             <div class="kicker">DATA → DECISION</div>
-            <h3 data-ru="Архитектура как часть продукта" data-en="Architecture is part of the product">Архитектура как часть продукта</h3>
-            <p data-ru="Проектирую не отдельные экраны, а полный путь данных: импорт, проверка, нормализация, аналитика и понятный управленческий результат." data-en="I design the complete data journey: ingestion, validation, normalization, analytics and a clear management outcome.">Проектирую не отдельные экраны, а полный путь данных: импорт, проверка, нормализация, аналитика и понятный управленческий результат.</p>
+            <h3 data-ru="От файла до решения" data-en="From file to decision">От файла до решения</h3>
+            <p data-ru="Сначала проверяю и нормализую входные данные, затем считаю показатели и вывожу результат в интерфейс. Так меньше ручной работы и проще находить ошибки." data-en="I validate and normalize the input first, then calculate metrics and present the result in the interface. This reduces manual work and makes errors easier to spot.">Сначала проверяю и нормализую входные данные, затем считаю показатели и вывожу результат в интерфейс. Так меньше ручной работы и проще находить ошибки.</p>
           </div>
         </div>
       </section>`);
@@ -244,7 +364,7 @@
     hit.target = '_blank';
     hit.rel = 'noreferrer';
     hit.title = 'View statistics';
-    hit.innerHTML = '<img alt="Portfolio views" src="https://hits.sh/ryzenovod.github.io/cv.svg?style=flat-square&label=views&color=ff4fc7&labelColor=17121d">';
+    hit.innerHTML = '<img loading="lazy" decoding="async" alt="Portfolio views" src="https://hits.sh/ryzenovod.github.io/cv.svg?style=flat-square&label=views&color=ff4fc7&labelColor=17121d">';
     footer.insertBefore(hit, footer.lastElementChild);
   }
 
@@ -260,22 +380,23 @@
 
   function startRotor() {
     const words = {
-      ru: ['системы', 'данные', 'продукты', 'решения'],
-      en: ['systems', 'data', 'products', 'decisions']
+      ru: ['геоаналитика', 'медданные', 'архитектура', 'внедрение'],
+      en: ['geoanalytics', 'health data', 'architecture', 'delivery']
     };
     let index = 0;
     setInterval(() => {
       const rotor = document.querySelector('.live-rotor');
-      if (!rotor) return;
+      if (!rotor || document.hidden) return;
       const lang = currentLang();
       rotor.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(-7px)' }], { duration: 180, fill: 'forwards' }).finished.then(() => {
         rotor.textContent = words[lang][index++ % words[lang].length];
         rotor.animate([{ opacity: 0, transform: 'translateY(7px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 240, fill: 'forwards' });
       });
-    }, 2100);
+    }, 2300);
   }
 
   addIntro();
+  polishCopy();
   buildLanguageSwitch();
   addScrollProgress();
   addPointerGlow();
