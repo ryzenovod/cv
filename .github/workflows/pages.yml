@@ -38,14 +38,20 @@ jobs:
             --exclude='README.md' \
             ./ /tmp/gh-pages/
 
-          python3 - <<'PY'
+          GITHUB_SHA="$GITHUB_SHA" python3 - <<'PY'
+          import os
+          import re
           from pathlib import Path
 
           page = Path('/tmp/gh-pages/index.html')
           html = page.read_text(encoding='utf-8')
-          stylesheet = '  <link rel="stylesheet" href="moscow.css">\n'
-          if 'href="moscow.css"' not in html:
-              html = html.replace('</head>', stylesheet + '</head>', 1)
+          href = f'moscow.css?v={os.environ["GITHUB_SHA"][:12]}'
+
+          if re.search(r'href="moscow\.css(?:\?v=[^"]*)?"', html):
+              html = re.sub(r'href="moscow\.css(?:\?v=[^"]*)?"', f'href="{href}"', html, count=1)
+          else:
+              html = html.replace('</head>', f'  <link rel="stylesheet" href="{href}">\n</head>', 1)
+
           page.write_text(html, encoding='utf-8')
           PY
 
