@@ -1,0 +1,11 @@
+{
+  "name": "egor-belousov-portfolio",
+  "private": true,
+  "version": "3.0.0",
+  "scripts": {
+    "test:layout": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.52.0"
+  }
+}

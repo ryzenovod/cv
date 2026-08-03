@@ -22,7 +22,7 @@
     <div class="shell header-inner">
       <a class="brand" href="#top" aria-label="Егор Белоусов — в начало">
         <span class="brand-mark">EB</span>
-        <span data-ru="Егор Белоусов" data-en="Egor Belousov">Егор Белоусов</span>
+        <span class="brand-name" data-ru="Егор Белоусов" data-en="Egor Belousov">Егор Белоусов</span>
       </a>
 
       <nav class="site-nav" aria-label="Навигация">
@@ -33,12 +33,10 @@
         <a href="#contact" data-ru="Контакты" data-en="Contact">Контакты</a>
       </nav>
 
-      <div class="header-actions">
-        <div class="lang-switch" aria-label="Language">
-          <button type="button" data-lang="ru" aria-pressed="true">RU</button>
-          <span>/</span>
-          <button type="button" data-lang="en" aria-pressed="false">EN</button>
-        </div>
+      <div class="lang-switch" aria-label="Language">
+        <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
     </div>
   </header>
@@ -50,17 +48,15 @@
           <p class="eyebrow">
             <span class="eyebrow-dot" aria-hidden="true"></span>
             <span data-ru="Цифровые продукты" data-en="Digital products">Цифровые продукты</span>
-            <span>·</span>
+            <span aria-hidden="true">·</span>
             <span data-ru="Здравоохранение" data-en="Healthcare">Здравоохранение</span>
-            <span>·</span>
+            <span aria-hidden="true">·</span>
             <span data-ru="Геоаналитика" data-en="Geoanalytics">Геоаналитика</span>
-            <span>·</span>
-            <strong data-ru="Москва" data-en="Moscow">Москва</strong>
           </p>
 
           <h1>
             <span data-ru="Егор" data-en="Egor">Егор</span>
-            <span class="surname" data-ru="Белоусов" data-en="Belousov">Белоусов</span>
+            <span data-ru="Белоусов" data-en="Belousov">Белоусов</span>
           </h1>
 
           <p class="hero-lead" data-ru="Делаю цифровые продукты для здравоохранения — от качества медицинских данных и геоаналитики до архитектуры, интерфейсов и внедрения." data-en="I build digital products for healthcare — from medical data quality and geoanalytics to architecture, interfaces and deployment.">
@@ -68,42 +64,31 @@
           </p>
 
           <div class="hero-actions">
-            <a class="button primary" href="#projects"><span data-ru="Смотреть проекты" data-en="View projects">Смотреть проекты</span><span aria-hidden="true">↘</span></a>
+            <a class="button button-primary" href="#projects"><span data-ru="Смотреть проекты" data-en="View projects">Смотреть проекты</span><span aria-hidden="true">↘</span></a>
             <a class="button" href="https://github.com/ryzenovod" target="_blank" rel="noreferrer"><span>GitHub</span><span aria-hidden="true">↗</span></a>
           </div>
 
           <div class="hero-facts" aria-label="Ключевые факты">
-            <div class="hero-fact"><strong>3</strong><span data-ru="Основных проекта" data-en="Selected projects">Основных проекта</span></div>
-            <div class="hero-fact"><strong>PROD</strong><span data-ru="Система внедрена" data-en="System deployed">Система внедрена</span></div>
-            <div class="hero-fact"><strong>WIN</strong><span data-ru="Я — профессионал" data-en="I Am a Professional">Я — профессионал</span></div>
+            <article><strong>3</strong><span data-ru="Основных проекта" data-en="Selected projects">Основных проекта</span></article>
+            <article><strong>PROD</strong><span data-ru="Система внедрена" data-en="System deployed">Система внедрена</span></article>
+            <article><strong>WIN</strong><span data-ru="Я — профессионал" data-en="I Am a Professional">Я — профессионал</span></article>
           </div>
         </div>
 
-        <div class="hero-art" aria-label="Digital Public Health">
-          <img class="city-layer" src="assets/moscow-skyline.svg" alt="" aria-hidden="true">
+        <div class="hero-visual" aria-label="Digital public health visual">
+          <figure class="hero-city">
+            <img src="assets/city-editorial.svg" alt="Городская цифровая композиция" decoding="async">
+          </figure>
 
-          <div class="hero-poster">
+          <article class="hero-poster">
             <div class="poster-kicker"><span>SYSTEMS / DATA / DECISIONS</span><span>2026</span></div>
             <div class="poster-title">DIGITAL<br>PUBLIC<br>HEALTH</div>
-            <div class="poster-stack">
-              <span>01 / FastAPI</span>
-              <span>02 / PostGIS</span>
-              <span>03 / React</span>
-              <span>04 / AI</span>
-            </div>
-          </div>
+            <div class="poster-stack"><span>FastAPI</span><span>PostGIS</span><span>React</span><span>AI</span></div>
+          </article>
 
-          <div class="hero-badge">
-            <strong>C1</strong>
-            <span>EF SET</span>
-            <span>LISTENING C2</span>
-          </div>
-
-          <div class="hero-code">
-            <div><i>01</i> / MEDGEO</div>
-            <div><i>02</i> / OPENRISK</div>
-            <div><i>03</i> / AGENTS</div>
-            <div><i>04</i> / DELIVERY</div>
+          <div class="hero-sidecards">
+            <article class="hero-badge"><strong>C1</strong><span>EF SET</span><span>LISTENING C2</span></article>
+            <article class="hero-code"><span>01 / MEDGEO</span><span>02 / OPENRISK</span><span>03 / AGENTS</span><span>04 / DELIVERY</span></article>
           </div>
         </div>
       </div>
@@ -127,9 +112,7 @@
     <section class="section shell" id="about">
       <header class="section-heading reveal">
         <span class="section-index">01</span>
-        <div>
-          <h2 data-ru="Обо мне" data-en="About me">Обо мне</h2>
-        </div>
+        <div><h2 data-ru="Обо мне" data-en="About me">Обо мне</h2></div>
       </header>
 
       <div class="about-grid">
@@ -138,22 +121,16 @@
         </p>
 
         <div class="about-facts reveal">
-          <article class="about-fact">
-            <small data-ru="Образование" data-en="Education">Образование</small>
-            <strong data-ru="Прикладная информатика" data-en="Applied Informatics">Прикладная информатика</strong>
-            <p data-ru="ДВФУ, информационные системы и управление" data-en="FEFU, information systems and management">ДВФУ, информационные системы и управление</p>
-          </article>
-          <article class="about-fact">
-            <small data-ru="Специализация" data-en="Focus">Специализация</small>
-            <strong data-ru="Цифровое здравоохранение" data-en="Digital health">Цифровое здравоохранение</strong>
-            <p data-ru="Медицинская аналитика, GIS и автоматизация" data-en="Healthcare analytics, GIS and automation">Медицинская аналитика, GIS и автоматизация</p>
-          </article>
-          <article class="about-fact">
-            <small data-ru="Подход" data-en="Approach">Подход</small>
-            <strong data-ru="От требований до продакшена" data-en="From requirements to production">От требований до продакшена</strong>
-            <p data-ru="Архитектура, разработка, развёртывание и обратная связь" data-en="Architecture, development, deployment and feedback">Архитектура, разработка, развёртывание и обратная связь</p>
-          </article>
+          <article><small data-ru="Образование" data-en="Education">Образование</small><strong data-ru="Прикладная информатика" data-en="Applied Informatics">Прикладная информатика</strong><p data-ru="ДВФУ, информационные системы и управление" data-en="FEFU, information systems and management">ДВФУ, информационные системы и управление</p></article>
+          <article><small data-ru="Специализация" data-en="Focus">Специализация</small><strong data-ru="Цифровое здравоохранение" data-en="Digital health">Цифровое здравоохранение</strong><p data-ru="Медицинская аналитика, GIS и автоматизация" data-en="Healthcare analytics, GIS and automation">Медицинская аналитика, GIS и автоматизация</p></article>
+          <article><small data-ru="Подход" data-en="Approach">Подход</small><strong data-ru="От требований до продакшена" data-en="From requirements to production">От требований до продакшена</strong><p data-ru="Архитектура, разработка, развёртывание и обратная связь" data-en="Architecture, development, deployment and feedback">Архитектура, разработка, развёртывание и обратная связь</p></article>
         </div>
+      </div>
+
+      <div class="city-gallery reveal" aria-label="Городская визуальная серия">
+        <figure class="city-gallery-main"><img src="assets/city-editorial.svg" alt="Ночной городской цифровой коллаж" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/metro-grid.svg" alt="Абстрактная схема городской сети" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/moscow-skyline.svg" alt="Неоновый городской силуэт" loading="lazy" decoding="async"></figure>
       </div>
     </section>
 
@@ -162,52 +139,38 @@
         <span class="section-index">02</span>
         <div>
           <h2 data-ru="Избранные проекты" data-en="Selected projects">Избранные проекты</h2>
-          <p data-ru="Системы, в которых важны не только код и интерфейс, но и качество данных, объяснимость и внедрение." data-en="Systems where code and interface matter alongside data quality, explainability and delivery.">
-            Системы, в которых важны не только код и интерфейс, но и качество данных, объяснимость и внедрение.
-          </p>
+          <p data-ru="Системы, где важны не только код и интерфейс, но и качество данных, объяснимость и внедрение." data-en="Systems where code and interface matter alongside data quality, explainability and delivery.">Системы, где важны не только код и интерфейс, но и качество данных, объяснимость и внедрение.</p>
         </div>
       </header>
 
       <div class="projects">
         <article class="project-card reveal">
-          <figure class="project-media">
-            <img src="assets/medgeo-dashboard.svg" alt="Интерфейс МедГео Аналитики" loading="lazy" decoding="async">
-          </figure>
+          <figure class="project-media"><img src="assets/medgeo-dashboard.svg" alt="Интерфейс МедГео Аналитики" loading="lazy" decoding="async"></figure>
           <div class="project-copy">
             <div class="project-meta"><span>01</span><span data-ru="Рабочий проект" data-en="Production project">Рабочий проект</span></div>
             <h3 data-ru="МедГео Аналитика" data-en="MedGeo Analytics">МедГео Аналитика</h3>
-            <p data-ru="Внутренняя система для противотуберкулёзной службы: карта случаев, территориальные показатели, реестр, рецидивы, импорт данных и контроль качества адресов." data-en="An internal system for tuberculosis care services: case mapping, territorial indicators, registry, recurrences, data imports and address quality control.">
-              Внутренняя система для противотуберкулёзной службы: карта случаев, территориальные показатели, реестр, рецидивы, импорт данных и контроль качества адресов.
-            </p>
+            <p data-ru="Внутренняя система для противотуберкулёзной службы: карта случаев, территориальные показатели, реестр, рецидивы, импорт данных и контроль качества адресов." data-en="An internal system for tuberculosis care services: case mapping, territorial indicators, registry, recurrences, data imports and address quality control.">Внутренняя система для противотуберкулёзной службы: карта случаев, территориальные показатели, реестр, рецидивы, импорт данных и контроль качества адресов.</p>
             <div class="tags"><span>FastAPI</span><span>React</span><span>PostGIS</span><span>GIS</span><span>Docker</span></div>
           </div>
         </article>
 
         <article class="project-card reveal">
-          <figure class="project-media">
-            <img src="assets/openrisk-dashboard.svg" alt="Интерфейс OpenRisk" loading="lazy" decoding="async">
-          </figure>
+          <figure class="project-media"><img src="assets/openrisk-dashboard.svg" alt="Интерфейс OpenRisk" loading="lazy" decoding="async"></figure>
           <div class="project-copy">
             <div class="project-meta"><span>02</span><span data-ru="ВКР · AI product" data-en="Thesis · AI product">ВКР · AI product</span></div>
             <h3>OpenRisk</h3>
-            <p data-ru="Информационная система оценки и оптимизации кредитного риска: ML-скоринг, объяснение факторов, ручная проверка, ожидаемые потери и подбор портфеля." data-en="A credit-risk assessment and optimization system: ML scoring, factor explanations, manual review, expected losses and portfolio selection.">
-              Информационная система оценки и оптимизации кредитного риска: ML-скоринг, объяснение факторов, ручная проверка, ожидаемые потери и подбор портфеля.
-            </p>
+            <p data-ru="Информационная система оценки и оптимизации кредитного риска: ML-скоринг, объяснение факторов, ручная проверка, ожидаемые потери и подбор портфеля." data-en="A credit-risk assessment and optimization system: ML scoring, factor explanations, manual review, expected losses and portfolio selection.">Информационная система оценки и оптимизации кредитного риска: ML-скоринг, объяснение факторов, ручная проверка, ожидаемые потери и подбор портфеля.</p>
             <div class="tags"><span>Python</span><span>FastAPI</span><span>Next.js</span><span>ML</span><span>OpenAPI</span></div>
-            <a class="project-link" href="https://github.com/ryzenovod/openrisk" target="_blank" rel="noreferrer"><span data-ru="Репозиторий" data-en="Repository">Репозиторий</span> ↗</a>
+            <a class="project-link" href="https://github.com/ryzenovod/openrisk_legacy" target="_blank" rel="noreferrer"><span data-ru="Репозиторий" data-en="Repository">Репозиторий</span> ↗</a>
           </div>
         </article>
 
         <article class="project-card reveal">
-          <figure class="project-media">
-            <img src="assets/agent-flow.svg" alt="Схема мультиагентной системы" loading="lazy" decoding="async">
-          </figure>
+          <figure class="project-media"><img src="assets/agent-flow.svg" alt="Схема мультиагентной системы" loading="lazy" decoding="async"></figure>
           <div class="project-copy">
             <div class="project-meta"><span>03</span><span data-ru="Международный хакатон" data-en="International hackathon">Международный хакатон</span></div>
             <h3 data-ru="Мультиагентная система анализа цифровых рисков" data-en="Multi-agent digital risk analysis">Мультиагентная система анализа цифровых рисков</h3>
-            <p data-ru="Командный проект APRU Tech Policy Hackathon: маршрутизация запроса, поиск доказательств, проверка правил и подготовка структурированного отчёта." data-en="A team project for the APRU Tech Policy Hackathon: request routing, evidence retrieval, rule checks and structured reporting.">
-              Командный проект APRU Tech Policy Hackathon: маршрутизация запроса, поиск доказательств, проверка правил и подготовка структурированного отчёта.
-            </p>
+            <p data-ru="Командный проект APRU Tech Policy Hackathon: маршрутизация запроса, поиск доказательств, проверка правил и подготовка структурированного отчёта." data-en="A team project for the APRU Tech Policy Hackathon: request routing, evidence retrieval, rule checks and structured reporting.">Командный проект APRU Tech Policy Hackathon: маршрутизация запроса, поиск доказательств, проверка правил и подготовка структурированного отчёта.</p>
             <div class="tags"><span>Google ADK</span><span>FastAPI</span><span>RAG</span><span>Agents</span><span>GCP</span></div>
           </div>
         </article>
@@ -217,39 +180,14 @@
     <section class="section shell" id="systems">
       <header class="section-heading reveal">
         <span class="section-index">03</span>
-        <div>
-          <h2 data-ru="Системы в деталях" data-en="Systems in detail">Системы в деталях</h2>
-          <p data-ru="Интерфейсы и архитектура без декоративных заглушек: каждая схема показывает реальную логику проекта." data-en="Interfaces and architecture without decorative placeholders: every diagram represents actual project logic.">
-            Интерфейсы и архитектура без декоративных заглушек: каждая схема показывает реальную логику проекта.
-          </p>
-        </div>
+        <div><h2 data-ru="От данных к решению" data-en="From data to decision">От данных к решению</h2></div>
       </header>
-
-      <div class="showcase-grid">
-        <article class="showcase-item reveal">
-          <img src="assets/medgeo-dashboard.svg" alt="Карта и показатели МедГео Аналитики" loading="lazy" decoding="async">
-          <div class="showcase-caption"><strong data-ru="Карта, показатели, качество адресов" data-en="Maps, metrics and address quality">Карта, показатели, качество адресов</strong><span>GIS / QUALITY / METRICS</span></div>
-        </article>
-        <article class="showcase-item reveal">
-          <img src="assets/openrisk-dashboard.svg" alt="Скоринг и объяснение факторов OpenRisk" loading="lazy" decoding="async">
-          <div class="showcase-caption"><strong data-ru="Скоринг с объяснением факторов" data-en="Scoring with factor explanations">Скоринг с объяснением факторов</strong><span>PD / EL / XAI</span></div>
-        </article>
-        <article class="showcase-item reveal">
-          <img src="assets/agent-flow.svg" alt="Маршрутизация агентов" loading="lazy" decoding="async">
-          <div class="showcase-caption"><strong data-ru="Маршрутизация, поиск и проверка" data-en="Routing, retrieval and review">Маршрутизация, поиск и проверка</strong><span>ROUTING / RAG / REVIEW</span></div>
-        </article>
-      </div>
-
       <article class="architecture-card reveal">
-        <div class="architecture-media">
-          <img src="assets/system-map.svg" alt="Архитектура движения данных от импорта до решения" loading="lazy" decoding="async">
-        </div>
-        <div class="architecture-copy">
+        <figure><img src="assets/system-map.svg" alt="Архитектура движения данных от импорта до решения" loading="lazy" decoding="async"></figure>
+        <div>
           <span class="kicker">DATA → DECISION</span>
-          <h3 data-ru="От файла до решения" data-en="From file to decision">От файла до решения</h3>
-          <p data-ru="Проверяю и нормализую входные данные, считаю показатели и вывожу результат в интерфейс. Так меньше ручной работы и проще находить ошибки." data-en="I validate and normalize the input, calculate metrics and present the result in the interface. This reduces manual work and makes errors easier to find.">
-            Проверяю и нормализую входные данные, считаю показатели и вывожу результат в интерфейс. Так меньше ручной работы и проще находить ошибки.
-          </p>
+          <h3 data-ru="Рабочий контур" data-en="Working pipeline">Рабочий контур</h3>
+          <p data-ru="Проверка и нормализация входных данных, расчёт показателей, контроль качества и вывод результата в интерфейс. Каждый этап отделён и проверяем." data-en="Input validation and normalization, metric calculation, quality control and delivery through the interface. Every stage is isolated and testable.">Проверка и нормализация входных данных, расчёт показателей, контроль качества и вывод результата в интерфейс. Каждый этап отделён и проверяем.</p>
         </div>
       </article>
     </section>
@@ -259,21 +197,16 @@
         <span class="section-index">04</span>
         <div>
           <h2 data-ru="Опыт работы" data-en="Experience">Опыт работы</h2>
-          <p data-ru="Практика внутри медицинской организации и разработка прикладных информационных систем." data-en="Hands-on work inside a healthcare organization and development of applied information systems.">
-            Практика внутри медицинской организации и разработка прикладных информационных систем.
-          </p>
+          <p data-ru="Практика внутри медицинской организации и разработка прикладных информационных систем." data-en="Hands-on work inside a healthcare organization and development of applied information systems.">Практика внутри медицинской организации и разработка прикладных информационных систем.</p>
         </div>
       </header>
 
       <div class="experience-list">
         <article class="experience-item reveal">
-          <div class="experience-date">
-            <strong data-ru="Октябрь 2025 — сейчас" data-en="Oct 2025 — present">Октябрь 2025 — сейчас</strong>
-            <span data-ru="Владивосток" data-en="Vladivostok">Владивосток</span>
-          </div>
+          <div class="experience-date"><strong data-ru="Октябрь 2025 — сейчас" data-en="Oct 2025 — present">Октябрь 2025 — сейчас</strong><span data-ru="Владивосток" data-en="Vladivostok">Владивосток</span></div>
           <div class="experience-body">
             <p class="role" data-ru="Программист" data-en="Software developer">Программист</p>
-            <h3 data-ru="Приморский детский краевой клинический фтизиопульмонологический центр" data-en="Primorsky Regional Pediatric Clinical Phthisiopulmonology Center">Приморский детский краевой клинический фтизиопульмонологический центр</h3>
+            <h3 class="experience-company" data-ru="Приморский детский краевой клинический фтизиопульмонологический центр" data-en="Primorsky Regional Pediatric Clinical Phthisiopulmonology Center">Приморский детский краевой клинический фтизиопульмонологический центр</h3>
             <ul>
               <li data-ru="Разработал и внедрил внутренний MVP «МедГео Аналитика / OpenMap» для территориальной медицинской аналитики." data-en="Built and deployed the internal MedGeo Analytics / OpenMap MVP for territorial healthcare analytics.">Разработал и внедрил внутренний MVP «МедГео Аналитика / OpenMap» для территориальной медицинской аналитики.</li>
               <li data-ru="Спроектировал импорт CSV/XLSX, проверку адресов, геокодирование, расчёт показателей и визуализацию случаев на карте." data-en="Designed CSV/XLSX ingestion, address validation, geocoding, metric calculation and case mapping.">Спроектировал импорт CSV/XLSX, проверку адресов, геокодирование, расчёт показателей и визуализацию случаев на карте.</li>
@@ -283,13 +216,10 @@
         </article>
 
         <article class="experience-item reveal">
-          <div class="experience-date">
-            <strong data-ru="Июнь 2024 — сентябрь 2025" data-en="Jun 2024 — Sep 2025">Июнь 2024 — сентябрь 2025</strong>
-            <span data-ru="Владивосток" data-en="Vladivostok">Владивосток</span>
-          </div>
+          <div class="experience-date"><strong data-ru="Июнь 2024 — сентябрь 2025" data-en="Jun 2024 — Sep 2025">Июнь 2024 — сентябрь 2025</strong><span data-ru="Владивосток" data-en="Vladivostok">Владивосток</span></div>
           <div class="experience-body">
             <p class="role" data-ru="Стажёр-программист" data-en="Software development intern">Стажёр-программист</p>
-            <h3 data-ru="ДВФУ, сектор проектирования и разработки" data-en="FEFU, Design and Development Unit">ДВФУ, сектор проектирования и разработки</h3>
+            <h3 class="experience-company" data-ru="ДВФУ, сектор проектирования и разработки" data-en="FEFU, Design and Development Unit">ДВФУ, сектор проектирования и разработки</h3>
             <ul>
               <li data-ru="Участвовал в разработке и сопровождении внутренних прикладных решений на C# и платформе «1С:Предприятие»." data-en="Contributed to internal application development and support using C# and 1C:Enterprise.">Участвовал в разработке и сопровождении внутренних прикладных решений на C# и платформе «1С:Предприятие».</li>
               <li data-ru="Работал с требованиями, отладкой, тестированием и документацией информационных систем." data-en="Worked with requirements, debugging, testing and information-system documentation.">Работал с требованиями, отладкой, тестированием и документацией информационных систем.</li>
@@ -300,33 +230,21 @@
     </section>
 
     <section class="section shell" id="achievements">
-      <header class="section-heading reveal">
-        <span class="section-index">05</span>
-        <div>
-          <h2 data-ru="Достижения" data-en="Achievements">Достижения</h2>
-        </div>
-      </header>
-
+      <header class="section-heading reveal"><span class="section-index">05</span><div><h2 data-ru="Достижения" data-en="Achievements">Достижения</h2></div></header>
       <div class="awards-grid">
-        <article class="award major reveal"><span class="year">2026</span><h3 data-ru="Победитель «Я — профессионал»" data-en="Winner, I Am a Professional">Победитель «Я — профессионал»</h3><p data-ru="Управление цифровым продуктом и инноватика" data-en="Digital Product Management and Innovation">Управление цифровым продуктом и инноватика</p></article>
-        <article class="award reveal"><span class="year">2026</span><h3 data-ru="Призёр «Я — профессионал»" data-en="Prize winner, I Am a Professional">Призёр «Я — профессионал»</h3><p data-ru="Экономическая и корпоративная безопасность" data-en="Economic and Corporate Security">Экономическая и корпоративная безопасность</p></article>
-        <article class="award reveal"><span class="year">2026</span><h3 data-ru="Зимняя школа ВШБ НИУ ВШЭ" data-en="HSE Graduate School of Business Winter School">Зимняя школа ВШБ НИУ ВШЭ</h3><p data-ru="Призёр кейс-дня, трек «Бизнес-информатика»" data-en="Case-day prize winner, Business Informatics track">Призёр кейс-дня, трек «Бизнес-информатика»</p></article>
-        <article class="award reveal"><span class="year">2026</span><h3 data-ru="«Высшая лига» НИУ ВШЭ" data-en="HSE Higher League">«Высшая лига» НИУ ВШЭ</h3><p data-ru="Диплом I степени, медиаменеджмент" data-en="First-degree diploma, Media Management">Диплом I степени, медиаменеджмент</p></article>
-        <article class="award reveal"><span class="year">2025</span><h3>APRU Tech Policy Hackathon</h3><p data-ru="Международный хакатон в Бангкоке, команда ДВФУ" data-en="International hackathon in Bangkok, FEFU team">Международный хакатон в Бангкоке, команда ДВФУ</p></article>
-        <article class="award reveal"><span class="year">2026</span><h3>EF SET C1</h3><p data-ru="67/100; чтение C1, аудирование C2" data-en="67/100; reading C1, listening C2">67/100; чтение C1, аудирование C2</p></article>
+        <article class="award award-major reveal"><span>2026</span><h3 data-ru="Победитель «Я — профессионал»" data-en="Winner, I Am a Professional">Победитель «Я — профессионал»</h3><p data-ru="Управление цифровым продуктом и инноватика" data-en="Digital Product Management and Innovation">Управление цифровым продуктом и инноватика</p></article>
+        <article class="award reveal"><span>2026</span><h3 data-ru="Призёр «Я — профессионал»" data-en="Prize winner, I Am a Professional">Призёр «Я — профессионал»</h3><p data-ru="Экономическая и корпоративная безопасность" data-en="Economic and Corporate Security">Экономическая и корпоративная безопасность</p></article>
+        <article class="award reveal"><span>2026</span><h3 data-ru="Зимняя школа ВШБ НИУ ВШЭ" data-en="HSE Graduate School of Business Winter School">Зимняя школа ВШБ НИУ ВШЭ</h3><p data-ru="Призёр кейс-дня, трек «Бизнес-информатика»" data-en="Case-day prize winner, Business Informatics track">Призёр кейс-дня, трек «Бизнес-информатика»</p></article>
+        <article class="award reveal"><span>2026</span><h3 data-ru="«Высшая лига» НИУ ВШЭ" data-en="HSE Higher League">«Высшая лига» НИУ ВШЭ</h3><p data-ru="Диплом I степени, медиаменеджмент" data-en="First-degree diploma, Media Management">Диплом I степени, медиаменеджмент</p></article>
+        <article class="award reveal"><span>2025</span><h3>APRU Tech Policy Hackathon</h3><p data-ru="Международный хакатон в Бангкоке, команда ДВФУ" data-en="International hackathon in Bangkok, FEFU team">Международный хакатон в Бангкоке, команда ДВФУ</p></article>
+        <article class="award reveal"><span>2026</span><h3>EF SET C1</h3><p data-ru="67/100; чтение C1, аудирование C2" data-en="67/100; reading C1, listening C2">67/100; чтение C1, аудирование C2</p></article>
       </div>
     </section>
 
     <section class="section shell" id="focus">
       <div class="focus-card reveal">
         <h2 data-ru="Над чем работаю" data-en="What I work on">Над чем работаю</h2>
-        <div class="focus-words">
-          <span data-ru="МедГео Аналитика" data-en="MedGeo Analytics">МедГео Аналитика</span>
-          <span data-ru="Геокодирование" data-en="Geocoding">Геокодирование</span>
-          <span data-ru="Медицинская статистика" data-en="Health statistics">Медицинская статистика</span>
-          <span data-ru="Продуктовая аналитика" data-en="Product analytics">Продуктовая аналитика</span>
-          <span data-ru="Архитектура систем" data-en="System architecture">Архитектура систем</span>
-        </div>
+        <div><span data-ru="МедГео Аналитика" data-en="MedGeo Analytics">МедГео Аналитика</span><span data-ru="Геокодирование" data-en="Geocoding">Геокодирование</span><span data-ru="Медицинская статистика" data-en="Health statistics">Медицинская статистика</span><span data-ru="Продуктовая аналитика" data-en="Product analytics">Продуктовая аналитика</span><span data-ru="Архитектура систем" data-en="System architecture">Архитектура систем</span></div>
       </div>
     </section>
 
@@ -335,11 +253,11 @@
         <h2 data-ru="Связаться" data-en="Get in touch">Связаться</h2>
         <p data-ru="По проектам, работе и сотрудничеству — пишите в Telegram или на почту." data-en="For projects, work or collaboration, message me on Telegram or email.">По проектам, работе и сотрудничеству — пишите в Telegram или на почту.</p>
         <div class="contact-grid">
-          <a class="contact-card" href="https://t.me/ryzenovod" target="_blank" rel="noreferrer"><small>Telegram</small><strong>@ryzenovod</strong></a>
-          <a class="contact-card" href="https://vk.com/ryzenovod" target="_blank" rel="noreferrer"><small>VK</small><strong>vk.com/ryzenovod</strong></a>
-          <a class="contact-card" href="mailto:belousov-carp@mail.ru"><small>Email</small><strong>belousov-carp@mail.ru</strong></a>
-          <a class="contact-card" href="tel:+79502961192"><small data-ru="Телефон" data-en="Phone">Телефон</small><strong>+7 950 296-11-92</strong></a>
-          <a class="contact-card" href="https://github.com/ryzenovod" target="_blank" rel="noreferrer"><small>GitHub</small><strong>@ryzenovod</strong></a>
+          <a href="https://t.me/ryzenovod" target="_blank" rel="noreferrer"><small>Telegram</small><strong>@ryzenovod</strong></a>
+          <a href="https://vk.com/ryzenovod" target="_blank" rel="noreferrer"><small>VK</small><strong>vk.com/ryzenovod</strong></a>
+          <a href="mailto:belousov-carp@mail.ru"><small>Email</small><strong>belousov-carp@mail.ru</strong></a>
+          <a href="tel:+79502961192"><small data-ru="Телефон" data-en="Phone">Телефон</small><strong>+7 950 296-11-92</strong></a>
+          <a href="https://github.com/ryzenovod" target="_blank" rel="noreferrer"><small>GitHub</small><strong>@ryzenovod</strong></a>
         </div>
       </div>
     </section>
@@ -347,10 +265,7 @@
 
   <footer class="shell site-footer">
     <span>© 2026 Егор Белоусов</span>
-    <div class="footer-right">
-      <a class="hits-badge" href="https://hits.sh/ryzenovod.github.io/cv/" target="_blank" rel="noreferrer" title="View statistics"><img src="https://hits.sh/ryzenovod.github.io/cv.svg?style=flat-square&label=views&color=ff4fc7&labelColor=17121d" alt="Portfolio views" loading="lazy"></a>
-      <a href="#top" data-ru="Наверх ↑" data-en="Back to top ↑">Наверх ↑</a>
-    </div>
+    <div><a class="hits-badge" href="https://hits.sh/ryzenovod.github.io/cv/" target="_blank" rel="noreferrer"><img src="https://hits.sh/ryzenovod.github.io/cv.svg?style=flat-square&label=views&color=ff4fc7&labelColor=17121d" alt="Portfolio views" loading="lazy"></a><a href="#top" data-ru="Наверх ↑" data-en="Back to top ↑">Наверх ↑</a></div>
   </footer>
 </body>
 </html>

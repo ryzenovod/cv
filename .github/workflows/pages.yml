@@ -1,6 +1,8 @@
-name: Sync static site to gh-pages
+name: Portfolio quality and deploy
 
 on:
+  pull_request:
+    branches: ["main"]
   push:
     branches: ["main"]
   workflow_dispatch:
@@ -9,11 +11,51 @@ permissions:
   contents: write
 
 concurrency:
-  group: "gh-pages-sync"
+  group: "portfolio-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install test dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/portfolio-server.log 2>&1 &
+          echo $! > /tmp/portfolio-server.pid
+
+      - name: Run responsive layout checks
+        run: npm run test:layout
+
+      - name: Upload layout screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-layout-${{ github.sha }}
+          path: |
+            artifacts/
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
   publish:
+    if: github.event_name != 'pull_request'
+    needs: quality
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
@@ -21,7 +63,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Sync site files to gh-pages branch
+      - name: Sync verified static files to gh-pages
         shell: bash
         run: |
           set -euo pipefail
@@ -36,6 +78,13 @@ jobs:
             --exclude='.git' \
             --exclude='.github' \
             --exclude='README.md' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
+            --exclude='playwright.config.js' \
+            --exclude='tests' \
+            --exclude='artifacts' \
+            --exclude='playwright-report' \
+            --exclude='test-results' \
             ./ /tmp/gh-pages/
 
           GITHUB_SHA="$GITHUB_SHA" python3 - <<'PY'
@@ -49,7 +98,6 @@ jobs:
 
           html = re.sub(r'href="app\.css(?:\?v=[^"]*)?"', f'href="app.css?v={version}"', html)
           html = re.sub(r'src="app\.js(?:\?v=[^"]*)?"', f'src="app.js?v={version}"', html)
-
           page.write_text(html, encoding='utf-8')
           PY
 
@@ -62,5 +110,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "deploy: publish portfolio"
+          git commit -m "deploy: publish verified portfolio ${GITHUB_SHA:0:12}"
           git push origin HEAD:gh-pages
