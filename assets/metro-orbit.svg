@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="900" y2="1200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#120A19"/>
+      <stop offset="0.52" stop-color="#09070D"/>
+      <stop offset="1" stop-color="#160A1C"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(450 600) rotate(90) scale(470)">
+      <stop stop-color="#FF4FC7" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#FF4FC7" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse"><path d="M46 0H0V46" stroke="#fff" stroke-opacity="0.025"/></pattern>
+  </defs>
+  <rect width="900" height="1200" rx="36" fill="url(#bg)"/>
+  <rect width="900" height="1200" rx="36" fill="url(#grid)"/>
+  <rect width="900" height="1200" rx="36" fill="url(#pulse)"/>
+
+  <g stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M122 1010L238 886L252 736L380 654L410 500L552 392L694 210" stroke="#FF4FC7" stroke-width="8"/>
+    <path d="M92 540L232 528L338 442L508 456L628 566L790 578" stroke="#8198FF" stroke-width="8"/>
+    <path d="M166 198L282 312L290 472L392 596L558 690L704 830L776 1020" stroke="#EE7CFF" stroke-width="8"/>
+    <path d="M214 1012L312 868L470 820L560 702L548 520L650 410L780 322" stroke="#9D64FF" stroke-width="8"/>
+    <circle cx="454" cy="604" r="214" stroke="#FF4FC7" stroke-opacity="0.75" stroke-width="10"/>
+  </g>
+
+  <g fill="#0A0810" stroke="#F8F5FB" stroke-opacity="0.72" stroke-width="4">
+    <circle cx="122" cy="1010" r="13"/><circle cx="238" cy="886" r="13"/><circle cx="252" cy="736" r="13"/><circle cx="380" cy="654" r="13"/><circle cx="410" cy="500" r="13"/><circle cx="552" cy="392" r="13"/><circle cx="694" cy="210" r="13"/>
+    <circle cx="92" cy="540" r="13"/><circle cx="232" cy="528" r="13"/><circle cx="338" cy="442" r="13"/><circle cx="508" cy="456" r="13"/><circle cx="628" cy="566" r="13"/><circle cx="790" cy="578" r="13"/>
+    <circle cx="166" cy="198" r="13"/><circle cx="282" cy="312" r="13"/><circle cx="290" cy="472" r="13"/><circle cx="392" cy="596" r="13"/><circle cx="558" cy="690" r="13"/><circle cx="704" cy="830" r="13"/><circle cx="776" cy="1020" r="13"/>
+    <circle cx="214" cy="1012" r="13"/><circle cx="312" cy="868" r="13"/><circle cx="470" cy="820" r="13"/><circle cx="560" cy="702" r="13"/><circle cx="548" cy="520" r="13"/><circle cx="650" cy="410" r="13"/><circle cx="780" cy="322" r="13"/>
+  </g>
+
+  <circle cx="454" cy="604" r="58" fill="#101017" stroke="#FF4FC7" stroke-width="4"/>
+  <circle cx="454" cy="604" r="88" stroke="#FF4FC7" stroke-opacity="0.22" stroke-width="2"/>
+  <path d="M430 620L454 580L480 620H430Z" fill="#F8F5FB"/>
+
+  <g font-family="monospace" fill="#AAA2B2" letter-spacing="3">
+    <text x="54" y="76" font-size="17">NETWORK / INTERCHANGE / FLOW</text>
+    <text x="620" y="1130" font-size="16">RING 01</text>
+  </g>
+  <g fill="#FF4FC7" font-family="Arial" font-weight="700">
+    <text x="64" y="1140" font-size="86">M</text>
+  </g>
+</svg>
