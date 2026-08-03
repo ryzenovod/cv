@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 980" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="40" x2="1480" y2="940" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17101F"/>
+      <stop offset="0.5" stop-color="#0B0910"/>
+      <stop offset="1" stop-color="#120A16"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="470" y1="100" x2="1160" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8198FF" stop-opacity="0.68"/>
+      <stop offset="0.5" stop-color="#9D64FF" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#FF4FC7" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="line" x1="180" y1="820" x2="1440" y2="250" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8198FF"/>
+      <stop offset="0.55" stop-color="#EE7CFF"/>
+      <stop offset="1" stop-color="#FF4FC7"/>
+    </linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" stroke="#fff" stroke-opacity="0.035"/>
+    </pattern>
+    <filter id="blur"><feGaussianBlur stdDeviation="44"/></filter>
+  </defs>
+
+  <rect width="1600" height="980" rx="44" fill="url(#bg)"/>
+  <rect width="1600" height="980" rx="44" fill="url(#grid)"/>
+  <circle cx="1200" cy="260" r="240" fill="#FF4FC7" fill-opacity="0.15" filter="url(#blur)"/>
+  <circle cx="450" cy="760" r="250" fill="#8198FF" fill-opacity="0.11" filter="url(#blur)"/>
+
+  <path d="M0 820C210 745 330 790 515 700C760 582 935 648 1160 510C1320 412 1430 416 1600 350V980H0Z" fill="#09070C"/>
+
+  <g stroke="url(#glass)" stroke-width="3">
+    <path d="M150 800V550L315 440V800"/>
+    <path d="M315 800V355L450 210L575 355V800"/>
+    <path d="M575 800V470L720 330L845 450V800"/>
+    <path d="M845 800V270L975 90L1095 275V800"/>
+    <path d="M1095 800V420L1245 255L1390 430V800"/>
+    <path d="M1390 800V590L1515 505V800"/>
+  </g>
+
+  <g stroke="#fff" stroke-opacity="0.08">
+    <path d="M190 590H286M190 635H286M190 680H286M190 725H286"/>
+    <path d="M360 402H520M360 466H520M360 530H520M360 594H520M360 658H520M360 722H520"/>
+    <path d="M622 510H802M622 570H802M622 630H802M622 690H802"/>
+    <path d="M900 335H1045M900 405H1045M900 475H1045M900 545H1045M900 615H1045M900 685H1045"/>
+    <path d="M1145 470H1340M1145 530H1340M1145 590H1340M1145 650H1340M1145 710H1340"/>
+  </g>
+
+  <path d="M130 760C320 680 410 805 585 690C735 592 835 650 995 560C1140 478 1265 520 1460 360" stroke="url(#line)" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#0B0910" stroke="#FF4FC7" stroke-width="4">
+    <circle cx="250" cy="716" r="15"/>
+    <circle cx="585" cy="690" r="15"/>
+    <circle cx="995" cy="560" r="15"/>
+    <circle cx="1290" cy="502" r="15"/>
+  </g>
+
+  <g font-family="Arial, sans-serif">
+    <text x="90" y="115" fill="#F8F5FB" font-size="34" font-weight="700" letter-spacing="6">URBAN DATA / 2026</text>
+    <text x="90" y="160" fill="#AAA2B2" font-size="18" letter-spacing="3">SYSTEMS · HEALTH · ANALYTICS</text>
+    <text x="1180" y="895" fill="#F8F5FB" font-size="18" letter-spacing="4">55.75° N</text>
+    <text x="1180" y="928" fill="#AAA2B2" font-size="16" letter-spacing="4">37.62° E</text>
+  </g>
+</svg>
