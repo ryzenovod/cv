@@ -6,8 +6,20 @@ const viewports = [
   { name: 'desktop-1440', width: 1440, height: 1000 }
 ];
 
-async function waitForImages(page) {
-  await page.waitForFunction(() => [...document.images].every((image) => image.complete));
+async function loadLazyImages(page) {
+  await page.evaluate(async () => {
+    const step = Math.max(500, Math.floor(window.innerHeight * 0.8));
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => setTimeout(resolve, 60));
+    }
+    window.scrollTo(0, 0);
+  });
+  await page.waitForFunction(
+    () => [...document.images].every((image) => image.complete),
+    null,
+    { timeout: 10000 }
+  );
 }
 
 for (const viewport of viewports) {
@@ -15,7 +27,6 @@ for (const viewport of viewports) {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
-    await waitForImages(page);
 
     const layout = await page.evaluate(() => {
       const root = document.documentElement;
@@ -71,7 +82,7 @@ test('desktop media audit: every image loads and every visual section is capture
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
-  await waitForImages(page);
+  await loadLazyImages(page);
 
   const imageReport = await page.evaluate(() => [...document.images].map((image) => {
     const rect = image.getBoundingClientRect();
@@ -111,7 +122,7 @@ test('desktop media audit: every image loads and every visual section is capture
   for (const [name, selector] of captures) {
     const section = page.locator(selector);
     await section.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(350);
+    await page.waitForTimeout(250);
     await section.screenshot({ path: `artifacts/desktop-${name}.png` });
   }
 
