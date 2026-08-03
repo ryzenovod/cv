@@ -2,7 +2,6 @@
   'use strict';
 
   const storageKey = 'portfolio-lang';
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const metadata = {
     ru: {
       title: 'Егор Белоусов — цифровое здравоохранение, геоаналитика и ИИ',
@@ -29,7 +28,7 @@
     try {
       localStorage.setItem(storageKey, language);
     } catch {
-      // The page remains fully functional when browser storage is unavailable.
+      // Storage is optional; language switching still works without it.
     }
 
     document.querySelectorAll('[data-ru][data-en]').forEach((node) => {
@@ -75,26 +74,14 @@
     update();
   }
 
-  function revealSections() {
-    const elements = document.querySelectorAll('.reveal');
-    if (reducedMotion || !('IntersectionObserver' in window)) {
-      elements.forEach((element) => element.classList.add('visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
-
-    elements.forEach((element) => observer.observe(element));
+  function revealContent() {
+    // Content is never dependent on IntersectionObserver. The class only enables
+    // the CSS transition and guarantees visibility if scripts, storage or APIs fail.
+    document.querySelectorAll('.reveal').forEach((element) => element.classList.add('visible'));
   }
 
   applyLanguage(readLanguage());
   bindLanguageSwitch();
   bindScrollProgress();
-  revealSections();
+  revealContent();
 })();
