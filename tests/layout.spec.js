@@ -6,6 +6,25 @@ const viewports = [
   { name: 'desktop-1440', width: 1440, height: 1000 }
 ];
 
+async function loadLazyImages(page) {
+  await page.evaluate(async () => {
+    document.querySelectorAll('img[src^="assets/"]').forEach((image) => {
+      image.loading = 'eager';
+    });
+    const step = Math.max(500, Math.floor(window.innerHeight * 0.8));
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => setTimeout(resolve, 60));
+    }
+    window.scrollTo(0, 0);
+  });
+  await page.waitForFunction(
+    () => [...document.querySelectorAll('img[src^="assets/"]')].every((image) => image.complete),
+    null,
+    { timeout: 10000 }
+  );
+}
+
 for (const viewport of viewports) {
   test(`${viewport.name}: no horizontal overflow or overlapping hero`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
@@ -61,6 +80,63 @@ for (const viewport of viewports) {
     });
   });
 }
+
+test('desktop media audit: every local image loads and every visual is captured', async ({ page }) => {
+  test.setTimeout(60000);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  await loadLazyImages(page);
+
+  const imageReport = await page.evaluate(() => [...document.querySelectorAll('img[src^="assets/"]')].map((image) => {
+    const rect = image.getBoundingClientRect();
+    const style = getComputedStyle(image);
+    return {
+      src: image.getAttribute('src'),
+      alt: image.getAttribute('alt'),
+      complete: image.complete,
+      naturalWidth: image.naturalWidth,
+      naturalHeight: image.naturalHeight,
+      width: rect.width,
+      height: rect.height,
+      objectFit: style.objectFit,
+      visibility: style.visibility,
+      opacity: Number.parseFloat(style.opacity)
+    };
+  }));
+
+  for (const image of imageReport) {
+    expect(image.complete, image.src).toBe(true);
+    expect(image.naturalWidth, image.src).toBeGreaterThan(0);
+    expect(image.naturalHeight, image.src).toBeGreaterThan(0);
+    expect(image.width, image.src).toBeGreaterThan(40);
+    expect(image.height, image.src).toBeGreaterThan(40);
+  }
+
+  const captures = [
+    ['hero', '#top'],
+    ['city-editorial', '.city-gallery figure:nth-child(1)'],
+    ['metro-grid', '.city-gallery figure:nth-child(2)'],
+    ['skyline', '.city-gallery figure:nth-child(3)'],
+    ['project-medgeo', '.project-card:nth-child(1)'],
+    ['project-openrisk', '.project-card:nth-child(2)'],
+    ['project-agents', '.project-card:nth-child(3)'],
+    ['system-map', '#systems .architecture-card'],
+    ['experience', '#experience'],
+    ['achievements', '#achievements'],
+    ['contact', '#contact']
+  ];
+
+  for (const [name, selector] of captures) {
+    const target = page.locator(selector);
+    await expect(target, selector).toHaveCount(1);
+    await target.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(220);
+    await target.screenshot({ path: `artifacts/desktop-${name}.png` });
+  }
+
+  console.log(JSON.stringify(imageReport, null, 2));
+});
 
 test('mobile experience section reveals and keeps long employer name readable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
