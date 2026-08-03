@@ -1,6 +1,14 @@
 (() => {
   'use strict';
 
+  const responsiveHref = 'responsive.css?v=20260803-city2';
+  if (!document.querySelector('link[href*="responsive.css"]')) {
+    const responsiveStyles = document.createElement('link');
+    responsiveStyles.rel = 'stylesheet';
+    responsiveStyles.href = responsiveHref;
+    document.head.append(responsiveStyles);
+  }
+
   const storageKey = 'portfolio-lang';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -16,19 +24,13 @@
   };
 
   function getLanguage() {
-    try {
-      return localStorage.getItem(storageKey) === 'en' ? 'en' : 'ru';
-    } catch (_) {
-      return 'ru';
-    }
+    return localStorage.getItem(storageKey) === 'en' ? 'en' : 'ru';
   }
 
   function setLanguage(language) {
     const lang = language === 'en' ? 'en' : 'ru';
     document.documentElement.lang = lang;
-    try {
-      localStorage.setItem(storageKey, lang);
-    } catch (_) {}
+    localStorage.setItem(storageKey, lang);
 
     document.querySelectorAll('[data-ru][data-en]').forEach((node) => {
       node.textContent = node.dataset[lang];
@@ -51,9 +53,6 @@
     const button = event.target.closest('button[data-lang]');
     if (button) setLanguage(button.dataset.lang);
   });
-
-  const openRiskLink = document.querySelector('a[href="https://github.com/ryzenovod/openrisk"]');
-  if (openRiskLink) openRiskLink.href = 'https://github.com/ryzenovod/openrisk_legacy';
 
   setLanguage(getLanguage());
 
