@@ -1,43 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 1100" fill="none">
   <defs>
-    <linearGradient id="bg" x1="60" y1="30" x2="840" y2="1070" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="40" y1="20" x2="600" y2="1080" gradientUnits="userSpaceOnUse">
       <stop stop-color="#17101F"/>
       <stop offset="1" stop-color="#09070D"/>
     </linearGradient>
-    <linearGradient id="route" x1="130" y1="920" x2="760" y2="140" gradientUnits="userSpaceOnUse">
+    <linearGradient id="route" x1="105" y1="835" x2="525" y2="275" gradientUnits="userSpaceOnUse">
       <stop stop-color="#8198FF"/>
-      <stop offset="0.48" stop-color="#9D64FF"/>
+      <stop offset="0.5" stop-color="#9D64FF"/>
       <stop offset="1" stop-color="#FF4FC7"/>
     </linearGradient>
-    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
-      <path d="M36 0H0V36" stroke="#fff" stroke-opacity="0.035"/>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#fff" stroke-opacity="0.035"/>
     </pattern>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
   </defs>
-  <rect width="900" height="1100" rx="38" fill="url(#bg)"/>
-  <rect width="900" height="1100" rx="38" fill="url(#grid)"/>
-  <rect x="70" y="70" width="760" height="960" rx="28" stroke="#fff" stroke-opacity="0.10"/>
 
-  <path d="M170 885L270 755L225 605L390 470L350 320L520 190L690 250L755 430L625 565L690 735L540 900L370 830L170 885Z" stroke="url(#route)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M225 605L520 190M390 470L755 430M350 320L690 735M270 755L625 565" stroke="#fff" stroke-opacity="0.10" stroke-width="2"/>
-
-  <g fill="#0B0910" stroke="#EE7CFF" stroke-width="6">
-    <circle cx="170" cy="885" r="18"/>
-    <circle cx="270" cy="755" r="18"/>
-    <circle cx="225" cy="605" r="18"/>
-    <circle cx="390" cy="470" r="18"/>
-    <circle cx="350" cy="320" r="18"/>
-    <circle cx="520" cy="190" r="18"/>
-    <circle cx="690" cy="250" r="18"/>
-    <circle cx="755" cy="430" r="18"/>
-    <circle cx="625" cy="565" r="18"/>
-    <circle cx="690" cy="735" r="18"/>
-    <circle cx="540" cy="900" r="18"/>
-    <circle cx="370" cy="830" r="18"/>
-  </g>
+  <rect width="640" height="1100" rx="34" fill="url(#bg)"/>
+  <rect width="640" height="1100" rx="34" fill="url(#grid)"/>
+  <rect x="44" y="44" width="552" height="1012" rx="25" stroke="#fff" stroke-opacity="0.10"/>
 
   <g font-family="Arial, sans-serif">
-    <text x="100" y="125" fill="#F8F5FB" font-size="28" font-weight="700" letter-spacing="5">NETWORK / FLOW</text>
-    <text x="100" y="165" fill="#AAA2B2" font-size="16" letter-spacing="3">INPUT · ROUTE · SIGNAL · DECISION</text>
-    <text x="100" y="990" fill="#AAA2B2" font-size="15" letter-spacing="3">URBAN SYSTEMS STUDY</text>
+    <text x="70" y="178" fill="#F8F5FB" font-size="27" font-weight="700" letter-spacing="4">NETWORK / FLOW</text>
+    <text x="70" y="216" fill="#AAA2B2" font-size="14" letter-spacing="2.5">INPUT · ROUTE · SIGNAL · DECISION</text>
+    <text x="70" y="936" fill="#AAA2B2" font-size="14" letter-spacing="2.5">URBAN SYSTEMS STUDY</text>
+  </g>
+
+  <path d="M104 826L172 734L146 620L252 532L226 410L326 286L446 330L526 442L448 548L512 676L416 824L306 772L206 842L104 826Z"
+        stroke="#FF4FC7" stroke-opacity="0.12" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  <path d="M104 826L172 734L146 620L252 532L226 410L326 286L446 330L526 442L448 548L512 676L416 824L306 772L206 842L104 826Z"
+        stroke="url(#route)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <path d="M146 620L326 286M252 532L526 442M226 410L512 676M172 734L448 548M306 772L446 330"
+        stroke="#fff" stroke-opacity="0.10" stroke-width="2"/>
+
+  <g fill="#0B0910" stroke="#EE7CFF" stroke-width="5">
+    <circle cx="104" cy="826" r="15"/>
+    <circle cx="172" cy="734" r="15"/>
+    <circle cx="146" cy="620" r="15"/>
+    <circle cx="252" cy="532" r="15"/>
+    <circle cx="226" cy="410" r="15"/>
+    <circle cx="326" cy="286" r="15"/>
+    <circle cx="446" cy="330" r="15"/>
+    <circle cx="526" cy="442" r="15"/>
+    <circle cx="448" cy="548" r="15"/>
+    <circle cx="512" cy="676" r="15"/>
+    <circle cx="416" cy="824" r="15"/>
+    <circle cx="306" cy="772" r="15"/>
+    <circle cx="206" cy="842" r="15"/>
+  </g>
+
+  <g opacity="0.7">
+    <circle cx="548" cy="220" r="3" fill="#FF4FC7"/>
+    <circle cx="560" cy="220" r="3" fill="#8198FF"/>
+    <path d="M70 966H570" stroke="#fff" stroke-opacity="0.08"/>
+    <path d="M70 986H448" stroke="#fff" stroke-opacity="0.05"/>
   </g>
 </svg>
