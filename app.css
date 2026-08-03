@@ -166,7 +166,7 @@
     gap:48px;
     padding-block:56px 74px;
   }
-  .hero-copy,.hero-visual{min-width:0}
+  .hero-copy,.hero-visual{min-width:0;max-width:100%}
   .eyebrow{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:24px;color:var(--muted);font:500 9px/1.6 var(--mono);letter-spacing:.045em;text-transform:uppercase}
   .eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 16px var(--pink)}
 
@@ -202,11 +202,12 @@
   .hero-facts span{display:block;margin-top:6px;color:var(--faint);font:500 9px var(--mono);text-transform:uppercase}
 
   .hero-visual{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
-  .hero-city,.hero-poster,.hero-sidecards{min-width:0}
+  .hero-city,.hero-poster,.hero-sidecards{min-width:0;max-width:100%}
   .hero-city{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--panel);box-shadow:0 30px 90px rgba(0,0,0,.34)}
   .hero-city img{width:100%;aspect-ratio:16/10;object-fit:cover}
 
   .hero-poster{
+    width:100%;
     min-height:390px;
     padding:24px;
     display:grid;
@@ -220,8 +221,9 @@
       linear-gradient(145deg,#1e1524,#09070c);
     background-size:34px 34px,34px 34px,auto;
   }
-  .poster-kicker{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font:500 8px var(--mono);letter-spacing:.08em}
-  .poster-title{align-self:center;font:700 clamp(31px,10vw,46px)/.9 var(--display);letter-spacing:-.055em}
+  .poster-kicker{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font:500 8px var(--mono);letter-spacing:.08em;overflow-wrap:anywhere}
+  .poster-kicker span{min-width:0}
+  .poster-title{align-self:center;max-width:100%;font:700 clamp(31px,10vw,46px)/.9 var(--display);letter-spacing:-.055em;overflow-wrap:anywhere}
   .poster-stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;color:#d4ccd8;font:500 9px var(--mono)}
   .poster-stack span{min-width:0;padding:9px;border:1px solid var(--line);border-radius:10px;background:rgba(8,6,11,.7);overflow-wrap:anywhere}
 
@@ -363,20 +365,20 @@
   }
 
   @media (min-width:1040px){
-    .shell{width:min(var(--shell),calc(100% - clamp(64px,7vw,112px)))}
+    .shell{width:min(var(--shell),calc(100% - clamp(72px,8vw,128px)))}
     .site-nav{display:flex;justify-self:center;align-items:center;gap:clamp(18px,2vw,32px);color:var(--muted);font-size:13px}
     .site-nav a{position:relative;padding:8px 0}
     .site-nav a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
     .site-nav a:hover::after,.site-nav a:focus-visible::after{transform:scaleX(1)}
     .header-inner{grid-template-columns:auto 1fr auto;gap:28px}
 
-    .hero-grid{min-height:calc(100svh - 76px);grid-template-columns:minmax(0,.92fr) minmax(520px,1.08fr);align-items:center;gap:clamp(52px,6vw,94px);padding-block:78px 106px}
-    .hero h1{font-size:clamp(70px,7.2vw,112px)}
+    .hero-grid{min-height:calc(100svh - 76px);grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);align-items:center;gap:clamp(48px,5vw,72px);padding-block:78px 106px}
+    .hero h1{font-size:clamp(68px,7vw,108px)}
     .hero-lead{font-size:clamp(20px,1.7vw,25px)}
-    .hero-visual{grid-template-columns:minmax(0,1.35fr) minmax(220px,.65fr)}
+    .hero-visual{grid-template-columns:minmax(0,1fr) minmax(0,.56fr)}
     .hero-city img{min-height:690px}
-    .hero-poster{min-height:445px;padding:28px}
-    .poster-title{font-size:clamp(34px,3.6vw,58px)}
+    .hero-poster{min-height:445px;padding:24px}
+    .poster-title{font-size:clamp(31px,3.2vw,52px)}
 
     .project-card{grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr)}
     .project-card:nth-child(even){grid-template-columns:minmax(360px,.92fr) minmax(0,1.08fr)}
@@ -390,9 +392,9 @@
   }
 
   @media (min-width:1360px){
-    .hero-grid{grid-template-columns:minmax(0,.95fr) minmax(640px,1.05fr)}
-    .hero-city img{min-height:760px}
-    .hero-poster{min-height:490px}
+    .hero-grid{grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);gap:64px}
+    .hero-city img{min-height:740px}
+    .hero-poster{min-height:470px}
     .about-grid{gap:90px}
     .experience-item{gap:90px}
   }
