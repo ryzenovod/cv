@@ -1,0 +1,300 @@
+/* City editorial layer and responsive hardening. */
+
+body{overflow-x:clip}
+
+.eyebrow strong,
+.eyebrow span:nth-last-child(2){display:none}
+
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(8,6,11,.96) 0%,rgba(8,6,11,.86) 43%,rgba(8,6,11,.12) 100%),
+    url('assets/city-night.svg') center right/66% auto no-repeat;
+  opacity:.55;
+  mask-image:linear-gradient(to bottom,#000 0%,#000 76%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,transparent 100%);
+}
+
+.hero-art::before{
+  content:'';
+  position:absolute;
+  inset:4% -10% 0 -8%;
+  z-index:-1;
+  border-radius:40px;
+  background:
+    radial-gradient(circle at 65% 34%,rgba(255,79,199,.22),transparent 34%),
+    linear-gradient(155deg,rgba(129,152,255,.08),rgba(255,79,199,.02));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.055),0 40px 120px rgba(0,0,0,.26);
+}
+
+.city-layer{
+  width:172%;
+  bottom:-1%;
+  opacity:.9;
+  filter:drop-shadow(0 0 34px rgba(255,79,199,.22));
+}
+
+.hero-poster{width:min(78%,620px)}
+
+#about{position:relative}
+#about::after{
+  content:'';
+  display:block;
+  width:100%;
+  aspect-ratio:16/7.6;
+  margin-top:clamp(64px,8vw,110px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:30px;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(8,6,11,.02),rgba(8,6,11,.18)),
+    url('assets/highrise-night.svg') right 3% center/24% 88% no-repeat,
+    url('assets/metro-orbit.svg') 68% 60%/22% 82% no-repeat,
+    url('assets/city-night.svg') center/cover no-repeat;
+  background-blend-mode:normal,screen,screen,normal;
+  box-shadow:0 34px 110px rgba(0,0,0,.38),inset 0 0 80px rgba(255,79,199,.06);
+  transform:rotate(-.35deg);
+}
+
+#projects,
+#experience,
+#achievements{position:relative;isolation:isolate}
+
+#projects::before,
+#experience::before,
+#achievements::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-repeat:no-repeat;
+  opacity:.12;
+}
+
+#projects::before{
+  background-image:url('assets/metro-orbit.svg');
+  background-size:min(38vw,560px) auto;
+  background-position:right -8vw top 8%;
+  mask-image:linear-gradient(to left,#000,transparent 82%);
+  -webkit-mask-image:linear-gradient(to left,#000,transparent 82%);
+}
+
+#experience::before{
+  background-image:url('assets/highrise-night.svg');
+  background-size:min(30vw,430px) auto;
+  background-position:right -2vw center;
+  opacity:.09;
+  mask-image:linear-gradient(to left,#000,transparent 76%);
+  -webkit-mask-image:linear-gradient(to left,#000,transparent 76%);
+}
+
+#achievements::before{
+  background-image:url('assets/moscow-skyline.svg');
+  background-size:86% auto;
+  background-position:center bottom -8%;
+  opacity:.12;
+  mask-image:linear-gradient(to top,#000,transparent 72%);
+  -webkit-mask-image:linear-gradient(to top,#000,transparent 72%);
+}
+
+.project-card,
+.showcase-item,
+.architecture-card,
+.award,
+.experience-item,
+.experience-body,
+.project-copy,
+.section-heading>div,
+.about-grid>*{min-width:0}
+
+.project-media img,
+.showcase-item img,
+.architecture-media img{max-width:100%;height:auto}
+
+.experience-body h3,
+.project-copy h3,
+.section-heading h2,
+.about-statement,
+.contact-box h2,
+.focus-card h2{
+  max-width:100%;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  hyphens:auto;
+}
+
+.experience-body li,
+.project-copy>p,
+.section-heading p,
+.about-fact p,
+.contact-card strong{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+
+@media(max-width:1260px){
+  .hero-grid{grid-template-columns:minmax(0,1.02fr) minmax(420px,.98fr);gap:40px}
+  .hero h1{font-size:clamp(54px,7.1vw,104px)}
+  .city-layer{width:160%}
+  #about::after{aspect-ratio:16/8.4}
+}
+
+@media(max-width:1020px){
+  .hero::before{background-size:100% auto;background-position:center bottom;opacity:.28}
+  .hero-grid{gap:64px}
+  .hero-art{width:min(100%,780px)}
+  .city-layer{width:146%;bottom:1%}
+  #about::after{
+    aspect-ratio:16/9.5;
+    background:
+      linear-gradient(180deg,rgba(8,6,11,.04),rgba(8,6,11,.24)),
+      url('assets/highrise-night.svg') right 2% center/27% 88% no-repeat,
+      url('assets/metro-orbit.svg') 66% 58%/24% 82% no-repeat,
+      url('assets/city-night.svg') center/cover no-repeat;
+  }
+}
+
+@media(max-width:720px){
+  body::before{opacity:.018}
+  .shell{width:calc(100% - 30px)}
+  .site-header{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+
+  .hero::before{
+    background:
+      linear-gradient(180deg,rgba(8,6,11,.92) 0%,rgba(8,6,11,.68) 48%,rgba(8,6,11,.16) 100%),
+      url('assets/city-night.svg') center bottom/auto 72% no-repeat;
+    opacity:.56;
+  }
+  .hero-grid{padding-top:54px;gap:46px}
+  .eyebrow{font-size:9px;line-height:1.65;gap:7px;margin-bottom:24px}
+  .hero h1{
+    font-size:clamp(43px,13.6vw,66px);
+    line-height:.91;
+    letter-spacing:-.078em;
+  }
+  .hero-lead{font-size:17px;line-height:1.5;margin-top:26px}
+  .hero-actions{margin-top:28px}
+  .hero-facts{margin-top:30px;gap:8px}
+  .hero-fact{padding:14px 15px}
+
+  .hero-art{
+    width:100%;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    padding-bottom:10px;
+  }
+  .hero-art::before{inset:-2% -6% 0;border-radius:26px}
+  .hero-poster{grid-column:1/-1;width:100%;aspect-ratio:.9;padding:24px;border-radius:20px}
+  .poster-kicker{font-size:8px;gap:8px}
+  .poster-title{font-size:clamp(32px,10.2vw,48px)}
+  .poster-stack{gap:7px;font-size:9px}
+  .poster-stack span{padding:8px 9px}
+  .hero-badge,.hero-code{min-width:0;min-height:112px}
+  .hero-badge{width:auto}
+  .hero-code{width:auto;overflow:hidden}
+  .city-layer{width:176%;bottom:8%;opacity:.7}
+
+  .ticker{padding:15px 0}
+  .ticker span{font-size:21px;margin-inline:16px}
+
+  .section{padding-block:76px}
+  .section-heading{grid-template-columns:32px minmax(0,1fr);gap:8px;margin-bottom:38px}
+  .section-index{padding-top:5px;font-size:10px}
+  .section-heading h2{
+    font-size:clamp(30px,8.7vw,42px);
+    line-height:1.02;
+    letter-spacing:-.052em;
+  }
+  .section-heading p{font-size:15px;line-height:1.55;margin-top:15px}
+
+  .about-statement{font-size:clamp(21px,6.2vw,28px);line-height:1.34}
+  .about-fact{padding:20px}
+
+  #about::after{
+    aspect-ratio:4/5;
+    margin-top:54px;
+    border-radius:22px;
+    transform:none;
+    background:
+      linear-gradient(180deg,rgba(8,6,11,.02),rgba(8,6,11,.22)),
+      url('assets/highrise-night.svg') right -7% bottom 4%/46% 72% no-repeat,
+      url('assets/metro-orbit.svg') left -8% top 9%/46% 68% no-repeat,
+      url('assets/city-night.svg') center/auto 100% no-repeat;
+    background-blend-mode:normal,screen,screen,normal;
+  }
+
+  #projects::before{background-size:72vw auto;background-position:right -28vw top 2%;opacity:.08}
+  #experience::before{background-size:62vw auto;background-position:right -24vw center;opacity:.06}
+
+  .project-card{border-radius:18px}
+  .project-media{padding:8px}
+  .project-media img{border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.28)}
+  .project-copy{padding:26px 20px 30px}
+  .project-copy h3{
+    margin:20px 0 13px;
+    font-size:clamp(24px,7.1vw,31px);
+    line-height:1.08;
+    letter-spacing:-.045em;
+  }
+  .project-copy>p{font-size:15px;line-height:1.58}
+  .tags{gap:6px;margin-top:22px}
+  .tags span{padding:6px 9px;font-size:9px}
+
+  .showcase-caption{padding:16px}
+  .showcase-caption strong{font-size:14px;line-height:1.35}
+  .architecture-copy h3{font-size:clamp(24px,7vw,31px)}
+
+  .experience-item{gap:22px;padding-block:38px}
+  .experience-date{font-size:13px;line-height:1.45}
+  .experience-body .role{font-size:10px;margin-bottom:10px}
+  .experience-body h3{
+    font-family:var(--sans);
+    font-size:clamp(22px,6.35vw,29px);
+    line-height:1.08;
+    letter-spacing:-.042em;
+    font-weight:800;
+    text-wrap:pretty;
+    overflow-wrap:anywhere;
+  }
+  .experience-body ul{margin-top:22px;font-size:15px;line-height:1.58}
+  .experience-body li{padding-left:20px}
+  .experience-body li+li{margin-top:13px}
+
+  .award{min-height:168px;padding:22px}
+  .award h3{margin-top:26px;font-size:15px;line-height:1.35}
+
+  .focus-card{padding:26px 20px;border-radius:18px}
+  .focus-card h2{font-size:clamp(28px,8.2vw,38px)}
+  .focus-words{gap:8px;margin-top:24px}
+  .focus-words span{padding:10px 13px;font:500 15px/1.2 var(--sans);letter-spacing:-.02em}
+
+  .contact-box{padding:34px 18px;border-radius:20px}
+  .contact-box h2{font-size:clamp(34px,10vw,48px)}
+  .contact-box>p{font-size:15px}
+  .contact-card{padding:16px}
+}
+
+@media(max-width:430px){
+  .shell{width:calc(100% - 24px)}
+  .header-inner{height:66px}
+  .brand-mark{width:34px;height:34px}
+  .hero h1{font-size:clamp(41px,13.1vw,57px)}
+  .hero-poster{padding:20px}
+  .poster-title{font-size:clamp(30px,9.8vw,42px)}
+  .hero-badge,.hero-code{min-height:104px;padding:13px}
+  .hero-code{font-size:8px}
+  .section-heading{grid-template-columns:28px minmax(0,1fr)}
+  .section-heading h2{font-size:clamp(28px,8.3vw,36px)}
+  .experience-body h3{font-size:clamp(21px,6.05vw,26px)}
+  .experience-body ul{font-size:14.5px}
+  #about::after{aspect-ratio:3/4.2}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #about::after{transform:none}
+}
