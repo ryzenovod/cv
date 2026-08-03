@@ -16,13 +16,19 @@
   };
 
   function getLanguage() {
-    return localStorage.getItem(storageKey) === 'en' ? 'en' : 'ru';
+    try {
+      return localStorage.getItem(storageKey) === 'en' ? 'en' : 'ru';
+    } catch (_) {
+      return 'ru';
+    }
   }
 
   function setLanguage(language) {
     const lang = language === 'en' ? 'en' : 'ru';
     document.documentElement.lang = lang;
-    localStorage.setItem(storageKey, lang);
+    try {
+      localStorage.setItem(storageKey, lang);
+    } catch (_) {}
 
     document.querySelectorAll('[data-ru][data-en]').forEach((node) => {
       node.textContent = node.dataset[lang];
@@ -45,6 +51,9 @@
     const button = event.target.closest('button[data-lang]');
     if (button) setLanguage(button.dataset.lang);
   });
+
+  const openRiskLink = document.querySelector('a[href="https://github.com/ryzenovod/openrisk"]');
+  if (openRiskLink) openRiskLink.href = 'https://github.com/ryzenovod/openrisk_legacy';
 
   setLanguage(getLanguage());
 
