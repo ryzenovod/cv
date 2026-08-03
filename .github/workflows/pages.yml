@@ -50,6 +50,10 @@ jobs:
           html = re.sub(r'href="app\.css(?:\?v=[^"]*)?"', f'href="app.css?v={version}"', html)
           html = re.sub(r'src="app\.js(?:\?v=[^"]*)?"', f'src="app.js?v={version}"', html)
 
+          responsive_tag = f'<link rel="stylesheet" href="responsive.css?v={version}">'
+          html = re.sub(r'\s*<link[^>]+href="responsive\.css(?:\?v=[^"]*)?"[^>]*>', '', html)
+          html = html.replace('</head>', f'  {responsive_tag}\n</head>', 1)
+
           page.write_text(html, encoding='utf-8')
           PY
 
