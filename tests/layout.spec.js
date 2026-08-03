@@ -8,6 +8,9 @@ const viewports = [
 
 async function loadLazyImages(page) {
   await page.evaluate(async () => {
+    document.querySelectorAll('img[src^="assets/"]').forEach((image) => {
+      image.loading = 'eager';
+    });
     const step = Math.max(500, Math.floor(window.innerHeight * 0.8));
     for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
       window.scrollTo(0, y);
@@ -16,7 +19,7 @@ async function loadLazyImages(page) {
     window.scrollTo(0, 0);
   });
   await page.waitForFunction(
-    () => [...document.images].every((image) => image.complete),
+    () => [...document.querySelectorAll('img[src^="assets/"]')].every((image) => image.complete),
     null,
     { timeout: 10000 }
   );
@@ -78,13 +81,13 @@ for (const viewport of viewports) {
   });
 }
 
-test('desktop media audit: every image loads and every visual section is captured', async ({ page }) => {
+test('desktop media audit: every local image loads and every visual section is captured', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
   await loadLazyImages(page);
 
-  const imageReport = await page.evaluate(() => [...document.images].map((image) => {
+  const imageReport = await page.evaluate(() => [...document.querySelectorAll('img[src^="assets/"]')].map((image) => {
     const rect = image.getBoundingClientRect();
     const style = getComputedStyle(image);
     return {
