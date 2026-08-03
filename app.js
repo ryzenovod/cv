@@ -1,12 +1,19 @@
 (() => {
   'use strict';
 
-  const responsiveHref = 'responsive.css?v=20260803-city2';
+  const responsiveHref = 'responsive.css?v=20260803-city3';
   if (!document.querySelector('link[href*="responsive.css"]')) {
     const responsiveStyles = document.createElement('link');
     responsiveStyles.rel = 'stylesheet';
     responsiveStyles.href = responsiveHref;
     document.head.append(responsiveStyles);
+  }
+
+  const cityLabel = document.querySelector('.eyebrow strong');
+  if (cityLabel) {
+    const separator = cityLabel.previousElementSibling;
+    if (separator?.textContent.trim() === '·') separator.remove();
+    cityLabel.remove();
   }
 
   const storageKey = 'portfolio-lang';
@@ -24,13 +31,17 @@
   };
 
   function getLanguage() {
-    return localStorage.getItem(storageKey) === 'en' ? 'en' : 'ru';
+    try {
+      return localStorage.getItem(storageKey) === 'en' ? 'en' : 'ru';
+    } catch (_) {
+      return 'ru';
+    }
   }
 
   function setLanguage(language) {
     const lang = language === 'en' ? 'en' : 'ru';
     document.documentElement.lang = lang;
-    localStorage.setItem(storageKey, lang);
+    try { localStorage.setItem(storageKey, lang); } catch (_) {}
 
     document.querySelectorAll('[data-ru][data-en]').forEach((node) => {
       node.textContent = node.dataset[lang];
