@@ -81,7 +81,8 @@ for (const viewport of viewports) {
   });
 }
 
-test('desktop media audit: every local image loads and every visual section is captured', async ({ page }) => {
+test('desktop media audit: every local image loads and every visual is captured', async ({ page }) => {
+  test.setTimeout(60000);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
@@ -114,19 +115,24 @@ test('desktop media audit: every local image loads and every visual section is c
 
   const captures = [
     ['hero', '#top'],
-    ['about-city-gallery', '#about'],
-    ['projects', '#projects'],
-    ['architecture', '#architecture'],
+    ['city-editorial', '.city-gallery figure:nth-child(1)'],
+    ['metro-grid', '.city-gallery figure:nth-child(2)'],
+    ['skyline', '.city-gallery figure:nth-child(3)'],
+    ['project-medgeo', '.project-card:nth-child(1)'],
+    ['project-openrisk', '.project-card:nth-child(2)'],
+    ['project-agents', '.project-card:nth-child(3)'],
+    ['system-map', '#systems .architecture-card'],
     ['experience', '#experience'],
     ['achievements', '#achievements'],
     ['contact', '#contact']
   ];
 
   for (const [name, selector] of captures) {
-    const section = page.locator(selector);
-    await section.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(250);
-    await section.screenshot({ path: `artifacts/desktop-${name}.png` });
+    const target = page.locator(selector);
+    await expect(target, selector).toHaveCount(1);
+    await target.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(220);
+    await target.screenshot({ path: `artifacts/desktop-${name}.png` });
   }
 
   console.log(JSON.stringify(imageReport, null, 2));
