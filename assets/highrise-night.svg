@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="450" y1="0" x2="450" y2="1200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#160B20"/>
+      <stop offset="0.52" stop-color="#09070D"/>
+      <stop offset="1" stop-color="#050407"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(456 438) rotate(90) scale(520 420)">
+      <stop stop-color="#FF4FC7" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#FF4FC7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="edge" x1="284" y1="260" x2="652" y2="1010" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EE7CFF"/>
+      <stop offset="0.55" stop-color="#8198FF"/>
+      <stop offset="1" stop-color="#FF4FC7"/>
+    </linearGradient>
+    <pattern id="windows" width="28" height="36" patternUnits="userSpaceOnUse"><rect x="9" y="8" width="8" height="14" rx="1" fill="#F8F5FB" fill-opacity="0.22"/></pattern>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="20"/></filter>
+  </defs>
+  <rect width="900" height="1200" rx="36" fill="url(#bg)"/>
+  <rect width="900" height="1200" rx="36" fill="url(#glow)"/>
+
+  <g opacity="0.62">
+    <circle cx="112" cy="128" r="2" fill="#F8F5FB"/>
+    <circle cx="244" cy="206" r="1.5" fill="#EE7CFF"/>
+    <circle cx="676" cy="148" r="2" fill="#8198FF"/>
+    <circle cx="786" cy="262" r="1.5" fill="#F8F5FB"/>
+  </g>
+
+  <path d="M160 1048H744" stroke="#F8F5FB" stroke-opacity="0.12" stroke-width="2"/>
+  <path d="M244 1048V830H318V704H364V548H406V356H438V218H468V356H500V548H542V704H588V830H662V1048H244Z" fill="#0D0B12" stroke="url(#edge)" stroke-width="4"/>
+  <path d="M438 218L453 122L468 218" stroke="#FF4FC7" stroke-width="4"/>
+  <path d="M453 122V78" stroke="#F8F5FB" stroke-opacity="0.72" stroke-width="3"/>
+  <circle cx="453" cy="72" r="7" fill="#FF4FC7"/>
+
+  <path d="M270 1020V850H334V724H380V568H420V372H486V568H526V724H572V850H636V1020H270Z" fill="url(#windows)" opacity="0.9"/>
+
+  <path d="M160 1048H744L806 1160H94L160 1048Z" fill="#09070D"/>
+  <path d="M176 1074H728" stroke="#FF4FC7" stroke-opacity="0.25" stroke-width="2"/>
+  <path d="M214 1114H690" stroke="#8198FF" stroke-opacity="0.18" stroke-width="2"/>
+
+  <g opacity="0.5" filter="url(#blur)">
+    <ellipse cx="452" cy="1100" rx="200" ry="54" fill="#FF4FC7"/>
+  </g>
+
+  <g font-family="monospace" fill="#AAA2B2" letter-spacing="3">
+    <text x="54" y="78" font-size="17">VERTICAL CITY / NIGHT STUDY</text>
+    <text x="636" y="1134" font-size="15">1950—2026</text>
+  </g>
+</svg>
