@@ -20,7 +20,8 @@
 <g><rect x="612" y="197" width="460" height="18" rx="9" fill="#17121D"/><rect x="612" y="197" width="312" height="18" rx="9" fill="url(#a)"/><rect x="612" y="249" width="460" height="18" rx="9" fill="#17121D"/><rect x="612" y="249" width="224" height="18" rx="9" fill="url(#a)"/><rect x="612" y="301" width="460" height="18" rx="9" fill="#17121D"/><rect x="612" y="301" width="168" height="18" rx="9" fill="url(#a)"/><rect x="612" y="353" width="460" height="18" rx="9" fill="#17121D"/><rect x="612" y="353" width="118" height="18" rx="9" fill="url(#a)"/></g>
 <rect x="412" y="428" width="760" height="304" rx="20" fill="#101017" stroke="#fff" stroke-opacity=".08"/>
 <text x="442" y="470" fill="#AAA2B2" font-family="monospace" font-size="12">PORTFOLIO / EXPECTED PROFIT</text>
-<path d="M455 666C525 636 559 647 620 601C689 549 742 622 812 565C879 511 933 578 1120 492" stroke="url(#a)" stroke-width="4"/>
+<path id="trend-line" d="M455 666L620 601L812 565L1120 492" stroke="url(#a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g class="trend-points" fill="#101017" stroke="#FF4FC7" stroke-width="3"><circle cx="455" cy="666" r="7"/><circle cx="620" cy="601" r="7"/><circle cx="812" cy="565" r="7"/><circle cx="1120" cy="492" r="7"/></g>
 <path d="M455 684H1120M455 512V684" stroke="#fff" stroke-opacity=".08"/>
 <g fill="#756D7B" font-family="monospace" font-size="10"><text x="455" y="704">Q1</text><text x="664" y="704">Q2</text><text x="874" y="704">Q3</text><text x="1086" y="704">Q4</text></g>
 </svg>
