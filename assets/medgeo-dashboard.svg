@@ -20,6 +20,7 @@
 <rect x="874" y="116" width="298" height="430" rx="20" fill="#101017" stroke="#fff" stroke-opacity=".08"/>
 <g font-family="Arial"><text x="900" y="155" fill="#AAA2B2" font-size="13">KEY METRICS</text><text x="900" y="218" fill="#F8F5FB" font-size="40" font-weight="700">42.7</text><text x="900" y="243" fill="#756D7B" font-size="12">INCIDENCE / 100K</text><text x="900" y="310" fill="#F8F5FB" font-size="40" font-weight="700">96.4%</text><text x="900" y="335" fill="#756D7B" font-size="12">GEOCODED</text><text x="900" y="402" fill="#F8F5FB" font-size="40" font-weight="700">18</text><text x="900" y="427" fill="#756D7B" font-size="12">NEEDS REVIEW</text></g>
 <rect x="224" y="568" width="948" height="164" rx="20" fill="#101017" stroke="#fff" stroke-opacity=".08"/>
-<path d="M260 688C342 659 381 671 447 631C526 583 572 669 646 626C723 582 790 657 858 606C930 552 1000 620 1136 585" stroke="url(#p)" stroke-width="4"/>
+<path id="trend-line" d="M260 688L447 631L646 626L858 606L1136 585" stroke="url(#p)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g class="trend-points" fill="#101017" stroke="#FF4FC7" stroke-width="3"><circle cx="260" cy="688" r="7"/><circle cx="447" cy="631" r="7"/><circle cx="646" cy="626" r="7"/><circle cx="858" cy="606" r="7"/><circle cx="1136" cy="585" r="7"/></g>
 <path d="M260 700H1138" stroke="#fff" stroke-opacity=".08"/><g fill="#AAA2B2" font-family="monospace" font-size="11"><text x="260" y="602">TREND / 12 MONTHS</text><text x="1048" y="710">UPDATED NOW</text></g>
 </svg>
