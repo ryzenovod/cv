@@ -47,17 +47,8 @@ jobs:
           html = page.read_text(encoding='utf-8')
           version = os.environ['GITHUB_SHA'][:12]
 
-          for filename in ('moscow.css', 'enhancements.css', 'polish.css'):
-              href = f'{filename}?v={version}'
-              pattern = rf'<link[^>]+href="{re.escape(filename)}(?:\?v=[^"]*)?"[^>]*>\s*'
-              html = re.sub(pattern, '', html)
-              html = html.replace('</head>', f'  <link rel="stylesheet" href="{href}">\n</head>', 1)
-
-          for filename in ('enhancements.js', 'contacts.js', 'clean-url.js'):
-              src = f'{filename}?v={version}'
-              pattern = rf'<script[^>]+src="{re.escape(filename)}(?:\?v=[^"]*)?"[^>]*></script>\s*'
-              html = re.sub(pattern, '', html)
-              html = html.replace('</body>', f'  <script src="{src}"></script>\n</body>', 1)
+          html = re.sub(r'href="app\.css(?:\?v=[^"]*)?"', f'href="app.css?v={version}"', html)
+          html = re.sub(r'src="app\.js(?:\?v=[^"]*)?"', f'src="app.js?v={version}"', html)
 
           page.write_text(html, encoding='utf-8')
           PY
