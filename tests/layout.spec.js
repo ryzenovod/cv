@@ -62,6 +62,37 @@ for (const viewport of viewports) {
   });
 }
 
+test('mobile experience section reveals and keeps long employer name readable', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+
+  const section = page.locator('#experience');
+  await section.scrollIntoViewIfNeeded();
+  const company = page.locator('.experience-company').first();
+  await expect(company).toBeVisible();
+
+  const typography = await company.evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    return {
+      left: rect.left,
+      right: rect.right,
+      width: rect.width,
+      viewportWidth: window.innerWidth,
+      fontSize: Number.parseFloat(style.fontSize),
+      lineHeight: Number.parseFloat(style.lineHeight)
+    };
+  });
+
+  expect(typography.left).toBeGreaterThanOrEqual(0);
+  expect(typography.right).toBeLessThanOrEqual(typography.viewportWidth + 1);
+  expect(typography.fontSize).toBeLessThanOrEqual(30);
+  expect(typography.lineHeight).toBeGreaterThan(typography.fontSize);
+
+  await page.screenshot({ path: 'artifacts/mobile-experience.png' });
+});
+
 test('language switch updates visible copy without changing layout width', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
