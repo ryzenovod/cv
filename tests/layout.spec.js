@@ -6,11 +6,16 @@ const viewports = [
   { name: 'desktop-1440', width: 1440, height: 1000 }
 ];
 
+async function waitForImages(page) {
+  await page.waitForFunction(() => [...document.images].every((image) => image.complete));
+}
+
 for (const viewport of viewports) {
   test(`${viewport.name}: no horizontal overflow or overlapping hero`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
+    await waitForImages(page);
 
     const layout = await page.evaluate(() => {
       const root = document.documentElement;
@@ -61,6 +66,57 @@ for (const viewport of viewports) {
     });
   });
 }
+
+test('desktop media audit: every image loads and every visual section is captured', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  await waitForImages(page);
+
+  const imageReport = await page.evaluate(() => [...document.images].map((image) => {
+    const rect = image.getBoundingClientRect();
+    const style = getComputedStyle(image);
+    return {
+      src: image.getAttribute('src'),
+      alt: image.getAttribute('alt'),
+      complete: image.complete,
+      naturalWidth: image.naturalWidth,
+      naturalHeight: image.naturalHeight,
+      width: rect.width,
+      height: rect.height,
+      objectFit: style.objectFit,
+      visibility: style.visibility,
+      opacity: Number.parseFloat(style.opacity)
+    };
+  }));
+
+  for (const image of imageReport) {
+    expect(image.complete, image.src).toBe(true);
+    expect(image.naturalWidth, image.src).toBeGreaterThan(0);
+    expect(image.naturalHeight, image.src).toBeGreaterThan(0);
+    expect(image.width, image.src).toBeGreaterThan(40);
+    expect(image.height, image.src).toBeGreaterThan(40);
+  }
+
+  const captures = [
+    ['hero', '#top'],
+    ['about-city-gallery', '#about'],
+    ['projects', '#projects'],
+    ['architecture', '#architecture'],
+    ['experience', '#experience'],
+    ['achievements', '#achievements'],
+    ['contact', '#contact']
+  ];
+
+  for (const [name, selector] of captures) {
+    const section = page.locator(selector);
+    await section.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(350);
+    await section.screenshot({ path: `artifacts/desktop-${name}.png` });
+  }
+
+  console.log(JSON.stringify(imageReport, null, 2));
+});
 
 test('mobile experience section reveals and keeps long employer name readable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
