@@ -10,7 +10,7 @@
       <stop offset="0.5" stop-color="#9D64FF" stop-opacity="0.45"/>
       <stop offset="1" stop-color="#FF4FC7" stop-opacity="0.6"/>
     </linearGradient>
-    <linearGradient id="line" x1="180" y1="820" x2="1440" y2="250" gradientUnits="userSpaceOnUse">
+    <linearGradient id="line" x1="250" y1="716" x2="1290" y2="502" gradientUnits="userSpaceOnUse">
       <stop stop-color="#8198FF"/>
       <stop offset="0.55" stop-color="#EE7CFF"/>
       <stop offset="1" stop-color="#FF4FC7"/>
@@ -45,8 +45,8 @@
     <path d="M1145 470H1340M1145 530H1340M1145 590H1340M1145 650H1340M1145 710H1340"/>
   </g>
 
-  <path d="M130 760C320 680 410 805 585 690C735 592 835 650 995 560C1140 478 1265 520 1460 360" stroke="url(#line)" stroke-width="6" stroke-linecap="round"/>
-  <g fill="#0B0910" stroke="#FF4FC7" stroke-width="4">
+  <path id="trend-line" d="M250 716C360 675 470 735 585 690C720 637 850 610 995 560C1105 522 1190 545 1290 502" stroke="url(#line)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="trend-points" fill="#0B0910" stroke="#FF4FC7" stroke-width="4">
     <circle cx="250" cy="716" r="15"/>
     <circle cx="585" cy="690" r="15"/>
     <circle cx="995" cy="560" r="15"/>
