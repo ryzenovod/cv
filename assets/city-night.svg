@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="800" y1="0" x2="800" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#080711"/>
+      <stop offset="0.46" stop-color="#160B1E"/>
+      <stop offset="1" stop-color="#050408"/>
+    </linearGradient>
+    <linearGradient id="tower" x1="490" y1="180" x2="1120" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8198FF" stop-opacity="0.22"/>
+      <stop offset="0.55" stop-color="#9D64FF" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#FF4FC7" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="river" x1="800" y1="760" x2="800" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A1021"/>
+      <stop offset="1" stop-color="#050408"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 420) rotate(90) scale(360 520)">
+      <stop stop-color="#FF4FC7" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#FF4FC7" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="16"/></filter>
+    <pattern id="windows" width="26" height="26" patternUnits="userSpaceOnUse">
+      <rect width="5" height="10" rx="1" fill="#F8F5FB" fill-opacity="0.18"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" rx="36" fill="url(#sky)"/>
+  <rect width="1600" height="1000" rx="36" fill="url(#halo)"/>
+  <g opacity="0.7">
+    <circle cx="136" cy="134" r="2" fill="#F8F5FB"/>
+    <circle cx="270" cy="212" r="1.5" fill="#F8F5FB"/>
+    <circle cx="420" cy="126" r="2" fill="#EE7CFF"/>
+    <circle cx="640" cy="170" r="1.5" fill="#F8F5FB"/>
+    <circle cx="1240" cy="112" r="2" fill="#8198FF"/>
+    <circle cx="1430" cy="202" r="1.5" fill="#F8F5FB"/>
+  </g>
+  <path d="M0 702C210 670 366 708 530 682C696 656 786 622 958 650C1144 680 1292 638 1600 668V1000H0V702Z" fill="#08070C"/>
+  <path d="M0 746C228 716 390 744 552 724C748 700 858 676 1012 706C1198 742 1364 710 1600 734V1000H0V746Z" fill="url(#river)"/>
+  <g stroke="#EE7CFF" stroke-opacity="0.34" stroke-width="2">
+    <path d="M95 698V622H230V698"/>
+    <path d="M255 698V574H380V698"/>
+    <path d="M402 698V540H520V698"/>
+  </g>
+  <g>
+    <path d="M548 698L600 372L676 318L720 698H548Z" fill="#0D0B13" stroke="#8198FF" stroke-opacity="0.55" stroke-width="3"/>
+    <path d="M716 698L752 268L828 182L858 698H716Z" fill="#0D0B13" stroke="#9D64FF" stroke-opacity="0.7" stroke-width="3"/>
+    <path d="M852 698L904 322L1000 244L1030 698H852Z" fill="#0D0B13" stroke="#FF4FC7" stroke-opacity="0.6" stroke-width="3"/>
+    <path d="M1016 698L1088 382L1162 336L1192 698H1016Z" fill="#0D0B13" stroke="#8198FF" stroke-opacity="0.5" stroke-width="3"/>
+    <path d="M1168 698L1224 472L1296 430L1328 698H1168Z" fill="#0D0B13" stroke="#EE7CFF" stroke-opacity="0.45" stroke-width="3"/>
+    <path d="M1340 698V520H1480V698" fill="#0D0B13" stroke="#FF4FC7" stroke-opacity="0.32" stroke-width="3"/>
+  </g>
+  <g opacity="0.68">
+    <path d="M600 378L676 326L714 690H558L600 378Z" fill="url(#windows)"/>
+    <path d="M754 274L828 190L852 690H726L754 274Z" fill="url(#windows)"/>
+    <path d="M906 328L998 250L1022 690H862L906 328Z" fill="url(#windows)"/>
+    <path d="M1092 388L1158 344L1182 690H1028L1092 388Z" fill="url(#windows)"/>
+  </g>
+  <g opacity="0.45" filter="url(#blur)">
+    <path d="M674 748L730 1000H614L674 748Z" fill="#8198FF"/>
+    <path d="M824 728L900 1000H760L824 728Z" fill="#9D64FF"/>
+    <path d="M988 732L1062 1000H922L988 732Z" fill="#FF4FC7"/>
+  </g>
+  <path d="M96 822C328 794 474 842 712 812C960 782 1144 806 1504 778" stroke="#F8F5FB" stroke-opacity="0.1" stroke-width="2"/>
+  <path d="M88 876C350 846 520 900 802 858C1080 816 1242 858 1510 824" stroke="#FF4FC7" stroke-opacity="0.16" stroke-width="2"/>
+  <g font-family="monospace" font-size="18" letter-spacing="4" fill="#AAA2B2">
+    <text x="72" y="88">URBAN SYSTEMS / NIGHT EDITION</text>
+    <text x="1280" y="916">55.75° N</text>
+  </g>
+</svg>
