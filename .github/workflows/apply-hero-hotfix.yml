@@ -1,0 +1,86 @@
+name: Apply professional hero refactor
+
+on:
+  push:
+    branches: ["fix/professional-hero-copy"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "apply-professional-hero"
+  cancel-in-progress: true
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, 'apply professional hero refactor') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/professional-hero-copy
+          fetch-depth: 0
+
+      - name: Apply source changes
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          index = Path('index.html')
+          html = index.read_text(encoding='utf-8')
+          old_facts = '''          <div class="hero-facts" aria-label="Ключевые факты">
+            <article><strong>3</strong><span data-ru="Основных проекта" data-en="Selected projects">Основных проекта</span></article>
+            <article><strong>PROD</strong><span data-ru="Система внедрена" data-en="System deployed">Система внедрена</span></article>
+            <article><strong>WIN</strong><span data-ru="Я — профессионал" data-en="I Am a Professional">Я — профессионал</span></article>
+          </div>'''
+          new_facts = '''          <div class="hero-facts" aria-label="Ключевые факты">
+            <article><strong>3</strong><span data-ru="Ключевых проекта" data-en="Selected projects">Ключевых проекта</span></article>
+            <article><strong data-ru="2+ года" data-en="2+ years">2+ года</strong><span data-ru="Разработки в продакшене" data-en="Production development">Разработки в продакшене</span></article>
+            <article class="hero-fact-achievement"><strong data-ru="Победитель" data-en="Winner">Победитель</strong><span data-ru="«Я — профессионал» · Управление цифровым продуктом и инноватика" data-en="I Am a Professional · Digital Product Management and Innovation">«Я — профессионал» · Управление цифровым продуктом и инноватика</span></article>
+          </div>'''
+          if old_facts not in html:
+              raise SystemExit('hero facts source block not found')
+          html = html.replace(old_facts, new_facts, 1)
+          index.write_text(html, encoding='utf-8')
+
+          css_path = Path('app.css')
+          css = css_path.read_text(encoding='utf-8')
+          replacements = {
+              '.hero-copy,.hero-visual{min-width:0}': '.hero-copy{min-width:0;container-type:inline-size}.hero-visual{min-width:0}',
+              '.hero h1{font-size:clamp(42px,13.5vw,64px);line-height:.91;letter-spacing:-.075em;text-transform:uppercase}': '.hero h1{max-width:100%;font-size:clamp(42px,14.2cqw,96px);line-height:.91;letter-spacing:-.075em;text-transform:uppercase}',
+              '.hero h1{font-size:clamp(64px,10vw,98px)}': '.hero h1{font-size:clamp(42px,14.2cqw,96px)}',
+              '.hero h1{font-size:clamp(70px,6.3vw,108px)}': '.hero h1{font-size:clamp(42px,14.2cqw,96px)}',
+              '.hero h1{font-size:104px}': '.hero h1{font-size:clamp(42px,14.2cqw,96px)}',
+              '.hero h1{font-size:clamp(39px,13.3vw,54px)}': '.hero h1{font-size:clamp(40px,14.2cqw,54px)}',
+              '.hero-grid{grid-template-columns:minmax(0,.9fr) minmax(560px,1.1fr);gap:clamp(64px,7vw,110px);align-items:center;min-height:calc(100svh - 76px)}': '.hero-grid{grid-template-columns:minmax(430px,.95fr) minmax(0,1.05fr);gap:clamp(40px,4vw,64px);align-items:center;min-height:calc(100svh - 76px)}',
+              '.hero-grid{grid-template-columns:minmax(0,.88fr) minmax(650px,1.12fr)}': '.hero-grid{grid-template-columns:minmax(560px,.95fr) minmax(0,1.05fr)}'
+          }
+          for old, new in replacements.items():
+              if old not in css:
+                  raise SystemExit(f'CSS source fragment not found: {old}')
+              css = css.replace(old, new, 1)
+
+          marker = '  .hero-facts span{display:block;margin-top:6px;color:var(--faint);font:500 9px var(--mono);text-transform:uppercase}\n'
+          addition = marker + "  .hero-fact-achievement strong{font-size:clamp(12px,3.2cqw,16px);line-height:1.2}\n  .hero-fact-achievement span{font-size:clamp(7px,1.65cqw,8.5px);line-height:1.45}\n"
+          if marker not in css:
+              raise SystemExit('hero facts CSS marker not found')
+          css = css.replace(marker, addition, 1)
+          css_path.write_text(css, encoding='utf-8')
+          PY
+
+          git diff --check
+
+      - name: Commit source refactor
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No source changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html app.css
+          git commit -m "fix: apply professional hero refactor"
+          git push origin HEAD:fix/professional-hero-copy
