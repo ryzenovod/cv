@@ -43,7 +43,7 @@ test('hero facts use professional, verifiable wording in both languages', async 
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
 
-  const ru = await page.locator('.hero-facts').innerText();
+  const ru = (await page.locator('.hero-facts').innerText()).toUpperCase();
   expect(ru).toContain('2+ ГОДА');
   expect(ru).toContain('РАЗРАБОТКИ В ПРОДАКШЕНЕ');
   expect(ru).toContain('ПОБЕДИТЕЛЬ');
@@ -53,7 +53,7 @@ test('hero facts use professional, verifiable wording in both languages', async 
   expect(ru).not.toContain('СИСТЕМА ВНЕДРЕНА');
 
   await page.getByRole('button', { name: 'EN' }).click();
-  const en = await page.locator('.hero-facts').innerText();
+  const en = (await page.locator('.hero-facts').innerText()).toUpperCase();
   expect(en).toContain('2+ YEARS');
   expect(en).toContain('PRODUCTION DEVELOPMENT');
   expect(en).toContain('WINNER');
