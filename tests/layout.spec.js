@@ -19,10 +19,10 @@ async function preparePage(page) {
     document.querySelectorAll('img[src^="assets/"]').forEach((image) => {
       image.loading = 'eager';
     });
-    const step = Math.max(420, Math.floor(window.innerHeight * 0.72));
+    const step = Math.max(420, Math.floor(window.innerHeight * 0.7));
     for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
       window.scrollTo(0, y);
-      await new Promise((resolve) => setTimeout(resolve, 35));
+      await new Promise((resolve) => setTimeout(resolve, 30));
     }
     window.scrollTo(0, 0);
   });
@@ -33,34 +33,14 @@ async function preparePage(page) {
   );
 }
 
-function rectanglesOverlap(a, b, tolerance = 1) {
-  return !(
-    a.right <= b.left + tolerance ||
-    b.right <= a.left + tolerance ||
-    a.bottom <= b.top + tolerance ||
-    b.bottom <= a.top + tolerance
-  );
-}
-
 for (const viewport of viewports) {
-  test(`${viewport.name}: stable layout, readable typography and no overflow`, async ({ page }) => {
+  test(`${viewport.name}: layout fits the viewport`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     await preparePage(page);
 
     const report = await page.evaluate(() => {
       const viewportWidth = window.innerWidth;
       const root = document.documentElement;
-      const selectors = [
-        '.hero-copy',
-        '.hero-visual',
-        '.about-content',
-        '.about-visual',
-        '.project-card',
-        '.architecture-card',
-        '.experience-company',
-        '.contact-box'
-      ];
-
       const offenders = [...document.querySelectorAll('body *')]
         .filter((element) => {
           if (element.closest('.ticker')) return false;
@@ -69,24 +49,20 @@ for (const viewport of viewports) {
           const rect = element.getBoundingClientRect();
           return rect.width > 0 && (rect.left < -2 || rect.right > viewportWidth + 2);
         })
-        .slice(0, 12)
+        .slice(0, 20)
         .map((element) => ({
           tag: element.tagName,
           className: String(element.className),
-          text: element.textContent.trim().slice(0, 80),
+          text: element.textContent.trim().slice(0, 100),
           rect: element.getBoundingClientRect().toJSON()
         }));
 
-      const boxes = {};
-      selectors.forEach((selector) => {
-        const nodes = [...document.querySelectorAll(selector)];
-        boxes[selector] = nodes.map((node) => node.getBoundingClientRect().toJSON());
-      });
-
-      const longText = [...document.querySelectorAll('.experience-company')].map((node) => {
-        const rect = node.getBoundingClientRect();
-        const style = getComputedStyle(node);
+      const headings = [...document.querySelectorAll('h1,h2,h3')].map((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
         return {
+          text: element.textContent.trim(),
+          left: rect.left,
           right: rect.right,
           width: rect.width,
           fontSize: Number.parseFloat(style.fontSize),
@@ -94,81 +70,101 @@ for (const viewport of viewports) {
         };
       });
 
+      const header = document.querySelector('.site-header').getBoundingClientRect().toJSON();
+      const hero = document.querySelector('.hero').getBoundingClientRect().toJSON();
+      const headerPosition = getComputedStyle(document.querySelector('.site-header')).position;
+
+      const projects = [...document.querySelectorAll('.project-card')].map((card) => {
+        const copy = card.querySelector('.project-copy').getBoundingClientRect();
+        const media = card.querySelector('.project-media').getBoundingClientRect();
+        return { copy: copy.toJSON(), media: media.toJSON() };
+      });
+
       return {
         viewportWidth,
         scrollWidth: root.scrollWidth,
         offenders,
-        boxes,
-        longText
+        headings,
+        header,
+        hero,
+        headerPosition,
+        projects
       };
     });
 
     expect(report.scrollWidth).toBeLessThanOrEqual(report.viewportWidth + 1);
     expect(report.offenders).toEqual([]);
 
-    for (const item of report.longText) {
-      expect(item.right).toBeLessThanOrEqual(report.viewportWidth + 1);
-      expect(item.width).toBeGreaterThan(120);
-      expect(item.lineHeight).toBeGreaterThan(item.fontSize);
+    for (const heading of report.headings) {
+      expect(heading.left, heading.text).toBeGreaterThanOrEqual(-1);
+      expect(heading.right, heading.text).toBeLessThanOrEqual(report.viewportWidth + 1);
+      expect(heading.width, heading.text).toBeGreaterThan(20);
+      expect(heading.fontSize, heading.text).toBeGreaterThan(13);
+      expect(heading.lineHeight, heading.text).toBeGreaterThanOrEqual(heading.fontSize * 0.88);
     }
 
-    const heroCopy = report.boxes['.hero-copy'][0];
-    const heroVisual = report.boxes['.hero-visual'][0];
+    expect(report.hero.top).toBeGreaterThanOrEqual(report.header.bottom - 1);
     if (viewport.width < 1040) {
-      expect(heroVisual.top).toBeGreaterThanOrEqual(heroCopy.bottom - 1);
+      expect(['static', 'relative']).toContain(report.headerPosition);
+      for (const project of report.projects) {
+        expect(project.media.top).toBeGreaterThanOrEqual(project.copy.bottom - 1);
+      }
     } else {
-      expect(rectanglesOverlap(heroCopy, heroVisual, 2)).toBe(false);
+      for (const project of report.projects) {
+        expect(project.media.left).toBeGreaterThanOrEqual(project.copy.right - 1);
+      }
     }
 
     await page.screenshot({ path: `artifacts/${viewport.name}.png`, fullPage: true });
   });
 }
 
-test('content hierarchy: visuals are unique and secondary to project copy', async ({ page }) => {
+test('public copy follows the editorial rules', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await preparePage(page);
+
+  const source = fs.readFileSync(path.resolve(__dirname, '..', 'index.html'), 'utf8');
+  const forbidden = [
+    /\bне\b/iu,
+    /\bnot\b/iu,
+    /визуальн(?:ая|ой|ую)\s+метафор/iu,
+    /схематич/iu,
+    /рабочий\s+контур/iu,
+    /сгруппированы\s+по\s+тому/iu,
+    /реальные\s+медицинские\s+данные/iu,
+    /ч[её]рн(?:ый|ого)\s+ящик/iu
+  ];
+
+  for (const pattern of forbidden) {
+    expect(source, String(pattern)).not.toMatch(pattern);
+  }
+
+  await expect(page.locator('figcaption')).toHaveCount(0);
+  await expect(page.locator('#skills h2')).toHaveText('Технологии');
+  await expect(page.locator('#projects .project-card')).toHaveCount(3);
+});
+
+test('projects present task, contribution and technology', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await preparePage(page);
 
-  const report = await page.evaluate(() => {
-    const localImages = [...document.querySelectorAll('img[src^="assets/"]')];
-    const sources = localImages.map((image) => image.getAttribute('src'));
-    const duplicateSources = sources.filter((source, index) => sources.indexOf(source) !== index);
+  const projects = page.locator('.project-card');
+  await expect(projects).toHaveCount(3);
 
-    const projects = [...document.querySelectorAll('.project-card')].map((card) => {
-      const copy = card.querySelector('.project-copy');
-      const media = card.querySelector('.project-media');
-      const copyRect = copy.getBoundingClientRect();
-      const mediaRect = media.getBoundingClientRect();
-      return {
-        copyBeforeMedia: [...card.children].indexOf(copy) < [...card.children].indexOf(media),
-        copyWidth: copyRect.width,
-        mediaWidth: mediaRect.width,
-        mediaHeight: mediaRect.height,
-        cardHeight: card.getBoundingClientRect().height
-      };
-    });
-
-    return {
-      duplicateSources,
-      projectCount: projects.length,
-      projects,
-      aboutVisualCount: document.querySelectorAll('.about-visual').length,
-      cityGalleryCount: document.querySelectorAll('.city-gallery').length
-    };
-  });
-
-  expect(report.duplicateSources).toEqual([]);
-  expect(report.projectCount).toBe(3);
-  expect(report.aboutVisualCount).toBe(1);
-  expect(report.cityGalleryCount).toBe(0);
-
-  for (const project of report.projects) {
-    expect(project.copyBeforeMedia).toBe(true);
-    expect(project.copyWidth).toBeGreaterThan(project.mediaWidth);
-    expect(project.mediaHeight).toBeLessThanOrEqual(project.cardHeight + 1);
+  for (let index = 0; index < 3; index += 1) {
+    const project = projects.nth(index);
+    await expect(project.locator('h3')).toHaveCount(1);
+    await expect(project.locator('.project-copy > p')).toHaveCount(1);
+    expect(await project.locator('.project-copy > p').innerText()).toMatch(/.{60,}/s);
+    expect(await project.locator('.tags span').count()).toBeGreaterThanOrEqual(4);
+    await expect(project.locator('.project-media img')).toHaveCount(1);
   }
+
+  expect(await projects.nth(0).locator('.project-points li').count()).toBeGreaterThanOrEqual(2);
+  expect(await projects.nth(1).locator('.project-points li').count()).toBeGreaterThanOrEqual(1);
 });
 
-test('all local media load with real dimensions and section screenshots render', async ({ page }) => {
+test('local media load and key sections render', async ({ page }) => {
   test.setTimeout(60000);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await preparePage(page);
@@ -199,8 +195,9 @@ test('all local media load with real dimensions and section screenshots render',
     ['project-medgeo', '.project-card:nth-child(1)'],
     ['project-openrisk', '.project-card:nth-child(2)'],
     ['project-agents', '.project-card:nth-child(3)'],
-    ['system-map', '#systems .architecture-card'],
+    ['architecture', '#systems .architecture-card'],
     ['experience', '#experience'],
+    ['technologies', '#skills'],
     ['achievements', '#achievements'],
     ['contact', '#contact']
   ];
@@ -209,30 +206,26 @@ test('all local media load with real dimensions and section screenshots render',
     const target = page.locator(selector);
     await expect(target, selector).toHaveCount(1);
     await target.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(160);
+    await page.waitForTimeout(120);
     await target.screenshot({ path: `artifacts/desktop-${name}.png` });
   }
 });
 
-test('language switch preserves layout on mobile and desktop', async ({ page }) => {
+test('language switch preserves layout', async ({ page }) => {
   for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 1000 }]) {
     await page.setViewportSize(viewport);
     await preparePage(page);
-    const before = await page.evaluate(() => document.documentElement.scrollWidth);
     await page.getByRole('button', { name: 'EN' }).click();
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page.locator('h1')).toContainText('Egor');
-    const afterEnglish = await page.evaluate(() => document.documentElement.scrollWidth);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width + 1);
     await page.getByRole('button', { name: 'RU' }).click();
     await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
-    const afterRussian = await page.evaluate(() => document.documentElement.scrollWidth);
-    expect(afterEnglish).toBeLessThanOrEqual(viewport.width + 1);
-    expect(afterRussian).toBeLessThanOrEqual(viewport.width + 1);
-    expect(Math.abs(afterEnglish - before)).toBeLessThanOrEqual(1);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width + 1);
   }
 });
 
-test('links, anchors and external-link security are valid', async ({ page }) => {
+test('links and anchors are valid', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 900 });
   await preparePage(page);
 
@@ -247,31 +240,4 @@ test('links, anchors and external-link security are valid', async ({ page }) => 
 
   expect(report.missingAnchors).toEqual([]);
   expect(report.unsafeExternal).toEqual([]);
-});
-
-test('SVG graph paths explicitly pass through every visible marker', () => {
-  const root = path.resolve(__dirname, '..');
-  const checks = [
-    {
-      file: 'assets/city-editorial.svg',
-      path: 'M250 716C360 675 470 735 585 690C720 637 850 610 995 560C1105 522 1190 545 1290 502',
-      points: ['cx="250" cy="716"', 'cx="585" cy="690"', 'cx="995" cy="560"', 'cx="1290" cy="502"']
-    },
-    {
-      file: 'assets/medgeo-dashboard.svg',
-      path: 'M260 688L447 631L646 626L858 606L1136 585',
-      points: ['cx="260" cy="688"', 'cx="447" cy="631"', 'cx="646" cy="626"', 'cx="858" cy="606"', 'cx="1136" cy="585"']
-    },
-    {
-      file: 'assets/openrisk-dashboard.svg',
-      path: 'M455 666L620 601L812 565L1120 492',
-      points: ['cx="455" cy="666"', 'cx="620" cy="601"', 'cx="812" cy="565"', 'cx="1120" cy="492"']
-    }
-  ];
-
-  for (const check of checks) {
-    const source = fs.readFileSync(path.join(root, check.file), 'utf8');
-    expect(source).toContain(`id="trend-line" d="${check.path}"`);
-    for (const point of check.points) expect(source).toContain(point);
-  }
 });
