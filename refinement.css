@@ -1,5 +1,11 @@
 /* Editorial and responsive refinements for the visual portfolio. */
 
+.reveal,
+.reveal.visible{
+  opacity:1!important;
+  transform:none!important;
+}
+
 .portfolio h1,
 .portfolio h2,
 .portfolio h3,
