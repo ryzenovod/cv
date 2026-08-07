@@ -24,8 +24,9 @@ h1,h2,h3,h4,p,ul,dl,dd{margin:0}
 ul{padding-left:1.15rem}
 .shell{width:min(var(--shell),calc(100% - 32px));margin-inline:auto}
 .ru,.en{display:none}
-html[data-lang='ru'] .ru{display:initial}
-html[data-lang='en'] .en{display:initial}
+html[data-lang='ru'] .ru,html[data-lang='en'] .en{display:block}
+html[data-lang='ru'] span.ru,html[data-lang='en'] span.en{display:inline}
+html[data-lang='ru'] li.ru,html[data-lang='en'] li.en{display:list-item}
 
 .skip-link{position:fixed;left:16px;top:-80px;z-index:1000;padding:10px 14px;background:var(--text);color:var(--bg)}
 .skip-link:focus{top:12px}
