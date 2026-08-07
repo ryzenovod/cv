@@ -38,24 +38,25 @@ for (const viewport of desktopViewports) {
   });
 }
 
-test('hero facts use professional, verifiable wording in both languages', async ({ page }) => {
+test('hero facts use specific, verifiable wording in both languages', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   await page.evaluate(() => document.fonts.ready);
 
   const ru = (await page.locator('.hero-facts').innerText()).toUpperCase();
+  expect(ru).toContain('РАБОЧИЙ MVP');
+  expect(ru).toContain('МЕДГЕО АНАЛИТИКА');
   expect(ru).toContain('2+ ГОДА');
-  expect(ru).toContain('РАЗРАБОТКИ В ПРОДАКШЕНЕ');
+  expect(ru).toContain('ПРИКЛАДНОЙ РАЗРАБОТКИ');
   expect(ru).toContain('ПОБЕДИТЕЛЬ');
   expect(ru).toContain('УПРАВЛЕНИЕ ЦИФРОВЫМ ПРОДУКТОМ И ИННОВАТИКА');
-  expect(ru).not.toContain('PROD');
-  expect(ru).not.toContain('WIN');
-  expect(ru).not.toContain('СИСТЕМА ВНЕДРЕНА');
 
   await page.getByRole('button', { name: 'EN' }).click();
   const en = (await page.locator('.hero-facts').innerText()).toUpperCase();
+  expect(en).toContain('PRODUCTION MVP');
+  expect(en).toContain('MEDGEO ANALYTICS');
   expect(en).toContain('2+ YEARS');
-  expect(en).toContain('PRODUCTION DEVELOPMENT');
+  expect(en).toContain('APPLIED SOFTWARE DEVELOPMENT');
   expect(en).toContain('WINNER');
   expect(en).toContain('DIGITAL PRODUCT MANAGEMENT AND INNOVATION');
 });
