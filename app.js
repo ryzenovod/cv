@@ -26,7 +26,7 @@
     document.documentElement.lang = language;
     document.documentElement.dataset.lang = language;
 
-    document.querySelectorAll('[data-lang]').forEach((button) => {
+    document.querySelectorAll('button[data-lang]').forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.lang === language));
     });
 
