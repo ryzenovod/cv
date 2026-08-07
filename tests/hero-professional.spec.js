@@ -38,6 +38,42 @@ for (const viewport of desktopViewports) {
   });
 }
 
+for (const viewport of [
+  { width: 320, height: 720 },
+  { width: 390, height: 844 },
+  { width: 430, height: 932 }
+]) {
+  test(`hero poster typography fits at ${viewport.width}px`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+
+    const geometry = await page.evaluate(() => {
+      const heroTitle = document.querySelector('.hero h1').getBoundingClientRect();
+      const heroCopy = document.querySelector('.hero-copy').getBoundingClientRect();
+      const poster = document.querySelector('.hero-poster').getBoundingClientRect();
+      const posterTitle = document.querySelector('.poster-title').getBoundingClientRect();
+      const titleStyle = getComputedStyle(document.querySelector('.hero h1'));
+      return {
+        heroTitle: heroTitle.toJSON(),
+        heroCopy: heroCopy.toJSON(),
+        poster: poster.toJSON(),
+        posterTitle: posterTitle.toJSON(),
+        textTransform: titleStyle.textTransform,
+        scrollWidth: document.documentElement.scrollWidth,
+        viewportWidth: window.innerWidth
+      };
+    });
+
+    expect(geometry.heroTitle.left).toBeGreaterThanOrEqual(geometry.heroCopy.left - 1);
+    expect(geometry.heroTitle.right).toBeLessThanOrEqual(geometry.heroCopy.right + 1);
+    expect(geometry.posterTitle.left).toBeGreaterThanOrEqual(geometry.poster.left - 1);
+    expect(geometry.posterTitle.right).toBeLessThanOrEqual(geometry.poster.right + 1);
+    expect(geometry.textTransform).toBe('none');
+    expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.viewportWidth + 1);
+  });
+}
+
 test('hero facts use specific, verifiable wording in both languages', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
