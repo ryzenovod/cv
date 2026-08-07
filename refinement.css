@@ -6,6 +6,11 @@
   transform:none!important;
 }
 
+.site-header{
+  position:relative;
+  top:auto;
+}
+
 .portfolio h1,
 .portfolio h2,
 .portfolio h3,
@@ -93,7 +98,6 @@
 
 @media (max-width:1039px){
   html{scroll-padding-top:0}
-  .site-header{position:relative;top:auto}
   .section{scroll-margin-top:0}
 }
 
