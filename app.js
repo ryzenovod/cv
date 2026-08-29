@@ -78,7 +78,7 @@
     let frame = 0;
     const update = () => {
       const scrollable = root.scrollHeight - window.innerHeight;
-      const carStripWidth = Math.max(0, window.innerWidth - 68);
+      const carStripWidth = Math.max(0, window.innerWidth - 65);
       const scrollPadding = Number.parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
       const contactTop = contact ? contact.getBoundingClientRect().top + window.scrollY - scrollPadding : scrollable;
       const completionPoint = Math.min(scrollable, Math.max(1, contactTop));

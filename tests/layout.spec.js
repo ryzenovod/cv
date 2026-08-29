@@ -185,6 +185,7 @@ test('metro train progress follows the page and glass surfaces are active', asyn
   expect(start.width).toBeGreaterThanOrEqual(63);
   await expect(page.locator('.scroll-train-cars')).toBeVisible();
   await expect(page.locator('.scroll-train-cab')).toBeVisible();
+  await expect(page.locator('.scroll-train-livery circle')).toHaveCount(3);
   await expect(page.locator('.scroll-tunnel')).toHaveCount(0);
   await expect(page.locator('.scroll-progress-track, .scroll-progress-fill')).toHaveCount(0);
 
@@ -214,8 +215,8 @@ test('metro train progress follows the page and glass surfaces are active', asyn
     expect(geometry.train.bottom).toBeLessThanOrEqual(geometry.header.top);
     expect(geometry.train.bottom).toBeLessThanOrEqual(geometry.brand.top);
     expect(geometry.train.bottom).toBeLessThanOrEqual(geometry.language.top);
-    expect(geometry.cab.left - geometry.cars.right).toBeGreaterThanOrEqual(3);
-    expect(geometry.cab.left - geometry.cars.right).toBeLessThanOrEqual(5);
+    expect(geometry.cab.left - geometry.cars.right).toBeGreaterThanOrEqual(0.5);
+    expect(geometry.cab.left - geometry.cars.right).toBeLessThanOrEqual(1.5);
     if (scrollRatio === 1) expect(Math.abs(geometry.train.width - geometry.viewportWidth)).toBeLessThanOrEqual(1);
   }
 
@@ -223,7 +224,7 @@ test('metro train progress follows the page and glass surfaces are active', asyn
   await page.waitForFunction(() => Number.parseFloat(getComputedStyle(document.getElementById('scroll-progress')).getPropertyValue('--scroll-position')) >= 99.5);
   const contactTrain = await page.locator('.scroll-train').boundingBox();
   expect(Math.abs(contactTrain.width - 1200)).toBeLessThanOrEqual(1);
-  await expect(page.locator('#scroll-train-car')).toHaveAttribute('x', String((1200 - 68) % 64));
+  await expect(page.locator('#scroll-train-car')).toHaveAttribute('x', String((1200 - 65) % 64));
 
   const glass = await page.locator('.site-header').evaluate((header) => {
     const style = getComputedStyle(header);
