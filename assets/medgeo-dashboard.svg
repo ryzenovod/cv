@@ -1,26 +1,119 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" fill="none">
-<defs>
- <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="760"><stop stop-color="#0B0910"/><stop offset="1" stop-color="#17101D"/></linearGradient>
- <linearGradient id="p" x1="240" y1="190" x2="790" y2="600"><stop stop-color="#8198FF"/><stop offset=".55" stop-color="#9D64FF"/><stop offset="1" stop-color="#FF4FC7"/></linearGradient>
- <filter id="g" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="16"/></filter>
- <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0V34" stroke="#fff" stroke-opacity=".035"/></pattern>
-</defs>
-<rect width="1200" height="760" rx="28" fill="url(#bg)"/>
-<rect width="1200" height="760" rx="28" fill="url(#grid)"/>
-<rect x="28" y="28" width="1144" height="66" rx="16" fill="#111016" stroke="#fff" stroke-opacity=".08"/>
-<circle cx="61" cy="61" r="13" fill="#FF4FC7"/><text x="90" y="68" fill="#F8F5FB" font-family="Arial" font-size="22" font-weight="700">MEDGEO / ANALYTICS</text>
-<text x="982" y="67" fill="#AAA2B2" font-family="monospace" font-size="13">REGION 25 · LIVE</text>
-<rect x="28" y="116" width="170" height="616" rx="20" fill="#0E0C12" stroke="#fff" stroke-opacity=".08"/>
-<g font-family="monospace" font-size="13"><text x="55" y="165" fill="#FF4FC7">01  MAP</text><text x="55" y="212" fill="#756D7B">02  ANALYTICS</text><text x="55" y="259" fill="#756D7B">03  CASES</text><text x="55" y="306" fill="#756D7B">04  DATA</text></g>
-<rect x="224" y="116" width="630" height="430" rx="20" fill="#101017" stroke="#fff" stroke-opacity=".08"/>
-<path d="M342 210L494 156L634 201L738 159L805 273L751 388L790 472L617 508L505 454L398 500L277 418L319 319L258 255Z" fill="url(#p)" fill-opacity=".16" stroke="url(#p)" stroke-width="3"/>
-<path d="M494 156L505 454M634 201L617 508M319 319L751 388M398 500L738 159" stroke="#F8F5FB" stroke-opacity=".08"/>
-<g fill="#FF4FC7"><circle cx="420" cy="282" r="7"/><circle cx="420" cy="282" r="20" fill-opacity=".11" filter="url(#g)"/><circle cx="640" cy="328" r="7"/><circle cx="640" cy="328" r="24" fill-opacity=".11" filter="url(#g)"/><circle cx="536" cy="412" r="7"/><circle cx="536" cy="412" r="20" fill-opacity=".11" filter="url(#g)"/></g>
-<rect x="246" y="136" width="154" height="38" rx="19" fill="#17121D" stroke="#fff" stroke-opacity=".12"/><text x="270" y="160" fill="#AAA2B2" font-family="monospace" font-size="12">INCIDENCE / 100K</text>
-<rect x="874" y="116" width="298" height="430" rx="20" fill="#101017" stroke="#fff" stroke-opacity=".08"/>
-<g font-family="Arial"><text x="900" y="155" fill="#AAA2B2" font-size="13">KEY METRICS</text><text x="900" y="218" fill="#F8F5FB" font-size="40" font-weight="700">42.7</text><text x="900" y="243" fill="#756D7B" font-size="12">INCIDENCE / 100K</text><text x="900" y="310" fill="#F8F5FB" font-size="40" font-weight="700">96.4%</text><text x="900" y="335" fill="#756D7B" font-size="12">GEOCODED</text><text x="900" y="402" fill="#F8F5FB" font-size="40" font-weight="700">18</text><text x="900" y="427" fill="#756D7B" font-size="12">NEEDS REVIEW</text></g>
-<rect x="224" y="568" width="948" height="164" rx="20" fill="#101017" stroke="#fff" stroke-opacity=".08"/>
-<path id="trend-line" d="M260 688L447 631L646 626L858 606L1136 585" stroke="url(#p)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<g class="trend-points" fill="#101017" stroke="#FF4FC7" stroke-width="3"><circle cx="260" cy="688" r="7"/><circle cx="447" cy="631" r="7"/><circle cx="646" cy="626" r="7"/><circle cx="858" cy="606" r="7"/><circle cx="1136" cy="585" r="7"/></g>
-<path d="M260 700H1138" stroke="#fff" stroke-opacity=".08"/><g fill="#AAA2B2" font-family="monospace" font-size="11"><text x="260" y="602">TREND / 12 MONTHS</text><text x="1048" y="710">UPDATED NOW</text></g>
+  <defs>
+    <linearGradient id="med-bg" x1="80" y1="20" x2="1120" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#080808"/>
+      <stop offset="1" stop-color="#141010"/>
+    </linearGradient>
+    <linearGradient id="med-red" x1="222" y1="156" x2="770" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF5C52"/>
+      <stop offset="1" stop-color="#B61613"/>
+    </linearGradient>
+    <radialGradient id="med-glow" cx="0" cy="0" r="1" gradientTransform="translate(662 382) rotate(128) scale(470 420)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EF3124" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#EF3124" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="med-grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M30 0H0V30" stroke="#fff" stroke-opacity=".028"/>
+    </pattern>
+    <filter id="med-shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000" flood-opacity=".5"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="760" rx="28" fill="url(#med-bg)"/>
+  <rect width="1200" height="760" rx="28" fill="url(#med-grid)"/>
+  <rect width="1200" height="760" rx="28" fill="url(#med-glow)"/>
+
+  <rect x="24" y="24" width="1152" height="64" rx="14" fill="#0D0D0D" stroke="#fff" stroke-opacity=".09"/>
+  <rect x="44" y="44" width="24" height="24" rx="7" fill="#EF3124"/>
+  <path d="M51 56h10M56 51v10" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <text x="84" y="64" fill="#F5F2EC" font-family="Arial, sans-serif" font-size="20" font-weight="700">MEDGEO / WORKSPACE</text>
+  <rect x="1014" y="42" width="136" height="28" rx="14" fill="#EF3124" fill-opacity=".13" stroke="#EF3124" stroke-opacity=".45"/>
+  <text x="1035" y="60" fill="#FF746A" font-family="monospace" font-size="10" font-weight="700">DEMO DATA</text>
+
+  <rect x="24" y="108" width="126" height="628" rx="18" fill="#0B0B0B" stroke="#fff" stroke-opacity=".08"/>
+  <g font-family="monospace" font-size="10" font-weight="700">
+    <rect x="39" y="130" width="96" height="52" rx="12" fill="#EF3124"/>
+    <text x="61" y="161" fill="#fff">MAP</text>
+    <text x="54" y="222" fill="#77736D">REGISTRY</text>
+    <text x="62" y="278" fill="#77736D">IMPORT</text>
+    <text x="65" y="334" fill="#77736D">AUDIT</text>
+  </g>
+  <path d="M48 196h78M48 252h78M48 308h78" stroke="#fff" stroke-opacity=".06"/>
+  <text x="54" y="694" fill="#615E59" font-family="monospace" font-size="9">POSTGIS</text>
+  <text x="54" y="712" fill="#615E59" font-family="monospace" font-size="9">REGION 25</text>
+
+  <rect x="170" y="108" width="642" height="628" rx="18" fill="#0D0D0D" stroke="#fff" stroke-opacity=".09"/>
+  <rect x="188" y="126" width="606" height="44" rx="12" fill="#151515"/>
+  <text x="210" y="153" fill="#A29E97" font-family="monospace" font-size="10">TERRITORIAL VIEW</text>
+  <rect x="666" y="136" width="110" height="24" rx="12" fill="#242020"/>
+  <text x="686" y="152" fill="#D8D4CD" font-family="monospace" font-size="9">ALL RECORDS</text>
+
+  <g opacity=".82">
+    <path d="M260 254 374 190 482 216 565 185 693 236 750 329 703 412 736 507 651 609 530 580 447 627 325 584 280 496 213 428 247 347Z" fill="#161616" stroke="#55504B" stroke-width="2"/>
+    <path d="M374 190 390 326 280 496M482 216 461 404 325 584M565 185 548 332 651 609M693 236 590 401 736 507M247 347 548 332M390 326 703 412M461 404 651 609" stroke="#A9A49C" stroke-opacity=".16" stroke-width="2"/>
+    <path d="M390 326 548 332 461 404 280 496 247 347Z" fill="#EF3124" fill-opacity=".10"/>
+    <path d="M548 332 703 412 590 401 461 404Z" fill="#EF3124" fill-opacity=".18"/>
+    <path d="M280 496 461 404 530 580 447 627 325 584Z" fill="#EF3124" fill-opacity=".08"/>
+  </g>
+  <g fill="#EF3124" stroke="#0D0D0D" stroke-width="4">
+    <circle cx="354" cy="363" r="9"/>
+    <circle cx="539" cy="287" r="9"/>
+    <circle cx="617" cy="437" r="9"/>
+    <circle cx="437" cy="528" r="9"/>
+  </g>
+  <g fill="none" stroke="#EF3124" stroke-opacity=".24">
+    <circle cx="354" cy="363" r="22"/>
+    <circle cx="539" cy="287" r="22"/>
+    <circle cx="617" cy="437" r="22"/>
+    <circle cx="437" cy="528" r="22"/>
+  </g>
+
+  <g filter="url(#med-shadow)">
+    <rect x="206" y="578" width="570" height="126" rx="14" fill="#171717" stroke="#fff" stroke-opacity=".12"/>
+    <text x="228" y="607" fill="#FF665C" font-family="monospace" font-size="10" font-weight="700">ADDRESS CONTROL</text>
+    <path d="M228 622h526M228 658h526" stroke="#fff" stroke-opacity=".08"/>
+    <text x="228" y="646" fill="#D6D2CB" font-family="monospace" font-size="10">ADDRESS RECORD</text>
+    <rect x="632" y="632" width="122" height="20" rx="10" fill="#EF3124" fill-opacity=".14"/>
+    <text x="654" y="646" fill="#FF746A" font-family="monospace" font-size="9">VERIFIED</text>
+    <text x="228" y="682" fill="#77736D" font-family="monospace" font-size="10">ADDRESS RECORD</text>
+    <rect x="624" y="668" width="130" height="20" rx="10" fill="#fff" fill-opacity=".06"/>
+    <text x="644" y="682" fill="#AAA59D" font-family="monospace" font-size="9">TO REVIEW</text>
+  </g>
+
+  <rect x="832" y="108" width="344" height="250" rx="18" fill="#101010" stroke="#fff" stroke-opacity=".09"/>
+  <text x="858" y="143" fill="#A29E97" font-family="monospace" font-size="10">IMPORT PIPELINE</text>
+  <text x="858" y="188" fill="#F5F2EC" font-family="Arial, sans-serif" font-size="29" font-weight="700">CSV / XLSX</text>
+  <text x="858" y="216" fill="#77736D" font-family="Arial, sans-serif" font-size="13">validation · geocoding · registry</text>
+  <rect x="858" y="248" width="292" height="8" rx="4" fill="#242020"/>
+  <rect x="858" y="248" width="216" height="8" rx="4" fill="url(#med-red)"/>
+  <g font-family="monospace" font-size="9">
+    <text x="858" y="294" fill="#FF746A">VALIDATION</text>
+    <text x="1086" y="294" fill="#D7D3CC">READY</text>
+    <text x="858" y="326" fill="#77736D">GEOCODING</text>
+    <text x="1086" y="326" fill="#D7D3CC">QUEUE</text>
+  </g>
+
+  <rect x="832" y="378" width="344" height="358" rx="18" fill="#101010" stroke="#fff" stroke-opacity=".09"/>
+  <text x="858" y="414" fill="#A29E97" font-family="monospace" font-size="10">WORKSPACE MODULES</text>
+  <g>
+    <rect x="858" y="446" width="292" height="60" rx="12" fill="#171717"/>
+    <rect x="874" y="462" width="28" height="28" rx="8" fill="#EF3124" fill-opacity=".16"/>
+    <path d="m882 476 5 5 9-11" stroke="#FF665C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="918" y="480" fill="#F0EDE7" font-family="Arial, sans-serif" font-size="13" font-weight="700">Registry</text>
+    <text x="918" y="495" fill="#77736D" font-family="monospace" font-size="9">ROLES + AUDIT</text>
+
+    <rect x="858" y="520" width="292" height="60" rx="12" fill="#171717"/>
+    <rect x="874" y="536" width="28" height="28" rx="8" fill="#EF3124" fill-opacity=".16"/>
+    <path d="M881 558h14M884 553l4-5 4 3 4-7" stroke="#FF665C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="918" y="554" fill="#F0EDE7" font-family="Arial, sans-serif" font-size="13" font-weight="700">Analytics</text>
+    <text x="918" y="569" fill="#77736D" font-family="monospace" font-size="9">TERRITORIAL METRICS</text>
+
+    <rect x="858" y="594" width="292" height="60" rx="12" fill="#171717"/>
+    <rect x="874" y="610" width="28" height="28" rx="8" fill="#EF3124" fill-opacity=".16"/>
+    <path d="M881 617h14v14h-14zM885 621h6M885 625h4" stroke="#FF665C" stroke-width="1.7"/>
+    <text x="918" y="628" fill="#F0EDE7" font-family="Arial, sans-serif" font-size="13" font-weight="700">Reports</text>
+    <text x="918" y="643" fill="#77736D" font-family="monospace" font-size="9">EXPORT + FILTERS</text>
+  </g>
+  <text x="858" y="700" fill="#615E59" font-family="monospace" font-size="9">SYNTHETIC INTERFACE PREVIEW</text>
 </svg>
