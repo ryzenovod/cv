@@ -1,25 +1,108 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" fill="none">
-<defs>
- <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="760"><stop stop-color="#0A0910"/><stop offset="1" stop-color="#17111C"/></linearGradient>
- <linearGradient id="n" x1="160" y1="120" x2="1050" y2="650"><stop stop-color="#8198FF"/><stop offset=".5" stop-color="#9D64FF"/><stop offset="1" stop-color="#FF4FC7"/></linearGradient>
- <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
- <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" stroke="#fff" stroke-opacity=".03"/></pattern>
- <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0 0L10 3L0 6Z" fill="#EE7CFF"/></marker>
-</defs>
-<rect width="1200" height="760" rx="28" fill="url(#bg)"/><rect width="1200" height="760" rx="28" fill="url(#grid)"/>
-<rect x="28" y="28" width="1144" height="66" rx="16" fill="#111016" stroke="#fff" stroke-opacity=".08"/>
-<text x="58" y="69" fill="#F8F5FB" font-family="Arial" font-size="23" font-weight="700">MULTI-AGENT CONTROL PLANE</text><text x="1012" y="67" fill="#AAA2B2" font-family="monospace" font-size="13">TRACE / 08</text>
-<path d="M214 382H410M554 382H706M850 382H1000" stroke="url(#n)" stroke-width="3" marker-end="url(#arrow)"/>
-<path d="M482 304V208H779V304" stroke="url(#n)" stroke-width="2" marker-end="url(#arrow)"/>
-<path d="M482 460V560H779V460" stroke="url(#n)" stroke-width="2" marker-end="url(#arrow)"/>
-<g>
- <rect x="72" y="292" width="160" height="180" rx="26" fill="#111016" stroke="#fff" stroke-opacity=".12"/><circle cx="152" cy="354" r="34" fill="#17121D" stroke="#8198FF"/><text x="133" y="364" fill="#F8F5FB" font-family="Arial" font-size="29" font-weight="700">IN</text><text x="100" y="426" fill="#AAA2B2" font-family="monospace" font-size="12">USER / SIGNAL</text>
- <rect x="410" y="292" width="144" height="180" rx="26" fill="#111016" stroke="#fff" stroke-opacity=".12"/><circle cx="482" cy="354" r="34" fill="#17121D" stroke="#9D64FF"/><text x="456" y="365" fill="#F8F5FB" font-family="Arial" font-size="29" font-weight="700">RT</text><text x="439" y="426" fill="#AAA2B2" font-family="monospace" font-size="12">ROUTER</text>
- <rect x="706" y="292" width="144" height="180" rx="26" fill="#111016" stroke="#fff" stroke-opacity=".12"/><circle cx="778" cy="354" r="34" fill="#17121D" stroke="#EE7CFF"/><text x="753" y="365" fill="#F8F5FB" font-family="Arial" font-size="29" font-weight="700">AG</text><text x="738" y="426" fill="#AAA2B2" font-family="monospace" font-size="12">AGENT</text>
- <rect x="1000" y="292" width="128" height="180" rx="26" fill="#111016" stroke="#fff" stroke-opacity=".12"/><circle cx="1064" cy="354" r="34" fill="#17121D" stroke="#FF4FC7"/><text x="1039" y="365" fill="#F8F5FB" font-family="Arial" font-size="29" font-weight="700">OK</text><text x="1024" y="426" fill="#AAA2B2" font-family="monospace" font-size="12">OUTPUT</text>
-</g>
-<rect x="632" y="126" width="292" height="116" rx="22" fill="#101017" stroke="#fff" stroke-opacity=".1"/><text x="658" y="165" fill="#FF4FC7" font-family="monospace" font-size="12">LEGAL REVIEW</text><text x="658" y="199" fill="#F8F5FB" font-family="Arial" font-size="22" font-weight="700">Rules + citations</text>
-<rect x="632" y="518" width="292" height="116" rx="22" fill="#101017" stroke="#fff" stroke-opacity=".1"/><text x="658" y="557" fill="#8198FF" font-family="monospace" font-size="12">RAG / CONTEXT</text><text x="658" y="591" fill="#F8F5FB" font-family="Arial" font-size="22" font-weight="700">Evidence retrieval</text>
-<g fill="#FF4FC7" filter="url(#glow)"><circle cx="314" cy="382" r="4"/><circle cx="630" cy="382" r="4"/><circle cx="926" cy="382" r="4"/></g>
-<rect x="72" y="650" width="1056" height="54" rx="16" fill="#111016" stroke="#fff" stroke-opacity=".08"/><text x="98" y="684" fill="#AAA2B2" font-family="monospace" font-size="12">TRACE: INPUT → ROUTE → RETRIEVE → REVIEW → STRUCTURED OUTPUT</text>
+  <defs>
+    <linearGradient id="agent-bg" x1="60" y1="20" x2="1140" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#080808"/>
+      <stop offset="1" stop-color="#171010"/>
+    </linearGradient>
+    <pattern id="agent-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#fff" stroke-opacity=".026"/>
+    </pattern>
+    <filter id="agent-shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="28" flood-color="#000" flood-opacity=".55"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="760" rx="28" fill="url(#agent-bg)"/>
+  <rect width="1200" height="760" rx="28" fill="url(#agent-grid)"/>
+
+  <rect x="24" y="24" width="1152" height="64" rx="14" fill="#0D0D0D" stroke="#fff" stroke-opacity=".09"/>
+  <text x="50" y="64" fill="#F5F2EC" font-family="Arial, sans-serif" font-size="20" font-weight="800">APRU / EVIDENCE WORKSPACE</text>
+  <rect x="994" y="42" width="156" height="28" rx="14" fill="#EF3124" fill-opacity=".13" stroke="#EF3124" stroke-opacity=".45"/>
+  <text x="1014" y="60" fill="#FF746A" font-family="monospace" font-size="10" font-weight="700">TEAM PROTOTYPE</text>
+
+  <rect x="24" y="108" width="340" height="628" rx="18" fill="#0D0D0D" stroke="#fff" stroke-opacity=".09"/>
+  <text x="50" y="145" fill="#A29E97" font-family="monospace" font-size="10">RESEARCH REQUEST</text>
+  <text x="50" y="191" fill="#F5F2EC" font-family="Arial, sans-serif" font-size="28" font-weight="800">Digital risk</text>
+  <text x="50" y="224" fill="#F5F2EC" font-family="Arial, sans-serif" font-size="28" font-weight="800">policy review</text>
+  <text x="50" y="266" fill="#77736D" font-family="Arial, sans-serif" font-size="13">Collect sources, check rules,</text>
+  <text x="50" y="287" fill="#77736D" font-family="Arial, sans-serif" font-size="13">prepare a cited brief.</text>
+
+  <path d="M50 326h288" stroke="#fff" stroke-opacity=".08"/>
+  <text x="50" y="363" fill="#77736D" font-family="monospace" font-size="9">SCOPE</text>
+  <g font-family="monospace" font-size="9">
+    <rect x="50" y="384" width="110" height="28" rx="14" fill="#EF3124" fill-opacity=".14"/>
+    <text x="71" y="402" fill="#FF746A">POLICY</text>
+    <rect x="170" y="384" width="110" height="28" rx="14" fill="#fff" fill-opacity=".055"/>
+    <text x="193" y="402" fill="#AAA59D">MARKET</text>
+    <rect x="50" y="422" width="126" height="28" rx="14" fill="#fff" fill-opacity=".055"/>
+    <text x="70" y="440" fill="#AAA59D">EVIDENCE</text>
+  </g>
+
+  <rect x="50" y="492" width="288" height="110" rx="14" fill="#171717"/>
+  <text x="70" y="522" fill="#A29E97" font-family="monospace" font-size="9">OUTPUT FORMAT</text>
+  <text x="70" y="553" fill="#F0EDE7" font-family="Arial, sans-serif" font-size="15" font-weight="700">Brief + citations</text>
+  <text x="70" y="578" fill="#77736D" font-family="Arial, sans-serif" font-size="11">structured findings</text>
+
+  <rect x="50" y="650" width="288" height="54" rx="12" fill="#EF3124"/>
+  <text x="115" y="683" fill="#fff" font-family="monospace" font-size="10" font-weight="700">RUN REVIEW</text>
+
+  <rect x="384" y="108" width="430" height="628" rx="18" fill="#101010" stroke="#fff" stroke-opacity=".09"/>
+  <text x="410" y="145" fill="#A29E97" font-family="monospace" font-size="10">LIVE TRACE</text>
+  <text x="731" y="145" fill="#FF746A" font-family="monospace" font-size="9">COMPLETE</text>
+
+  <g filter="url(#agent-shadow)">
+    <rect x="410" y="174" width="378" height="82" rx="13" fill="#171717" stroke="#fff" stroke-opacity=".06"/>
+    <rect x="424" y="188" width="4" height="54" rx="2" fill="#EF3124"/>
+    <text x="448" y="207" fill="#F0EDE7" font-family="Arial, sans-serif" font-size="13" font-weight="700">Request parsed</text>
+    <text x="448" y="231" fill="#77736D" font-family="monospace" font-size="9">scope · entities · constraints</text>
+
+    <rect x="410" y="270" width="378" height="82" rx="13" fill="#171717" stroke="#fff" stroke-opacity=".06"/>
+    <rect x="424" y="284" width="4" height="54" rx="2" fill="#EF3124" fill-opacity=".8"/>
+    <text x="448" y="303" fill="#F0EDE7" font-family="Arial, sans-serif" font-size="13" font-weight="700">Sources retrieved</text>
+    <text x="448" y="327" fill="#77736D" font-family="monospace" font-size="9">search · documents · citations</text>
+
+    <rect x="410" y="366" width="378" height="82" rx="13" fill="#171717" stroke="#fff" stroke-opacity=".06"/>
+    <rect x="424" y="380" width="4" height="54" rx="2" fill="#EF3124" fill-opacity=".62"/>
+    <text x="448" y="399" fill="#F0EDE7" font-family="Arial, sans-serif" font-size="13" font-weight="700">Rules checked</text>
+    <text x="448" y="423" fill="#77736D" font-family="monospace" font-size="9">policy · consistency · coverage</text>
+
+    <rect x="410" y="462" width="378" height="82" rx="13" fill="#171717" stroke="#fff" stroke-opacity=".06"/>
+    <rect x="424" y="476" width="4" height="54" rx="2" fill="#EF3124" fill-opacity=".44"/>
+    <text x="448" y="495" fill="#F0EDE7" font-family="Arial, sans-serif" font-size="13" font-weight="700">Findings reviewed</text>
+    <text x="448" y="519" fill="#77736D" font-family="monospace" font-size="9">evidence · claims · references</text>
+  </g>
+
+  <rect x="410" y="580" width="378" height="124" rx="14" fill="#EF3124" fill-opacity=".10" stroke="#EF3124" stroke-opacity=".34"/>
+  <text x="434" y="611" fill="#FF746A" font-family="monospace" font-size="9">STRUCTURED OUTPUT</text>
+  <text x="434" y="644" fill="#F5F2EC" font-family="Arial, sans-serif" font-size="19" font-weight="700">Report assembled</text>
+  <text x="434" y="674" fill="#AAA59D" font-family="Arial, sans-serif" font-size="11">claims linked to source cards</text>
+
+  <rect x="834" y="108" width="342" height="628" rx="18" fill="#0D0D0D" stroke="#fff" stroke-opacity=".09"/>
+  <text x="860" y="145" fill="#A29E97" font-family="monospace" font-size="10">EVIDENCE SET</text>
+  <g>
+    <rect x="860" y="174" width="290" height="128" rx="14" fill="#171717"/>
+    <text x="882" y="204" fill="#FF746A" font-family="monospace" font-size="9">SOURCE / POLICY</text>
+    <rect x="882" y="225" width="222" height="7" rx="3.5" fill="#3C3936"/>
+    <rect x="882" y="244" width="190" height="7" rx="3.5" fill="#302E2B"/>
+    <rect x="882" y="263" width="238" height="7" rx="3.5" fill="#302E2B"/>
+    <circle cx="1126" cy="201" r="8" fill="#EF3124"/>
+
+    <rect x="860" y="318" width="290" height="128" rx="14" fill="#171717"/>
+    <text x="882" y="348" fill="#FF746A" font-family="monospace" font-size="9">SOURCE / MARKET</text>
+    <rect x="882" y="369" width="202" height="7" rx="3.5" fill="#3C3936"/>
+    <rect x="882" y="388" width="238" height="7" rx="3.5" fill="#302E2B"/>
+    <rect x="882" y="407" width="176" height="7" rx="3.5" fill="#302E2B"/>
+    <circle cx="1126" cy="345" r="8" fill="#EF3124" fill-opacity=".64"/>
+
+    <rect x="860" y="462" width="290" height="128" rx="14" fill="#171717"/>
+    <text x="882" y="492" fill="#FF746A" font-family="monospace" font-size="9">SOURCE / RESEARCH</text>
+    <rect x="882" y="513" width="232" height="7" rx="3.5" fill="#3C3936"/>
+    <rect x="882" y="532" width="184" height="7" rx="3.5" fill="#302E2B"/>
+    <rect x="882" y="551" width="212" height="7" rx="3.5" fill="#302E2B"/>
+    <circle cx="1126" cy="489" r="8" fill="#EF3124" fill-opacity=".4"/>
+  </g>
+
+  <rect x="860" y="622" width="290" height="82" rx="14" fill="#151515"/>
+  <text x="882" y="652" fill="#77736D" font-family="monospace" font-size="9">VENUE</text>
+  <text x="882" y="680" fill="#F0EDE7" font-family="Arial, sans-serif" font-size="15" font-weight="700">Google Bangkok</text>
 </svg>
