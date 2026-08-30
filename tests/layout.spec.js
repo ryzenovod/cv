@@ -161,16 +161,46 @@ test('yaprofi achievement keeps ambassador header and community-leader row', asy
   await expect(yaprofi).not.toContainText('Olympiad ambassador');
 });
 
-for (const viewport of [
-  { name: 'narrow-320', width: 320, height: 720 },
-  { name: 'iphone-13', width: 390, height: 844 },
-  { name: 'iphone-15-pro', width: 393, height: 852 },
-  { name: 'large-phone-430', width: 430, height: 932 }
-]) {
-  test(`${viewport.name}: yaprofi title stays inside its card`, async ({ page }) => {
+test('yaprofi title stays inside its card across devices and breakpoints @webkit-responsive', async ({ page }) => {
+  const achievementViewports = [
+    { name: 'small-mobile-320', width: 320, height: 720 },
+    { name: 'compact-mobile-360', width: 360, height: 780 },
+    { name: 'iphone-mini-375', width: 375, height: 812 },
+    { name: 'iphone-13-390', width: 390, height: 844 },
+    { name: 'iphone-15-pro-393', width: 393, height: 852 },
+    { name: 'large-android-412', width: 412, height: 915 },
+    { name: 'large-mobile-430', width: 430, height: 932 },
+    { name: 'wide-mobile-480', width: 480, height: 900 },
+    { name: 'mobile-landscape-844', width: 844, height: 390 },
+    { name: 'below-compact-breakpoint-559', width: 559, height: 900 },
+    { name: 'compact-breakpoint-560', width: 560, height: 900 },
+    { name: 'above-compact-breakpoint-561', width: 561, height: 900 },
+    { name: 'below-tablet-breakpoint-819', width: 819, height: 980 },
+    { name: 'tablet-breakpoint-820', width: 820, height: 980 },
+    { name: 'above-tablet-breakpoint-821', width: 821, height: 980 },
+    { name: 'below-desktop-breakpoint-1099', width: 1099, height: 980 },
+    { name: 'desktop-breakpoint-1100', width: 1100, height: 980 },
+    { name: 'above-desktop-breakpoint-1101', width: 1101, height: 980 },
+    { name: 'desktop-1280', width: 1280, height: 980 },
+    { name: 'desktop-1440', width: 1440, height: 1000 },
+    { name: 'wide-desktop-1920', width: 1920, height: 1080 }
+  ];
+
+  await page.setViewportSize({
+    width: achievementViewports[0].width,
+    height: achievementViewports[0].height
+  });
+  await page.goto('/#achievements');
+  await page.evaluate(() => document.fonts.ready);
+
+  for (const viewport of achievementViewports) {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await page.goto('/#achievements');
-    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(() => {
+      document.documentElement.style.scrollBehavior = 'auto';
+      document.querySelector('#achievements').scrollIntoView();
+    });
+    await page.waitForFunction(() => location.hash === '#achievements');
+    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 
     const geometry = await page.evaluate(() => {
       const cardElement = document.querySelector('#achievements .award-major');
@@ -197,19 +227,19 @@ for (const viewport of [
       };
     });
 
-    expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.viewportWidth + 1);
-    expect(geometry.titleScrollWidth).toBeLessThanOrEqual(geometry.titleClientWidth + 1);
-    expect(geometry.title.left).toBeGreaterThanOrEqual(geometry.card.left - 1);
-    expect(geometry.title.right).toBeLessThanOrEqual(geometry.card.right + 1);
+    expect(geometry.scrollWidth, viewport.name).toBeLessThanOrEqual(geometry.viewportWidth + 1);
+    expect(geometry.titleScrollWidth, viewport.name).toBeLessThanOrEqual(geometry.titleClientWidth + 1);
+    expect(geometry.title.left, viewport.name).toBeGreaterThanOrEqual(geometry.card.left - 1);
+    expect(geometry.title.right, viewport.name).toBeLessThanOrEqual(geometry.card.right + 1);
     for (const lineRect of geometry.lineRects) {
-      expect(lineRect.left).toBeGreaterThanOrEqual(geometry.cardInnerLeft - 2);
-      expect(lineRect.right).toBeLessThanOrEqual(geometry.cardInnerRight + 2);
+      expect(lineRect.left, viewport.name).toBeGreaterThanOrEqual(geometry.cardInnerLeft - 2);
+      expect(lineRect.right, viewport.name).toBeLessThanOrEqual(geometry.cardInnerRight + 2);
     }
-    expect(geometry.lineRects.length).toBeLessThanOrEqual(2);
-    expect(geometry.title.width).toBeGreaterThan(120);
-    expect(geometry.title.height).toBeGreaterThan(32);
-  });
-}
+    expect(geometry.lineRects.length, viewport.name).toBeLessThanOrEqual(2);
+    expect(geometry.title.width, viewport.name).toBeGreaterThan(120);
+    expect(geometry.title.height, viewport.name).toBeGreaterThan(32);
+  }
+});
 
 test('project previews use a red-only accent and open interactively', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
