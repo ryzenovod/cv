@@ -161,6 +161,56 @@ test('yaprofi achievement keeps ambassador header and community-leader row', asy
   await expect(yaprofi).not.toContainText('Olympiad ambassador');
 });
 
+for (const viewport of [
+  { name: 'narrow-320', width: 320, height: 720 },
+  { name: 'iphone-13', width: 390, height: 844 },
+  { name: 'iphone-15-pro', width: 393, height: 852 },
+  { name: 'large-phone-430', width: 430, height: 932 }
+]) {
+  test(`${viewport.name}: yaprofi title stays inside its card`, async ({ page }) => {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await page.goto('/#achievements');
+    await page.evaluate(() => document.fonts.ready);
+
+    const geometry = await page.evaluate(() => {
+      const cardElement = document.querySelector('#achievements .award-major');
+      const titleElement = document.querySelector('#achievements .award-major h3');
+      const card = cardElement.getBoundingClientRect();
+      const title = titleElement.getBoundingClientRect();
+      const cardStyle = getComputedStyle(cardElement);
+      const range = document.createRange();
+      range.selectNodeContents(titleElement);
+      const lineRects = [...range.getClientRects()]
+        .filter((rect) => rect.width > 0 && rect.height > 0)
+        .map((rect) => rect.toJSON());
+
+      return {
+        viewportWidth: window.innerWidth,
+        scrollWidth: document.documentElement.scrollWidth,
+        titleScrollWidth: titleElement.scrollWidth,
+        titleClientWidth: titleElement.clientWidth,
+        card: card.toJSON(),
+        title: title.toJSON(),
+        cardInnerLeft: card.left + Number.parseFloat(cardStyle.paddingLeft),
+        cardInnerRight: card.right - Number.parseFloat(cardStyle.paddingRight),
+        lineRects
+      };
+    });
+
+    expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.viewportWidth + 1);
+    expect(geometry.titleScrollWidth).toBeLessThanOrEqual(geometry.titleClientWidth + 1);
+    expect(geometry.title.left).toBeGreaterThanOrEqual(geometry.card.left - 1);
+    expect(geometry.title.right).toBeLessThanOrEqual(geometry.card.right + 1);
+    for (const lineRect of geometry.lineRects) {
+      expect(lineRect.left).toBeGreaterThanOrEqual(geometry.cardInnerLeft - 2);
+      expect(lineRect.right).toBeLessThanOrEqual(geometry.cardInnerRight + 2);
+    }
+    expect(geometry.lineRects.length).toBeLessThanOrEqual(2);
+    expect(geometry.title.width).toBeGreaterThan(120);
+    expect(geometry.title.height).toBeGreaterThan(32);
+  });
+}
+
 test('project previews use a red-only accent and open interactively', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await preparePage(page);
