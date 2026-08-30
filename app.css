@@ -2,7 +2,7 @@
 
 @layer reset {
   *,*::before,*::after{box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:calc(var(--train-lane) + 82px)}
+  html{scroll-behavior:smooth;scroll-padding-top:calc(var(--train-lane) + 82px);-webkit-text-size-adjust:100%;text-size-adjust:100%}
   html,body{max-width:100%;overflow-x:clip}
   body{margin:0;min-width:320px}
   img,svg{display:block;max-width:100%}
@@ -313,7 +313,7 @@
   .award h3{margin-top:34px;font-family:var(--sans);font-size:22px;line-height:1.12;letter-spacing:-.035em;font-weight:800}
   .award p{margin-top:auto;padding-top:22px;color:var(--muted);font-size:13px;line-height:1.5}
   .award-major{container-type:inline-size;grid-column:span 2;grid-row:span 2;min-height:461px;background:linear-gradient(145deg,rgba(239,49,36,.25),transparent 54%),var(--panel)}
-  .award-major h3{max-width:100%;font-family:var(--display);font-size:clamp(20px,8cqw,68px);line-height:.98;letter-spacing:0;overflow-wrap:normal;text-wrap:balance}
+  .award-major h3{max-width:100%;font-family:var(--display);font-size:clamp(20px,8cqw,68px);line-height:.98;letter-spacing:0;overflow-wrap:anywhere;text-wrap:balance}
   .award-major p{font-size:16px}
   .award-red{color:#fff;background:var(--red)}
   .award-red>span,.award-red p{color:rgba(255,255,255,.8)}
