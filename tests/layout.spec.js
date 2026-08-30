@@ -143,6 +143,24 @@ test('copy is factual and the identity is not duplicated', async ({ page }) => {
   await expect(page.locator('.footer-status')).toHaveCount(0);
 });
 
+test('yaprofi achievement keeps ambassador header and community-leader row', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await preparePage(page);
+
+  const yaprofi = page.locator('#achievements .award-major');
+  await expect(yaprofi).toHaveCount(1);
+  await expect(yaprofi.locator('> span')).toHaveText('ПОБЕДИТЕЛЬ · ПРИЗЁР · АМБАССАДОР');
+  await expect(yaprofi.locator('.award-list > div').last().locator('strong')).toHaveText('Лидер сообщества');
+  await expect(yaprofi).not.toContainText('Амбассадор олимпиады');
+
+  await page.getByRole('button', { name: 'EN', exact: true }).click();
+
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(yaprofi.locator('> span')).toHaveText('WINNER · PRIZE WINNER · AMBASSADOR');
+  await expect(yaprofi.locator('.award-list > div').last().locator('strong')).toHaveText('Community leader');
+  await expect(yaprofi).not.toContainText('Olympiad ambassador');
+});
+
 test('project previews use a red-only accent and open interactively', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await preparePage(page);

@@ -317,8 +317,10 @@
   .award-major p{font-size:16px}
   .award-red{color:#fff;background:var(--red)}
   .award-red>span,.award-red p{color:rgba(255,255,255,.8)}
-  .award-list{display:grid;gap:1px;margin-top:auto;padding-top:28px;background:rgba(255,255,255,.12)}
-  .award-list div{padding:14px 0;background:var(--panel)}
+  .award-list{position:relative;display:grid;margin-top:auto;padding-top:28px}
+  .award-list::before{position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,var(--red),rgba(239,49,36,.32) 42%,transparent 82%);box-shadow:0 0 18px rgba(239,49,36,.22);content:""}
+  .award-list div{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .award-list div:last-child{padding-bottom:0;border-bottom:0}
   .award-list strong{display:block;font-size:15px}
   .award-list span{display:block;margin-top:4px;color:var(--muted);font-size:12px}
 
