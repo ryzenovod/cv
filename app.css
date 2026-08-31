@@ -286,9 +286,9 @@
   .experience-body li{position:relative;padding-left:20px}
   .experience-body li+li{margin-top:12px}
   .experience-body li::before{content:'→';position:absolute;left:0;color:var(--acid);font-family:var(--mono)}
-  .education-card{position:sticky;top:96px;padding:30px;border:1px solid var(--line-strong);border-top:4px solid var(--red);background:linear-gradient(145deg,rgba(239,49,36,.12),transparent 48%),#101010;color:var(--text)}
+  .education-card{container-type:inline-size;min-width:0;position:sticky;top:96px;padding:30px;border:1px solid var(--line-strong);border-top:4px solid var(--red);background:linear-gradient(145deg,rgba(239,49,36,.12),transparent 48%),#101010;color:var(--text)}
   .education-card>span{color:var(--acid);font:700 9px var(--mono);letter-spacing:.09em}
-  .education-card h3{margin-top:34px;font-size:clamp(28px,3vw,42px);line-height:1;letter-spacing:-.055em}
+  .education-card h3{max-width:100%;margin-top:34px;font-size:clamp(24px,10cqw,38px);line-height:1.05;letter-spacing:-.035em;overflow-wrap:anywhere}
   .education-card>p{margin-top:16px;color:var(--muted);font-size:14px}
   .education-grid{display:grid;gap:1px;margin-top:34px;background:var(--line-strong)}
   .education-grid div{padding:16px;background:#161616}
