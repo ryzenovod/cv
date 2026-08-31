@@ -161,7 +161,7 @@ test('yaprofi achievement keeps ambassador header and community-leader row', asy
   await expect(yaprofi).not.toContainText('Olympiad ambassador');
 });
 
-test('yaprofi title stays inside its card across devices and breakpoints @webkit-responsive', async ({ page }) => {
+test('key long titles stay inside their cards across devices and breakpoints @webkit-responsive', async ({ page }) => {
   const achievementViewports = [
     { name: 'small-mobile-320', width: 320, height: 720 },
     { name: 'compact-mobile-360', width: 360, height: 780 },
@@ -203,41 +203,62 @@ test('yaprofi title stays inside its card across devices and breakpoints @webkit
     await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 
     const geometry = await page.evaluate(() => {
-      const cardElement = document.querySelector('#achievements .award-major');
-      const titleElement = document.querySelector('#achievements .award-major h3');
-      const card = cardElement.getBoundingClientRect();
-      const title = titleElement.getBoundingClientRect();
-      const cardStyle = getComputedStyle(cardElement);
-      const range = document.createRange();
-      range.selectNodeContents(titleElement);
-      const lineRects = [...range.getClientRects()]
-        .filter((rect) => rect.width > 0 && rect.height > 0)
-        .map((rect) => rect.toJSON());
+      function measureCardTitle(cardSelector, titleSelector) {
+        const cardElement = document.querySelector(cardSelector);
+        const titleElement = document.querySelector(titleSelector);
+        const card = cardElement.getBoundingClientRect();
+        const title = titleElement.getBoundingClientRect();
+        const cardStyle = getComputedStyle(cardElement);
+        const range = document.createRange();
+        range.selectNodeContents(titleElement);
+        const lineRects = [...range.getClientRects()]
+          .filter((rect) => rect.width > 0 && rect.height > 0)
+          .map((rect) => rect.toJSON());
+
+        return {
+          titleScrollWidth: titleElement.scrollWidth,
+          titleClientWidth: titleElement.clientWidth,
+          card: card.toJSON(),
+          title: title.toJSON(),
+          cardInnerLeft: card.left + Number.parseFloat(cardStyle.paddingLeft),
+          cardInnerRight: card.right - Number.parseFloat(cardStyle.paddingRight),
+          lineRects
+        };
+      }
+
+      const yaprofi = measureCardTitle('#achievements .award-major', '#achievements .award-major h3');
+      const education = measureCardTitle('.education-card', '.education-card h3');
 
       return {
         viewportWidth: window.innerWidth,
         scrollWidth: document.documentElement.scrollWidth,
-        titleScrollWidth: titleElement.scrollWidth,
-        titleClientWidth: titleElement.clientWidth,
-        card: card.toJSON(),
-        title: title.toJSON(),
-        cardInnerLeft: card.left + Number.parseFloat(cardStyle.paddingLeft),
-        cardInnerRight: card.right - Number.parseFloat(cardStyle.paddingRight),
-        lineRects
+        yaprofi,
+        education
       };
     });
 
     expect(geometry.scrollWidth, viewport.name).toBeLessThanOrEqual(geometry.viewportWidth + 1);
-    expect(geometry.titleScrollWidth, viewport.name).toBeLessThanOrEqual(geometry.titleClientWidth + 1);
-    expect(geometry.title.left, viewport.name).toBeGreaterThanOrEqual(geometry.card.left - 1);
-    expect(geometry.title.right, viewport.name).toBeLessThanOrEqual(geometry.card.right + 1);
-    for (const lineRect of geometry.lineRects) {
-      expect(lineRect.left, viewport.name).toBeGreaterThanOrEqual(geometry.cardInnerLeft - 2);
-      expect(lineRect.right, viewport.name).toBeLessThanOrEqual(geometry.cardInnerRight + 2);
+    expect(geometry.yaprofi.titleScrollWidth, viewport.name).toBeLessThanOrEqual(geometry.yaprofi.titleClientWidth + 1);
+    expect(geometry.yaprofi.title.left, viewport.name).toBeGreaterThanOrEqual(geometry.yaprofi.card.left - 1);
+    expect(geometry.yaprofi.title.right, viewport.name).toBeLessThanOrEqual(geometry.yaprofi.card.right + 1);
+    for (const lineRect of geometry.yaprofi.lineRects) {
+      expect(lineRect.left, viewport.name).toBeGreaterThanOrEqual(geometry.yaprofi.cardInnerLeft - 2);
+      expect(lineRect.right, viewport.name).toBeLessThanOrEqual(geometry.yaprofi.cardInnerRight + 2);
     }
-    expect(geometry.lineRects.length, viewport.name).toBeLessThanOrEqual(2);
-    expect(geometry.title.width, viewport.name).toBeGreaterThan(120);
-    expect(geometry.title.height, viewport.name).toBeGreaterThan(32);
+    expect(geometry.yaprofi.lineRects.length, viewport.name).toBeLessThanOrEqual(2);
+    expect(geometry.yaprofi.title.width, viewport.name).toBeGreaterThan(120);
+    expect(geometry.yaprofi.title.height, viewport.name).toBeGreaterThan(32);
+
+    expect(geometry.education.titleScrollWidth, viewport.name).toBeLessThanOrEqual(geometry.education.titleClientWidth + 1);
+    expect(geometry.education.title.left, viewport.name).toBeGreaterThanOrEqual(geometry.education.card.left - 1);
+    expect(geometry.education.title.right, viewport.name).toBeLessThanOrEqual(geometry.education.card.right + 1);
+    for (const lineRect of geometry.education.lineRects) {
+      expect(lineRect.left, viewport.name).toBeGreaterThanOrEqual(geometry.education.cardInnerLeft - 2);
+      expect(lineRect.right, viewport.name).toBeLessThanOrEqual(geometry.education.cardInnerRight + 2);
+    }
+    expect(geometry.education.lineRects.length, viewport.name).toBeGreaterThanOrEqual(1);
+    expect(geometry.education.title.width, viewport.name).toBeGreaterThan(120);
+    expect(geometry.education.title.height, viewport.name).toBeGreaterThan(32);
   }
 });
 
